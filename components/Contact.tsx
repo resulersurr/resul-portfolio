@@ -139,12 +139,12 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="font-medium text-white">E-posta</div>
-                  <div className="text-gray-400">resul@example.com</div>
+                  <div className="text-gray-400">resul.ersurer@icloud.com</div>
                 </div>
               </a>
 
               <a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/+905387781798"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 transition-all duration-300 group"
@@ -154,7 +154,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="font-medium text-white">WhatsApp</div>
-                  <div className="text-gray-400">+90 532 123 45 67</div>
+                  <div className="text-gray-400">+90 538 778 17 98</div>
                 </div>
               </a>
             </div>
