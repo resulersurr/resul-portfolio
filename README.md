@@ -56,6 +56,8 @@ npm run dev
 
 ## Build & Deploy
 
+### Local Build
+
 1. Build for production:
 ```bash
 npm run build
@@ -65,6 +67,35 @@ npm run build
 ```bash
 npm start
 ```
+
+### Deploy to Vercel
+
+1. **Create a PostgreSQL database** (Vercel Postgres or Neon.tech)
+
+2. **Push to GitHub**:
+```bash
+git add .
+git commit -m "Ready for Vercel deploy"
+git push origin main
+```
+
+3. **Import to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Import GitHub repo
+   - Framework: Next.js
+
+4. **Environment Variables** in Vercel:
+   ```
+   DATABASE_URL=postgresql://...
+   ADMIN_PASSWORD=your_admin_password
+   ```
+
+5. **Deploy** - Migrations will run automatically
+
+### Admin Panel
+
+- Login: `/admin/login`
+- Password: Set in `ADMIN_PASSWORD` env variable
 
 ## Customization
 

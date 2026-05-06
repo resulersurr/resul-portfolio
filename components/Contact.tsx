@@ -7,6 +7,7 @@ export default function Contact() {
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
+    phone: '',
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -33,12 +34,24 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    alert('Mesajınız için teşekkürler! En kısa sürede size geri döneceğim.')
-    setFormData({ name: '', message: '' })
-    setIsSubmitting(false)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        alert('Mesajınız için teşekkürler! En kısa sürede size geri döneceğim.')
+        setFormData({ name: '', phone: '', message: '' })
+      } else {
+        alert('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch {
+      alert('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,6 +93,21 @@ export default function Contact() {
                   required
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-300"
                   placeholder="Ahmet Yılmaz"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                  Telefon Numaranız
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-300"
+                  placeholder="+90 538 778 17 98"
                 />
               </div>
 
