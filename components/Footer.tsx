@@ -18,7 +18,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold gradient-text mb-4">Resul Ersürer</h3>
+            <img src="/images/logo.png" alt="Ersürer Logo" className="h-8 w-auto mb-4" />
             <p className="text-gray-400 text-sm leading-relaxed">
               Backend Developer & System Builder, dünya çapındaki işletmeler için ölçeklenebilir yazılım çözümleri oluşturuyor.
             </p>
