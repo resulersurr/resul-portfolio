@@ -5,12 +5,15 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Resul Ersürer - Backend Developer & System Builder',
-  description: 'İşletmelerin özel yazılım çözümleri ile operasyonları otomatikleştirmesine ve büyümesine yardımcı oluyorum. ASP.NET Core, Web API, Admin Panel Sistemleri, CRM & Otomasyon uzmanlığı.',
-  keywords: 'Backend Developer, ASP.NET Core, Web API, Admin Panel, CRM, Otomasyon, QR Menü, Rezervasyon Sistemleri',
+  title: 'Resul Ersürer | Enterprise Software Architect & Backend Specialist',
+  description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri, Web API ve otomasyon çözümleri. ASP.NET Core & Enterprise Architecture uzmanlığı.',
+  keywords: 'Backend Architect, ASP.NET Core, Enterprise Software, Web API, System Design, Automation',
+  icons: {
+    icon: '/images/logo2.png',
+  },
   openGraph: {
-    title: 'Resul Ersürer - Backend Developer & System Builder',
-    description: 'İşletmelerin özel yazılım çözümleri ile operasyonları otomatikleştirmesine ve büyümesine yardımcı oluyorum.',
+    title: 'Resul Ersürer | Enterprise Software Architect',
+    description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri ve mimari çözümler.',
     type: 'website',
     locale: 'tr_TR',
   },
