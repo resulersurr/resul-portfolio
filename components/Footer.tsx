@@ -76,10 +76,10 @@ export default function Footer() {
           <div className="space-y-8">
             <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em]">Uzmanlıklar</h4>
             <ul className="space-y-4 text-sm">
-              <li className="text-gray-400">ASP.NET Core \u0026 Web API</li>
+              <li className="text-gray-400">ASP.NET Core & Web API</li>
               <li className="text-gray-400">Microservices Mimarisi</li>
-              <li className="text-gray-400">Azure \u0026 Cloud Solutions</li>
-              <li className="text-gray-400">CRM \u0026 ERP Otomasyonları</li>
+              <li className="text-gray-400">Azure & Cloud Solutions</li>
+              <li className="text-gray-400">CRM & ERP Otomasyonları</li>
             </ul>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function Footer() {
             <p>© {currentYear} Resul Ersürer. Tüm hakları saklıdır.</p>
             <span className="hidden md:block w-1 h-1 bg-gray-700 rounded-full" />
             <p className="flex items-center gap-1.5">
-              Next.js \u0026 Tailwind ile <Heart className="w-4 h-4 text-red-500 fill-current" /> ile geliştirildi.
+              Next.js & Tailwind ile <Heart className="w-4 h-4 text-red-500 fill-current" /> ile geliştirildi.
             </p>
           </div>
           

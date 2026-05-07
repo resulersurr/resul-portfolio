@@ -5,9 +5,9 @@ import { Code2, Database, Globe, Zap, Cpu, Server, Layers, Workflow } from 'luci
 
 const skills = [
   { icon: Code2, name: 'ASP.NET Core', level: 95, color: 'from-blue-400 to-indigo-500' },
-  { icon: Database, name: 'Web API \u0026 Microservices', level: 90, color: 'from-purple-400 to-pink-500' },
-  { icon: Server, name: 'SQL Server \u0026 PostgreSQL', level: 92, color: 'from-cyan-400 to-blue-500' },
-  { icon: Workflow, name: 'CRM \u0026 Otomasyon', level: 88, color: 'from-emerald-400 to-teal-500' },
+  { icon: Database, name: 'Web API & Microservices', level: 90, color: 'from-purple-400 to-pink-500' },
+  { icon: Server, name: 'SQL Server & PostgreSQL', level: 92, color: 'from-cyan-400 to-blue-500' },
+  { icon: Workflow, name: 'CRM & Otomasyon', level: 88, color: 'from-emerald-400 to-teal-500' },
 ]
 
 export default function About() {

@@ -5,7 +5,7 @@ import { Search, Lightbulb, Code2, Rocket, CheckCircle2 } from 'lucide-react'
 
 const steps = [
   {
-    title: 'Analiz \u0026 Strateji',
+    title: 'Analiz & Strateji',
     desc: 'İş gereksinimlerinizi derinlemesine inceliyor ve en verimli teknik yol haritasını oluşturuyorum.',
     icon: Search,
     color: 'bg-blue-500/10 text-blue-400',
@@ -17,13 +17,13 @@ const steps = [
     color: 'bg-purple-500/10 text-purple-400',
   },
   {
-    title: 'Geliştirme \u0026 Test',
+    title: 'Geliştirme & Test',
     desc: 'En iyi uygulamalarla kodluyor, her aşamada titizlikle test ederek sağlam bir yapı kuruyorum.',
     icon: Code2,
     color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
-    title: 'Deployment \u0026 Yayım',
+    title: 'Deployment & Yayım',
     desc: 'Sistemi bulut altyapısına optimize ederek canlıya alıyor ve sorunsuz geçiş sağlıyorum.',
     icon: Rocket,
     color: 'bg-cyan-500/10 text-cyan-400',
