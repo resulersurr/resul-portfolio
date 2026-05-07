@@ -9,13 +9,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model ContactMessage {
   id        String   @id @default(uuid())
   name      String
+  email     String?
+  subject   String?
   phone     String?
   message   String
   createdAt DateTime @default(now())

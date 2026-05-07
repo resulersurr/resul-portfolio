@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, phone, message } = body
+    const { name, email, subject, message } = body
 
     if (!name || !message) {
       return NextResponse.json(
@@ -16,7 +16,8 @@ export async function POST(request: NextRequest) {
     const contactMessage = await prisma.contactMessage.create({
       data: {
         name,
-        phone,
+        email,
+        subject,
         message,
       },
     })

@@ -7,6 +7,8 @@ import { Trash2, LogOut, Mail, CheckCircle, Circle, RefreshCw } from 'lucide-rea
 interface Message {
   id: string
   name: string
+  email: string | null
+  subject: string | null
   phone: string | null
   message: string
   createdAt: string
@@ -158,19 +160,26 @@ export default function AdminDashboard() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="font-semibold text-white">{message.name}</h3>
-                      {message.phone && (
-                        <span className="text-sm text-purple-400">{message.phone}</span>
-                      )}
-                      <span className="text-sm text-gray-500">{formatDate(message.createdAt)}</span>
-                      {!message.read && (
-                        <span className="px-2 py-0.5 bg-purple-600 text-white text-xs rounded-full">
-                          Yeni
-                        </span>
-                      )}
+                    <div className="flex flex-col gap-1 mb-3">
+                      <div className="flex items-center gap-3">
+                        <h3 className="font-bold text-lg text-white">{message.name}</h3>
+                        <span className="text-sm text-gray-500">{formatDate(message.createdAt)}</span>
+                        {!message.read && (
+                          <span className="px-2 py-0.5 bg-indigo-600 text-white text-[10px] font-bold uppercase rounded-full">
+                            Yeni
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap gap-3 text-sm">
+                        {message.email && (
+                          <span className="text-indigo-400 font-medium">{message.email}</span>
+                        )}
+                        {message.subject && (
+                          <span className="text-gray-400">| {message.subject}</span>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-gray-300 whitespace-pre-wrap">{message.message}</p>
+                    <p className="text-gray-300 whitespace-pre-wrap leading-relaxed">{message.message}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <button

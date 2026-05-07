@@ -1,9 +1,49 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Mail, MessageSquare, Send, Calendar, Phone } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2 } from 'lucide-react'
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: 'Backend Projesi',
+    message: '',
+  })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('loading')
+
+    try {
+      // API expects name, phone, message based on the current route.ts
+      // We'll send name, email, subject, and message.
+      // We'll update the API route next to handle these.
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+
+      if (!response.ok) throw new Error('Mesaj gönderilemedi')
+
+      setStatus('success')
+      setFormData({ name: '', email: '', subject: 'Backend Projesi', message: '' })
+      setTimeout(() => setStatus('idle'), 5000)
+    } catch (error) {
+      console.error(error)
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 5000)
+    }
+  }
+
   return (
     <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Glow */}
@@ -11,8 +51,8 @@ export default function Contact() {
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-
-          {/* Left Side: Text \u0026 Info */}
+          
+          {/* Left Side: Text & Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -33,8 +73,8 @@ export default function Contact() {
                 { icon: MessageSquare, label: 'WhatsApp', value: '+90 538 778 17 98', href: 'https://wa.me/905387781798' },
                 { icon: Calendar, label: 'Toplantı Planla', value: 'Calendly Üzerinden', href: '#' },
               ].map((item, i) => (
-                <a
-                  key={i}
+                <a 
+                  key={i} 
                   href={item.href}
                   className="flex items-center gap-6 p-4 rounded-2xl glass border border-white/5 hover:border-indigo-500/30 transition-all duration-300 group w-fit pr-10"
                 >
@@ -60,21 +100,27 @@ export default function Contact() {
           >
             {/* Form Title */}
             <h4 className="text-2xl font-bold text-white mb-8">Hızlı Mesaj Gönder</h4>
-
-            <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+            
+            <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Ad Soyad</label>
-                  <input
-                    type="text"
+                  <input 
+                    type="text" 
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Resul Ersürer"
                     className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">E-Posta</label>
-                  <input
-                    type="email"
+                  <input 
+                    type="email" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="resul@example.com"
                     className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300"
                   />
@@ -83,7 +129,11 @@ export default function Contact() {
 
               <div className="space-y-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Konu</label>
-                <select className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none">
+                <select 
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none"
+                >
                   <option>Backend Projesi</option>
                   <option>API Entegrasyonu</option>
                   <option>Otomasyon Sistemleri</option>
@@ -93,21 +143,53 @@ export default function Contact() {
 
               <div className="space-y-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Mesajınız</label>
-                <textarea
-                  rows={4}
+                <textarea 
+                  rows={4} 
+                  required
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Projenizden bahsedin..."
                   className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300 resize-none"
                 />
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-5 gradient-bg text-white font-bold rounded-2xl shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 group transition-all duration-300"
+                type="submit"
+                disabled={status === 'loading'}
+                whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
+                className="w-full py-5 gradient-bg text-white font-bold rounded-2xl shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 group transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Mesajı Gönder
-                <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Gönderiliyor...
+                  </>
+                ) : status === 'success' ? (
+                  <>
+                    <CheckCircle className="w-5 h-5" />
+                    Gönderildi!
+                  </>
+                ) : (
+                  <>
+                    Mesajı Gönder
+                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  </>
+                )}
               </motion.button>
+              
+              <AnimatePresence>
+                {status === 'error' && (
+                  <motion.p 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="text-red-400 text-sm text-center font-semibold"
+                  >
+                    Bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </form>
 
             {/* Decorative dots */}
