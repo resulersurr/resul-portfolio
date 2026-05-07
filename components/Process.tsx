@@ -100,7 +100,7 @@ export default function Process() {
               </p>
 
               {/* Mobile Connector */}
-              {index !== steps.length - 1 \u0026\u0026 (
+              {index !== steps.length - 1 && (
                 <div className="md:hidden w-px h-12 bg-gradient-to-b from-indigo-500/20 to-transparent mt-8" />
               )}
             </motion.div>
