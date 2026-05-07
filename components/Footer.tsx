@@ -7,10 +7,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Github, href: 'https://github.com/resulersurr', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/resulersurer/', label: 'LinkedIn' },
     { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:resul@ersurer.com', label: 'Email' },
+    { icon: Mail, href: 'mailto:resul.ersurer@icloud.com', label: 'Email' },
   ]
 
   const scrollToTop = () => {

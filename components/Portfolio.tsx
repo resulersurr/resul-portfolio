@@ -11,7 +11,7 @@ const projects = [
     tech: ['ASP.NET Core', 'SQL Server', 'React', 'SignalR'],
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
     link: '#',
-    github: '#',
+    github: 'https://github.com/resulersurr',
   },
   {
     title: 'Global Lojistik Takip Sistemi',
@@ -20,7 +20,7 @@ const projects = [
     tech: ['Microservices', 'Docker', 'Azure', 'Web API'],
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2340&auto=format&fit=crop',
     link: '#',
-    github: '#',
+    github: 'https://github.com/resulersurr',
   },
   {
     title: 'Akıllı QR Menü & Rezervasyon',
@@ -29,7 +29,7 @@ const projects = [
     tech: ['Next.js', 'PostgreSQL', 'Node.js', 'Prisma'],
     image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=2340&auto=format&fit=crop',
     link: '#',
-    github: '#',
+    github: 'https://github.com/resulersurr',
   },
 ]
 
