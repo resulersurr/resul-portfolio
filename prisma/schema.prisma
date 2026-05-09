@@ -22,3 +22,14 @@ model ContactMessage {
   createdAt DateTime @default(now())
   read      Boolean  @default(false)
 }
+
+model PaymentNotification {
+  id          String   @id @default(uuid())
+  serviceName String
+  txid        String
+  walletAddress String   @default("TWResKHqM7tpuAuFyioAWfQbrj5XfV2LCi")
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  verifiedAt  DateTime?
+  notes       String?
+}
