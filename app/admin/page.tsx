@@ -218,7 +218,11 @@ export default function AdminDashboard() {
   }
 
   const selectAll = () => {
-    const currentItems = activeTab === 'messages' ? filteredMessages : filteredPayments
+    const currentItems = 
+      activeTab === 'messages' ? filteredMessages : 
+      activeTab === 'payments' ? filteredPayments :
+      activeTab === 'services' ? services : projects
+      
     if (selectedItems.size === currentItems.length) {
       setSelectedItems(new Set())
     } else {
@@ -850,7 +854,15 @@ export default function AdminDashboard() {
                   onClick={selectAll}
                   className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-all"
                 >
-                  {selectedItems.size === (activeTab === 'messages' ? filteredMessages.length : filteredPayments.length) && (activeTab === 'messages' ? filteredMessages : filteredPayments).length > 0 ? (
+                  {selectedItems.size === (
+                    activeTab === 'messages' ? filteredMessages.length : 
+                    activeTab === 'payments' ? filteredPayments.length :
+                    activeTab === 'services' ? services.length : projects.length
+                  ) && (
+                    activeTab === 'messages' ? filteredMessages : 
+                    activeTab === 'payments' ? filteredPayments :
+                    activeTab === 'services' ? services : projects
+                  ).length > 0 ? (
                     <CheckSquare className="w-4 h-4 text-indigo-400" />
                   ) : (
                     <Square className="w-4 h-4" />
@@ -870,23 +882,42 @@ export default function AdminDashboard() {
               <div className="p-6 lg:p-10 rounded-2xl lg:rounded-3xl bg-red-500/5 border border-red-500/10 text-center">
                 <p className="text-red-400 font-bold mb-4">{error}</p>
                 <button 
-                  onClick={activeTab === 'messages' ? fetchMessages : fetchPayments} 
+                  onClick={() => {
+                    if (activeTab === 'messages') fetchMessages();
+                    else if (activeTab === 'payments') fetchPayments();
+                    else if (activeTab === 'services') fetchServices();
+                    else fetchProjects();
+                  }} 
                   className="px-6 py-2 bg-red-500 text-white rounded-xl font-bold text-sm"
                 >
                   Tekrar Dene
                 </button>
               </div>
-            ) : (activeTab === 'messages' ? filteredMessages : filteredPayments).length === 0 ? (
+            ) : (
+              activeTab === 'messages' ? filteredMessages : 
+              activeTab === 'payments' ? filteredPayments :
+              activeTab === 'services' ? services : projects
+            ).length === 0 ? (
               <div className="p-10 lg:p-20 rounded-2xl lg:rounded-[3rem] bg-white/[0.02] border border-dashed border-white/5 text-center">
                 {activeTab === 'messages' ? (
                   <>
                     <Mail className="w-10 h-10 lg:w-12 lg:h-12 text-slate-700 mx-auto mb-4 lg:mb-6" />
                     <p className="text-slate-500 font-bold">Henüz mesaj bulunmuyor.</p>
                   </>
-                ) : (
+                ) : activeTab === 'payments' ? (
                   <>
                     <Wallet className="w-10 h-10 lg:w-12 lg:h-12 text-slate-700 mx-auto mb-4 lg:mb-6" />
                     <p className="text-slate-500 font-bold">Henüz ödeme bildirimi yok.</p>
+                  </>
+                ) : activeTab === 'services' ? (
+                  <>
+                    <Settings className="w-10 h-10 lg:w-12 lg:h-12 text-slate-700 mx-auto mb-4 lg:mb-6" />
+                    <p className="text-slate-500 font-bold">Henüz hizmet bulunmuyor.</p>
+                  </>
+                ) : (
+                  <>
+                    <ExternalLink className="w-10 h-10 lg:w-12 lg:h-12 text-slate-700 mx-auto mb-4 lg:mb-6" />
+                    <p className="text-slate-500 font-bold">Henüz proje bulunmuyor.</p>
                   </>
                 )}
               </div>
