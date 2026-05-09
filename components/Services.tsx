@@ -170,10 +170,16 @@ export default function Services() {
                 {service.description}
               </p>
 
+              {/* Price Tag */}
+              <div className="mt-6 flex items-baseline gap-1">
+                <span className="text-2xl font-black text-white">{service.price}</span>
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{service.priceUnit}</span>
+              </div>
+
               {/* USDT Payment Button */}
               <button
                 onClick={() => openPaymentModal(service.title)}
-                className="mt-6 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                className="mt-4 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
                 USDT ile Öde
               </button>
