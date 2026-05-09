@@ -33,16 +33,51 @@ interface Payment {
   notes: string | null
 }
 
+interface Service {
+  id: string
+  title: string
+  description: string
+  price: number
+  priceUnit: string
+  icon: string
+  color: string
+  isActive: boolean
+  order: number
+  createdAt: string
+  updatedAt: string
+}
+
+interface Project {
+  id: string
+  title: string
+  category: string
+  description: string
+  tech: string
+  image: string
+  link: string | null
+  github: string | null
+  isActive: boolean
+  order: number
+  createdAt: string
+  updatedAt: string
+}
+
 export default function AdminDashboard() {
   const [messages, setMessages] = useState<Message[]>([])
   const [payments, setPayments] = useState<Payment[]>([])
-  const [activeTab, setActiveTab] = useState<'messages' | 'payments'>('messages')
+  const [services, setServices] = useState<Service[]>([])
+  const [projects, setProjects] = useState<Project[]>([])
+  const [activeTab, setActiveTab] = useState<'messages' | 'payments' | 'services' | 'projects'>('messages')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null)
+  const [selectedService, setSelectedService] = useState<Service | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [editType, setEditType] = useState<'service' | 'project' | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
   const router = useRouter()
@@ -83,9 +118,47 @@ export default function AdminDashboard() {
     }
   }
 
+  const fetchServices = async () => {
+    setLoading(true)
+    try {
+      const response = await fetch('/api/admin/services')
+      if (response.status === 401) {
+        router.push('/admin/login')
+        return
+      }
+      if (!response.ok) throw new Error('Hizmetler getirilemedi')
+      const data = await response.json()
+      setServices(data.services)
+    } catch {
+      console.error('Hizmetler yüklenirken hata')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const fetchProjects = async () => {
+    setLoading(true)
+    try {
+      const response = await fetch('/api/admin/projects')
+      if (response.status === 401) {
+        router.push('/admin/login')
+        return
+      }
+      if (!response.ok) throw new Error('Projeler getirilemedi')
+      const data = await response.json()
+      setProjects(data.projects)
+    } catch {
+      console.error('Projeler yüklenirken hata')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     fetchMessages()
     fetchPayments()
+    fetchServices()
+    fetchProjects()
   }, [])
 
   const handleLogout = async () => {
@@ -311,6 +384,28 @@ export default function AdminDashboard() {
                 {pendingPayments > 0 && (
                   <span className="ml-auto bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full">{pendingPayments}</span>
                 )}
+              </button>
+              <button 
+                onClick={() => { setActiveTab('services'); setSidebarOpen(false); setSelectedItems(new Set()); }}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${
+                  activeTab === 'services' 
+                    ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' 
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Settings className="w-4 h-4" />
+                Hizmet Yönetimi
+              </button>
+              <button 
+                onClick={() => { setActiveTab('projects'); setSidebarOpen(false); setSelectedItems(new Set()); }}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${
+                  activeTab === 'projects' 
+                    ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' 
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Proje Yönetimi
               </button>
             </nav>
           </div>
@@ -636,6 +731,48 @@ export default function AdminDashboard() {
                     <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Onaylanan</div>
                   </div>
                 </>
+              ) : activeTab === 'services' ? (
+                <>
+                  <div className="col-span-2 lg:col-span-1 p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-blue-500/20 transition-all">
+                    <div className="flex justify-between items-start mb-2 lg:mb-4">
+                      <div className="p-2 rounded-xl bg-white/5 text-blue-400">
+                        <Settings className="w-4 h-4 lg:w-5 lg:h-5" />
+                      </div>
+                    </div>
+                    <div className="text-2xl lg:text-3xl font-black text-white mb-1">{services.length}</div>
+                    <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Toplam Hizmet</div>
+                  </div>
+                  <div className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-emerald-500/20 transition-all">
+                    <div className="flex justify-between items-start mb-2 lg:mb-4">
+                      <div className="p-2 rounded-xl bg-white/5 text-emerald-400">
+                        <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+                      </div>
+                    </div>
+                    <div className="text-2xl lg:text-3xl font-black text-white mb-1">{services.filter(s => s.isActive).length}</div>
+                    <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Aktif</div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="col-span-2 lg:col-span-1 p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-purple-500/20 transition-all">
+                    <div className="flex justify-between items-start mb-2 lg:mb-4">
+                      <div className="p-2 rounded-xl bg-white/5 text-purple-400">
+                        <ExternalLink className="w-4 h-4 lg:w-5 lg:h-5" />
+                      </div>
+                    </div>
+                    <div className="text-2xl lg:text-3xl font-black text-white mb-1">{projects.length}</div>
+                    <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Toplam Proje</div>
+                  </div>
+                  <div className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-emerald-500/20 transition-all">
+                    <div className="flex justify-between items-start mb-2 lg:mb-4">
+                      <div className="p-2 rounded-xl bg-white/5 text-emerald-400">
+                        <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+                      </div>
+                    </div>
+                    <div className="text-2xl lg:text-3xl font-black text-white mb-1">{projects.filter(p => p.isActive).length}</div>
+                    <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Aktif</div>
+                  </div>
+                </>
               )}
             </div>
 
@@ -643,7 +780,9 @@ export default function AdminDashboard() {
             <div className="mb-4 lg:mb-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
                 <h2 className="text-xl lg:text-2xl font-black text-white">
-                  {activeTab === 'messages' ? 'Mesajlar' : 'USDT Ödemeleri'}
+                  {activeTab === 'messages' ? 'Mesajlar' : 
+                   activeTab === 'payments' ? 'USDT Ödemeleri' :
+                   activeTab === 'services' ? 'Hizmetler' : 'Projeler'}
                 </h2>
                 <div className="flex items-center gap-2">
                   <button
@@ -653,6 +792,19 @@ export default function AdminDashboard() {
                     <ArrowUpDown className="w-4 h-4" />
                     <span className="hidden sm:inline">{sortOrder === 'newest' ? 'En Yeni' : 'En Eski'}</span>
                   </button>
+                  {(activeTab === 'services' || activeTab === 'projects') && (
+                    <button
+                      onClick={() => {
+                        setEditType(activeTab === 'services' ? 'service' : 'project')
+                        setSelectedService(null)
+                        setSelectedProject(null)
+                        setIsEditModalOpen(true)
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 text-sm font-bold transition-all"
+                    >
+                      Yeni Ekle
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -740,181 +892,421 @@ export default function AdminDashboard() {
               </div>
             ) : (
               <AnimatePresence mode="popLayout">
-                {activeTab === 'messages' ? (
-                  filteredMessages.map((message) => (
-                    <motion.div
-                      layout
-                      key={message.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className={`group relative p-4 lg:p-6 rounded-xl lg:rounded-2xl border transition-all duration-300 mb-3 ${
-                        message.read 
-                          ? 'bg-slate-900/30 border-white/5' 
-                          : 'bg-slate-900/80 border-indigo-500/20 shadow-lg shadow-indigo-500/5'
-                      }`}
+                {activeTab === 'messages' && filteredMessages.map((message) => (
+                  <motion.div
+                    layout
+                    key={message.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className={`group relative p-4 lg:p-6 rounded-xl lg:rounded-2xl border transition-all duration-300 mb-3 ${
+                      message.read 
+                        ? 'bg-slate-900/30 border-white/5' 
+                        : 'bg-slate-900/80 border-indigo-500/20 shadow-lg shadow-indigo-500/5'
+                    }`}
+                  >
+                    {/* Selection Checkbox */}
+                    <button
+                      onClick={() => toggleSelection(message.id)}
+                      className="absolute top-3 left-3 lg:top-4 lg:left-4 z-10"
                     >
-                      {/* Selection Checkbox */}
-                      <button
-                        onClick={() => toggleSelection(message.id)}
-                        className="absolute top-3 left-3 lg:top-4 lg:left-4 z-10"
-                      >
-                        {selectedItems.has(message.id) ? (
-                          <CheckSquare className="w-5 h-5 text-indigo-400" />
-                        ) : (
-                          <Square className="w-5 h-5 text-slate-600 group-hover:text-slate-400" />
-                        )}
-                      </button>
+                      {selectedItems.has(message.id) ? (
+                        <CheckSquare className="w-5 h-5 text-indigo-400" />
+                      ) : (
+                        <Square className="w-5 h-5 text-slate-600 group-hover:text-slate-400" />
+                      )}
+                    </button>
 
-                      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pl-8 lg:pl-10">
-                        <div 
-                          className="flex-1 space-y-2 lg:space-y-3 cursor-pointer"
-                          onClick={() => setSelectedMessage(message)}
-                        >
-                          <div className="flex flex-wrap items-center gap-2">
-                            {!message.read && (
-                              <span className="px-2 py-0.5 rounded-full bg-indigo-500 text-white text-[10px] font-black uppercase">
-                                Yeni
-                              </span>
-                            )}
-                            <span className="text-xs text-slate-500">{formatShortDate(message.createdAt)}</span>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <User className="w-4 h-4 text-indigo-400" />
-                            <span className="font-bold text-white">{message.name}</span>
-                            {message.phone && (
-                              <span className="text-sm text-emerald-400">• {message.phone}</span>
-                            )}
-                          </div>
-
-                          <p className="text-slate-300 text-sm lg:text-base line-clamp-2">
-                            {message.message}
-                          </p>
-                        </div>
-
-                        <div className="flex lg:flex-col gap-2 pl-8 lg:pl-0">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              toggleRead(message.id, message.read)
-                            }}
-                            className={`p-2 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center transition-all ${
-                              message.read
-                                ? 'bg-emerald-500/10 text-emerald-400'
-                                : 'bg-slate-800 text-slate-400 hover:text-white'
-                            }`}
-                          >
-                            {message.read ? <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" /> : <Circle className="w-4 h-4 lg:w-5 lg:h-5" />}
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleDelete(message.id, 'message')
-                            }}
-                            className="p-2 lg:w-10 lg:h-10 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
-                          >
-                            <Trash2 className="w-4 h-4 lg:w-5 lg:h-5" />
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))
-                ) : (
-                  filteredPayments.map((payment) => (
-                    <motion.div
-                      layout
-                      key={payment.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className={`group relative p-4 lg:p-6 rounded-xl lg:rounded-2xl border transition-all duration-300 mb-3 ${
-                        payment.status === 'verified'
-                          ? 'bg-slate-900/30 border-white/5'
-                          : payment.status === 'rejected'
-                          ? 'bg-red-900/10 border-red-500/20'
-                          : 'bg-slate-900/80 border-emerald-500/20 shadow-lg shadow-emerald-500/5'
-                      }`}
-                    >
-                      {/* Selection Checkbox */}
-                      <button
-                        onClick={() => toggleSelection(payment.id)}
-                        className="absolute top-3 left-3 lg:top-4 lg:left-4 z-10"
-                      >
-                        {selectedItems.has(payment.id) ? (
-                          <CheckSquare className="w-5 h-5 text-indigo-400" />
-                        ) : (
-                          <Square className="w-5 h-5 text-slate-600 group-hover:text-slate-400" />
-                        )}
-                      </button>
-
+                    <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pl-8 lg:pl-10">
                       <div 
-                        className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pl-8 lg:pl-10 cursor-pointer"
-                        onClick={() => setSelectedPayment(payment)}
+                        className="flex-1 space-y-2 lg:space-y-3 cursor-pointer"
+                        onClick={() => setSelectedMessage(message)}
                       >
-                        <div className="flex-1 space-y-2">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
-                              payment.status === 'verified' ? 'bg-emerald-500 text-white' :
-                              payment.status === 'rejected' ? 'bg-red-500 text-white' :
-                              'bg-amber-500 text-white'
-                            }`}>
-                              {payment.status === 'verified' ? 'Onaylandı' :
-                               payment.status === 'rejected' ? 'Reddedildi' : 'Bekliyor'}
+                        <div className="flex flex-wrap items-center gap-2">
+                          {!message.read && (
+                            <span className="px-2 py-0.5 rounded-full bg-indigo-500 text-white text-[10px] font-black uppercase">
+                              Yeni
                             </span>
-                            <span className="text-xs text-slate-500">{formatShortDate(payment.createdAt)}</span>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <Wallet className="w-4 h-4 text-emerald-400" />
-                            <span className="font-bold text-white">{payment.serviceName}</span>
-                          </div>
-
-                          <code className="block text-xs font-mono text-slate-400 truncate max-w-xs">
-                            {payment.txid}
-                          </code>
+                          )}
+                          <span className="text-xs text-slate-500">{formatShortDate(message.createdAt)}</span>
                         </div>
 
-                        <div className="flex lg:flex-col gap-2 pl-8 lg:pl-0">
-                          {payment.status === 'pending' && (
-                            <>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  updatePaymentStatus(payment.id, 'verified')
-                                }}
-                                className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
-                              >
-                                <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  updatePaymentStatus(payment.id, 'rejected')
-                                }}
-                                className="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all"
-                              >
-                                <AlertCircle className="w-4 h-4 lg:w-5 lg:h-5" />
-                              </button>
-                            </>
+                        <div className="flex items-center gap-2">
+                          <User className="w-4 h-4 text-indigo-400" />
+                          <span className="font-bold text-white">{message.name}</span>
+                          {message.phone && (
+                            <span className="text-sm text-emerald-400">• {message.phone}</span>
                           )}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleDelete(payment.id, 'payment')
-                            }}
-                            className="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
-                          >
-                            <Trash2 className="w-4 h-4 lg:w-5 lg:h-5" />
-                          </button>
+                        </div>
+
+                        <p className="text-slate-300 text-sm lg:text-base line-clamp-2">
+                          {message.message}
+                        </p>
+                      </div>
+
+                      <div className="flex lg:flex-col gap-2 pl-8 lg:pl-0">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleRead(message.id, message.read)
+                          }}
+                          className={`p-2 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center transition-all ${
+                            message.read
+                              ? 'bg-emerald-500/10 text-emerald-400'
+                              : 'bg-slate-800 text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          {message.read ? <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" /> : <Circle className="w-4 h-4 lg:w-5 lg:h-5" />}
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleDelete(message.id, 'message')
+                          }}
+                          className="p-2 lg:w-10 lg:h-10 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
+                        >
+                          <Trash2 className="w-4 h-4 lg:w-5 lg:h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {activeTab === 'payments' && filteredPayments.map((payment) => (
+                  <motion.div
+                    layout
+                    key={payment.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className={`group relative p-4 lg:p-6 rounded-xl lg:rounded-2xl border transition-all duration-300 mb-3 ${
+                      payment.status === 'verified'
+                        ? 'bg-slate-900/30 border-white/5'
+                        : payment.status === 'rejected'
+                        ? 'bg-red-900/10 border-red-500/20'
+                        : 'bg-slate-900/80 border-emerald-500/20 shadow-lg shadow-emerald-500/5'
+                    }`}
+                  >
+                    {/* Selection Checkbox */}
+                    <button
+                      onClick={() => toggleSelection(payment.id)}
+                      className="absolute top-3 left-3 lg:top-4 lg:left-4 z-10"
+                    >
+                      {selectedItems.has(payment.id) ? (
+                        <CheckSquare className="w-5 h-5 text-indigo-400" />
+                      ) : (
+                        <Square className="w-5 h-5 text-slate-600 group-hover:text-slate-400" />
+                      )}
+                    </button>
+
+                    <div 
+                      className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pl-8 lg:pl-10 cursor-pointer"
+                      onClick={() => setSelectedPayment(payment)}
+                    >
+                      <div className="flex-1 space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                            payment.status === 'verified' ? 'bg-emerald-500 text-white' :
+                            payment.status === 'rejected' ? 'bg-red-500 text-white' :
+                            'bg-amber-500 text-white'
+                          }`}>
+                            {payment.status === 'verified' ? 'Onaylandı' :
+                             payment.status === 'rejected' ? 'Reddedildi' : 'Bekliyor'}
+                          </span>
+                          <span className="text-xs text-slate-500">{formatShortDate(payment.createdAt)}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <Wallet className="w-4 h-4 text-emerald-400" />
+                          <span className="font-bold text-white">{payment.serviceName}</span>
+                        </div>
+
+                        <code className="block text-xs font-mono text-slate-400 truncate max-w-xs">
+                          {payment.txid}
+                        </code>
+                      </div>
+
+                      <div className="flex lg:flex-col gap-2 pl-8 lg:pl-0">
+                        {payment.status === 'pending' && (
+                          <>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                updatePaymentStatus(payment.id, 'verified')
+                              }}
+                              className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
+                            >
+                              <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                updatePaymentStatus(payment.id, 'rejected')
+                              }}
+                              className="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all"
+                            >
+                              <AlertCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+                            </button>
+                          </>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleDelete(payment.id, 'payment')
+                          }}
+                          className="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
+                        >
+                          <Trash2 className="w-4 h-4 lg:w-5 lg:h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {activeTab === 'services' && services.map((service) => (
+                  <motion.div
+                    layout
+                    key={service.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="p-4 lg:p-6 rounded-xl bg-slate-900/50 border border-white/5 mb-3"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} p-0.5`}>
+                          <div className="w-full h-full rounded-xl bg-slate-950 flex items-center justify-center">
+                            <Settings className="w-6 h-6 text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white">{service.title}</h4>
+                          <p className="text-sm text-slate-400 line-clamp-1">{service.description}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-xs text-emerald-400 font-bold">{service.price} {service.priceUnit}</span>
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full ${service.isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                              {service.isActive ? 'Aktif' : 'Pasif'}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </motion.div>
-                  ))
-                )}
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            setSelectedService(service)
+                            setEditType('service')
+                            setIsEditModalOpen(true)
+                          }}
+                          className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all"
+                        >
+                          Düzenle
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm('Bu hizmeti silmek istediğinizden emin misiniz?')) {
+                              fetch(`/api/admin/services/${service.id}`, { method: 'DELETE' })
+                                .then(() => fetchServices())
+                            }
+                          }}
+                          className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {activeTab === 'projects' && projects.map((project) => (
+                  <motion.div
+                    layout
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="p-4 lg:p-6 rounded-xl bg-slate-900/50 border border-white/5 mb-3"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-20 h-14 rounded-lg overflow-hidden border border-white/10">
+                          <img src={project.image} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white">{project.title}</h4>
+                          <p className="text-sm text-slate-400 line-clamp-1">{project.category}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">{project.tech}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            setSelectedProject(project)
+                            setEditType('project')
+                            setIsEditModalOpen(true)
+                          }}
+                          className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all"
+                        >
+                          Düzenle
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm('Bu projeyi silmek istediğinizden emin misiniz?')) {
+                              fetch(`/api/admin/projects/${project.id}`, { method: 'DELETE' })
+                                .then(() => fetchProjects())
+                            }
+                          }}
+                          className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </AnimatePresence>
             )}
           </div>
+          {/* Edit Modal */}
+          <AnimatePresence>
+            {isEditModalOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  className="bg-slate-900 border border-white/10 rounded-3xl p-6 lg:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-2xl font-black text-white">
+                      {editType === 'service' ? (selectedService ? 'Hizmeti Düzenle' : 'Yeni Hizmet') : (selectedProject ? 'Projeyi Düzenle' : 'Yeni Proje')}
+                    </h3>
+                    <button onClick={() => setIsEditModalOpen(false)} className="p-2 text-slate-400 hover:text-white">
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  <form onSubmit={async (e) => {
+                    e.preventDefault()
+                    const formData = new FormData(e.currentTarget)
+                    const data = Object.fromEntries(formData.entries())
+                    
+                    if (editType === 'service') {
+                      const url = selectedService ? `/api/admin/services/${selectedService.id}` : '/api/admin/services'
+                      const method = selectedService ? 'PATCH' : 'POST'
+                      await fetch(url, {
+                        method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          ...data,
+                          price: parseFloat(data.price as string),
+                          order: parseInt(data.order as string),
+                          isActive: data.isActive === 'on'
+                        })
+                      })
+                      fetchServices()
+                    } else {
+                      const url = selectedProject ? `/api/admin/projects/${selectedProject.id}` : '/api/admin/projects'
+                      const method = selectedProject ? 'PATCH' : 'POST'
+                      await fetch(url, {
+                        method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          ...data,
+                          order: parseInt(data.order as string),
+                          isActive: data.isActive === 'on'
+                        })
+                      })
+                      fetchProjects()
+                    }
+                    setIsEditModalOpen(false)
+                  }} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Başlık</label>
+                        <input name="title" defaultValue={editType === 'service' ? selectedService?.title : selectedProject?.title} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">{editType === 'service' ? 'İkon' : 'Kategori'}</label>
+                        <input name={editType === 'service' ? 'icon' : 'category'} defaultValue={editType === 'service' ? selectedService?.icon : selectedProject?.category} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Açıklama</label>
+                      <textarea name="description" defaultValue={editType === 'service' ? selectedService?.description : selectedProject?.description} required rows={3} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none resize-none" />
+                    </div>
+
+                    {editType === 'service' ? (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Fiyat</label>
+                          <input name="price" type="number" step="0.01" defaultValue={selectedService?.price} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Birim</label>
+                          <input name="priceUnit" defaultValue={selectedService?.priceUnit || 'USDT'} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Renk (Tailwind)</label>
+                          <input name="color" defaultValue={selectedService?.color || 'from-blue-500 to-indigo-600'} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Teknolojiler (Virgülle ayırın)</label>
+                            <input name="tech" defaultValue={selectedProject?.tech} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Resim URL</label>
+                            <input name="image" defaultValue={selectedProject?.image} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Link</label>
+                            <input name="link" defaultValue={selectedProject?.link || '#'} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">GitHub</label>
+                            <input name="github" defaultValue={selectedProject?.github || ''} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    <div className="flex items-center gap-6">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Sıralama</label>
+                        <input name="order" type="number" defaultValue={editType === 'service' ? selectedService?.order : selectedProject?.order || 0} className="w-16 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                      </div>
+                      <label className="flex items-center gap-3 cursor-pointer pt-6">
+                        <input name="isActive" type="checkbox" defaultChecked={editType === 'service' ? selectedService?.isActive : selectedProject?.isActive ?? true} className="w-5 h-5 rounded border-white/10 bg-white/5 text-indigo-500 focus:ring-indigo-500/50" />
+                        <span className="text-sm font-bold text-white">Aktif</span>
+                      </label>
+                    </div>
+
+                    <div className="flex gap-4 pt-4">
+                      <button type="submit" className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-indigo-500/20">
+                        {selectedService || selectedProject ? 'Güncelle' : 'Oluştur'}
+                      </button>
+                      <button type="button" onClick={() => setIsEditModalOpen(false)} className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all">
+                        Vazgeç
+                      </button>
+                    </div>
+                  </form>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
       </div>
     </div>

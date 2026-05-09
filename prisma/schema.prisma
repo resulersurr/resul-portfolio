@@ -8,7 +8,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -32,4 +32,33 @@ model PaymentNotification {
   createdAt   DateTime @default(now())
   verifiedAt  DateTime?
   notes       String?
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float    @default(0)
+  priceUnit   String   @default("USDT")
+  icon        String   @default("Code2")
+  color       String   @default("from-blue-500 to-indigo-600")
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  description String
+  tech        String   // SQLite doesn't support String[], using comma separated string
+  image       String
+  link        String?
+  github      String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

@@ -6,53 +6,46 @@ import { Code2, Database, Globe, Zap, Settings, ShieldCheck, Copy, X, CheckCircl
 import { QRCodeSVG } from 'qrcode.react'
 import toast, { Toaster } from 'react-hot-toast'
 
-const services = [
-  {
-    title: 'Özel Backend Geliştirme',
-    desc: 'ASP.NET Core ve Web API kullanarak yüksek performanslı, güvenli ve ölçeklenebilir sunucu taraflı çözümler.',
-    icon: Code2,
-    color: 'from-blue-500 to-indigo-600',
-  },
-  {
-    title: 'Kurumsal Admin Panelleri',
-    desc: 'İş süreçlerinizi yönetmek için modern, hızlı ve kullanıcı dostu özel yönetim arayüzleri ve dashboardlar.',
-    icon: Settings,
-    color: 'from-purple-500 to-pink-600',
-  },
-  {
-    title: 'CRM & Otomasyon',
-    desc: 'Manuel işlemleri azaltan, verimliliği artıran ve müşteri ilişkilerinizi güçlendiren akıllı otomasyon sistemleri.',
-    icon: Zap,
-    color: 'from-amber-500 to-orange-600',
-  },
-  {
-    title: 'Sistem Entegrasyonları',
-    desc: 'Farklı platformlar ve API\'lar arasında sorunsuz veri akışı sağlayan mimari tasarımlar ve implementasyonlar.',
-    icon: Database,
-    color: 'from-emerald-500 to-teal-600',
-  },
-  {
-    title: 'Bulut Mimarisi & DevOps',
-    desc: 'Azure ve Docker kullanarak uygulamalarınızın kesintisiz ve yüksek erişilebilirlikte çalışmasını sağlayan kurulumlar.',
-    icon: Globe,
-    color: 'from-cyan-500 to-blue-600',
-  },
-  {
-    title: 'Güvenlik & Optimizasyon',
-    desc: 'Mevcut sistemlerinizin güvenlik açıklarını kapatma ve performans darboğazlarını giderme çalışmaları.',
-    icon: ShieldCheck,
-    color: 'from-rose-500 to-red-600',
-  },
-]
+const ICON_MAP: Record<string, any> = {
+  Code2, Database, Globe, Zap, Settings, ShieldCheck
+}
 
 const WALLET_ADDRESS = 'TWResKHqM7tpuAuFyioAWfQbrj5XfV2LCi'
 
+interface Service {
+  id: string
+  title: string
+  description: string
+  price: number
+  priceUnit: string
+  icon: string
+  color: string
+}
+
 export default function Services() {
+  const [services, setServices] = useState<Service[]>([])
+  const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<string | null>(null)
   const [txid, setTxid] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const fetchServices = async () => {
+    try {
+      const res = await fetch('/api/services')
+      const data = await res.json()
+      if (data.services) setServices(data.services)
+    } catch (err) {
+      console.error('Error fetching services:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
 
   const openPaymentModal = (serviceTitle: string) => {
     setSelectedService(serviceTitle)
@@ -163,7 +156,10 @@ export default function Services() {
               
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} p-0.5 mb-8 shadow-lg shadow-black/20`}>
                 <div className="w-full h-full rounded-2xl bg-slate-950 flex items-center justify-center">
-                  <service.icon className="w-7 h-7 text-white" />
+                  {(() => {
+                    const Icon = ICON_MAP[service.icon] || Code2
+                    return <Icon className="w-7 h-7 text-white" />
+                  })()}
                 </div>
               </div>
 
@@ -171,7 +167,7 @@ export default function Services() {
                 {service.title}
               </h4>
               <p className="text-gray-400 leading-relaxed text-sm flex-grow">
-                {service.desc}
+                {service.description}
               </p>
 
               {/* USDT Payment Button */}

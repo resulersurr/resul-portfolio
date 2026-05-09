@@ -2,38 +2,38 @@
 
 import { motion } from 'framer-motion'
 import { ExternalLink, Github, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
-const projects = [
-  {
-    title: 'Enterprise CRM Platformu',
-    category: 'Full Stack & Automation',
-    desc: 'Büyük ölçekli satış ekipleri için geliştirilmiş, gerçek zamanlı raporlama ve AI destekli müşteri analitiği sunan özel CRM çözümü.',
-    tech: ['ASP.NET Core', 'SQL Server', 'React', 'SignalR'],
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
-    link: '#',
-    github: 'https://github.com/resulersurr',
-  },
-  {
-    title: 'Global Lojistik Takip Sistemi',
-    category: 'Backend & Integration',
-    desc: 'Dünya çapında 50+ ülkede kullanılan, çoklu API entegrasyonuna sahip yüksek erişilebilirlikli lojistik takip altyapısı.',
-    tech: ['Microservices', 'Docker', 'Azure', 'Web API'],
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2340&auto=format&fit=crop',
-    link: '#',
-    github: 'https://github.com/resulersurr',
-  },
-  {
-    title: 'Akıllı QR Menü & Rezervasyon',
-    category: 'SaaS Solution',
-    desc: 'Restoran ve cafeler için geliştirilmiş, sipariş yönetimi ve dijital ödeme sistemlerini kapsayan kapsamlı SaaS platformu.',
-    tech: ['Next.js', 'PostgreSQL', 'Node.js', 'Prisma'],
-    image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=2340&auto=format&fit=crop',
-    link: '#',
-    github: 'https://github.com/resulersurr',
-  },
-]
+interface Project {
+  id: string
+  title: string
+  category: string
+  description: string
+  tech: string
+  image: string
+  link: string | null
+  github: string | null
+}
 
 export default function Portfolio() {
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchProjects = async () => {
+    try {
+      const res = await fetch('/api/projects')
+      const data = await res.json()
+      if (data.projects) setProjects(data.projects)
+    } catch (err) {
+      console.error('Error fetching projects:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchProjects()
+  }, [])
   return (
     <section id="portfolio" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
       <div className="max-w-7xl mx-auto">
@@ -102,14 +102,14 @@ export default function Portfolio() {
                   {project.title}
                 </h4>
                 <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                  {project.desc}
+                  {project.description}
                 </p>
 
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {project.tech.map((t, i) => (
+                  {project.tech.split(',').map((t, i) => (
                     <span key={i} className="text-[10px] font-bold text-indigo-300 uppercase tracking-widest px-2 py-1 rounded bg-indigo-500/10">
-                      {t}
+                      {t.trim()}
                     </span>
                   ))}
                 </div>
@@ -117,14 +117,14 @@ export default function Portfolio() {
                 {/* Links */}
                 <div className="flex items-center gap-4">
                   <a 
-                    href={project.link}
+                    href={project.link || '#'}
                     className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
                   >
                     Projeyi İncele
                     <ExternalLink className="w-4 h-4" />
                   </a>
                   <a 
-                    href={project.github}
+                    href={project.github || '#'}
                     className="p-3 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300"
                     aria-label="GitHub"
                   >
