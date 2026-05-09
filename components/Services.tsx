@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Code2, Database, Globe, Zap, Settings, ShieldCheck, Copy, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Code2, Database, Globe, Zap, Settings, ShieldCheck, Copy, X, CheckCircle, Loader2, Wallet, AlertCircle } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
+import toast, { Toaster } from 'react-hot-toast'
 
 const services = [
   {
@@ -50,28 +51,68 @@ export default function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<string | null>(null)
   const [txid, setTxid] = useState('')
-  const [copied, setCopied] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const openPaymentModal = (serviceTitle: string) => {
     setSelectedService(serviceTitle)
     setIsModalOpen(true)
+    setTxid('')
+    setIsSuccess(false)
   }
 
   const closeModal = () => {
     setIsModalOpen(false)
-    setSelectedService(null)
-    setTxid('')
-    setCopied(false)
+    setTimeout(() => {
+      setSelectedService(null)
+      setTxid('')
+      setIsSubmitting(false)
+      setIsSuccess(false)
+    }, 300)
   }
 
   const copyAddress = () => {
     navigator.clipboard.writeText(WALLET_ADDRESS)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    toast.success('Cüzdan adresi kopyalandı', {
+      icon: '✓',
+      style: {
+        background: '#10b981',
+        color: '#fff',
+      },
+    })
   }
+
+  const handleSubmit = async () => {
+    if (txid.length < 20) return
+    
+    setIsSubmitting(true)
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    setIsSubmitting(false)
+    setIsSuccess(true)
+    
+    toast.success('Ödeme bildirimi alındı!', {
+      icon: '✓',
+      style: {
+        background: '#10b981',
+        color: '#fff',
+      },
+    })
+    
+    // Close modal after success
+    setTimeout(() => {
+      closeModal()
+    }, 2000)
+  }
+
+  const isTxidValid = txid.length >= 20
 
   return (
     <section id="services" className="py-32 px-4 sm:px-6 lg:px-8 relative">
+      <Toaster position="top-center" />
+      
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       
       <div className="max-w-7xl mx-auto">
@@ -149,91 +190,185 @@ export default function Services() {
       </div>
 
       {/* USDT Payment Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={closeModal} />
+      <AnimatePresence>
+        {isModalOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="relative bg-gray-900 border border-gray-700 rounded-2xl p-6 max-w-md w-full shadow-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors"
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={closeModal} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative bg-gray-900/95 border border-gray-700/50 rounded-2xl p-5 sm:p-6 max-w-md w-full shadow-2xl backdrop-blur-xl max-h-[90vh] overflow-y-auto"
             >
-              <X className="w-5 h-5" />
-            </button>
-
-            <h3 className="text-xl font-bold text-white mb-2">USDT TRC20 ile Ödeme</h3>
-            {selectedService && (
-              <p className="text-sm text-gray-400 mb-6">{selectedService}</p>
-            )}
-
-            {/* QR Code */}
-            <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white rounded-xl">
-                <QRCodeSVG value={WALLET_ADDRESS} size={160} />
-              </div>
-            </div>
-
-            {/* Wallet Address */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-2">Cüzdan Adresi</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={WALLET_ADDRESS}
-                  readOnly
-                  className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm font-mono"
-                />
+              {/* Header */}
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 flex items-center justify-center">
+                    <Wallet className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">USDT TRC20</h3>
+                    {selectedService && (
+                      <p className="text-xs text-gray-400">{selectedService}</p>
+                    )}
+                  </div>
+                </div>
                 <button
-                  onClick={copyAddress}
-                  className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-                  title="Kopyala"
+                  onClick={closeModal}
+                  className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
                 >
-                  <Copy className="w-4 h-4 text-white" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
-              {copied && (
-                <p className="text-xs text-emerald-400 mt-1">Adres kopyalandı!</p>
-              )}
-            </div>
 
-            {/* Warning */}
-            <div className="mb-4 p-3 bg-amber-900/30 border border-amber-800/50 rounded-lg">
-              <p className="text-xs text-amber-300">
-                Sadece USDT TRC20 ağı üzerinden gönderim yapınız. Yanlış ağdan yapılan transferlerde varlık kaybı yaşanabilir.
-              </p>
-            </div>
+              {/* QR Code Section */}
+              <div className="mb-5">
+                <div className="flex justify-center mb-3">
+                  <div className="p-3 sm:p-4 bg-white rounded-xl shadow-lg shadow-emerald-500/10 ring-2 ring-emerald-500/20">
+                    <QRCodeSVG value={WALLET_ADDRESS} size={140} className="sm:w-[160px] sm:h-[160px]" />
+                  </div>
+                </div>
+                
+                {/* Network Badge */}
+                <div className="flex justify-center mb-2">
+                  <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-xs font-medium text-emerald-400">
+                    USDT • TRC20 Network
+                  </span>
+                </div>
+                
+                <p className="text-center text-xs text-gray-500">
+                  QR kodu Binance veya Trust Wallet ile okutabilirsiniz.
+                </p>
+              </div>
 
-            {/* TXID Input */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                TXID / Transaction Hash
-              </label>
-              <input
-                type="text"
-                value={txid}
-                onChange={(e) => setTxid(e.target.value)}
-                placeholder="Ödeme işlem numarasını girin"
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
+              {/* Wallet Address */}
+              <div className="mb-4">
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+                  Cüzdan Adresi
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={WALLET_ADDRESS}
+                    readOnly
+                    className="flex-1 px-3 py-2.5 bg-gray-800/50 border border-gray-700 rounded-lg text-white text-xs sm:text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  />
+                  <button
+                    onClick={copyAddress}
+                    className="p-2.5 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg transition-all active:scale-95"
+                    title="Kopyala"
+                  >
+                    <Copy className="w-4 h-4 text-gray-300" />
+                  </button>
+                </div>
+              </div>
 
-            <p className="text-xs text-gray-500 mb-4">
-              Ödeme yaptıktan sonra TXID bilgisini bizimle paylaşınız.
-            </p>
+              {/* Warning */}
+              <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
+                  <p className="text-xs text-amber-200 leading-relaxed">
+                    Sadece USDT TRC20 ağı üzerinden gönderim yapınız. Yanlış ağdan yapılan transferlerde varlık kaybı yaşanabilir.
+                  </p>
+                </div>
+              </div>
 
-            <button
-              onClick={closeModal}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:opacity-90 transition-opacity"
-            >
-              Kapat
-            </button>
+              {/* Payment Steps Info Card */}
+              <div className="mb-4 p-3 bg-gray-800/50 border border-gray-700/50 rounded-xl">
+                <h4 className="text-xs font-semibold text-gray-300 mb-2 uppercase tracking-wider">
+                  Ödeme Adımları
+                </h4>
+                <ol className="space-y-1.5 text-xs text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-medium">1.</span>
+                    <span>QR kodu okutun veya adresi kopyalayın</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-medium">2.</span>
+                    <span>USDT TRC20 ağı üzerinden gönderim yapın</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-medium">3.</span>
+                    <span>İşlem tamamlandıktan sonra TXID girin</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-medium">4.</span>
+                    <span>"Ödeme Bildir" butonuna basın</span>
+                  </li>
+                </ol>
+              </div>
+
+              {/* TXID Input */}
+              <div className="mb-4">
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+                  TXID / Transaction Hash
+                </label>
+                <input
+                  type="text"
+                  value={txid}
+                  onChange={(e) => setTxid(e.target.value)}
+                  placeholder="İşlem numarasını girin (en az 20 karakter)"
+                  className="w-full px-3 py-2.5 bg-gray-800/50 border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                />
+                <div className="flex items-center justify-between mt-1.5">
+                  <span className={`text-xs ${txid.length > 0 && !isTxidValid ? 'text-red-400' : 'text-gray-500'}`}>
+                    {txid.length}/20 karakter
+                  </span>
+                  {isTxidValid && (
+                    <span className="text-xs text-emerald-400 flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" />
+                      Geçerli
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button
+                  onClick={handleSubmit}
+                  disabled={!isTxidValid || isSubmitting || isSuccess}
+                  className={`flex-1 py-2.5 px-4 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 ${
+                    isSuccess
+                      ? 'bg-emerald-500 text-white'
+                      : !isTxidValid
+                      ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:opacity-90 active:scale-95'
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Gönderiliyor...
+                    </>
+                  ) : isSuccess ? (
+                    <>
+                      <CheckCircle className="w-4 h-4" />
+                      Bildirildi!
+                    </>
+                  ) : (
+                    'Ödeme Bildir'
+                  )}
+                </button>
+                
+                <button
+                  onClick={closeModal}
+                  disabled={isSubmitting}
+                  className="py-2.5 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium text-sm transition-all disabled:opacity-50"
+                >
+                  Kapat
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   )
 }
