@@ -700,7 +700,7 @@ export default function AdminDashboard() {
                     <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Okunmuş</div>
                   </div>
                 </>
-              ) : (
+              ) : activeTab === 'payments' ? (
                 <>
                   <div className="col-span-2 lg:col-span-1 p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-emerald-500/20 transition-all">
                     <div className="flex justify-between items-start mb-2 lg:mb-4">
