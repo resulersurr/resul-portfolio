@@ -8,14 +8,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ersurer.com'),
+  metadataBase: new URL('https://www.ersurer.com'),
   title: {
     default: 'Resul Ersürer | Enterprise Software Architect & Backend Specialist',
     template: '%s | Resul Ersürer'
   },
   description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri, Web API ve otomasyon çözümleri. ASP.NET Core & Enterprise Architecture uzmanlığı.',
   keywords: ['Backend Architect', 'ASP.NET Core', 'Enterprise Software', 'Web API', 'System Design', 'C#', 'Microservices', 'Software Architecture', 'Node.js'],
-  authors: [{ name: 'Resul Ersürer', url: 'https://ersurer.com' }],
+  authors: [{ name: 'Resul Ersürer', url: 'https://www.ersurer.com' }],
   creator: 'Resul Ersürer',
   alternates: {
     canonical: '/',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Resul Ersürer | Enterprise Software Architect',
     description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri ve mimari çözümler.',
-    url: 'https://ersurer.com',
+    url: 'https://www.ersurer.com',
     siteName: 'Resul Ersürer Portfolio',
     type: 'website',
     locale: 'tr_TR',

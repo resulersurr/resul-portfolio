@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ersurer.com'
+  const baseUrl = 'https://www.ersurer.com'
   
   const services = [
     'aspnet-core-development',

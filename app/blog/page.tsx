@@ -5,10 +5,21 @@ import { getAllBlogs } from '@/lib/mdx'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Blog | Technical Insights & Architecture',
-  description: 'Enterprise architecture, backend development, and performance optimization articles by Resul Ersürer.',
+  title: 'Blog | ASP.NET Core, Clean Architecture & Backend Mimari Yazıları',
+  description: 'ASP.NET Core, Clean Architecture, REST API güvenliği ve ölçeklenebilir backend mimarisi üzerine derinlemesine teknik makaleler. Resul Ersürer tarafından.',
   alternates: {
-    canonical: 'https://ersurer.com/blog'
+    canonical: 'https://www.ersurer.com/blog'
+  },
+  openGraph: {
+    title: 'Technical Blog | ASP.NET Core & Enterprise Architecture',
+    description: 'ASP.NET Core, Clean Architecture, REST API güvenliği ve ölçeklenebilir backend mimarisi üzerine derinlemesine teknik makaleler.',
+    type: 'website',
+    url: 'https://www.ersurer.com/blog'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Technical Blog | ASP.NET Core & Enterprise Architecture',
+    description: 'ASP.NET Core, Clean Architecture ve enterprise backend mimarisi üzerine teknik makaleler.',
   }
 }
 

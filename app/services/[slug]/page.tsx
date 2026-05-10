@@ -96,7 +96,7 @@ export default function ServicePage({ params }: Props) {
         "provider": {
           "@type": "Person",
           "name": "Resul Ersürer",
-          "url": "https://ersurer.com"
+          "url": "https://www.ersurer.com"
         },
         "serviceType": "Software Development"
       },
@@ -107,19 +107,19 @@ export default function ServicePage({ params }: Props) {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://ersurer.com"
+            "item": "https://www.ersurer.com"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Services",
-            "item": "https://ersurer.com/#services"
+            "item": "https://www.ersurer.com/#services"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": service.title,
-            "item": `https://ersurer.com/services/${params.slug}`
+            "item": `https://www.ersurer.com/services/${params.slug}`
           }
         ]
       }
@@ -178,7 +178,7 @@ export default function ServicePage({ params }: Props) {
             <div className="flex flex-col gap-3">
               {service.relatedBlogs.map((blogSlug, index) => (
                 <Link key={index} href={`/blog/${blogSlug}`} className="text-indigo-400 hover:text-indigo-300 hover:underline transition-all">
-                  Bu konu hakkında teknik detayları öğrenmek için tıklayın →
+                  {blogSlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')} →
                 </Link>
               ))}
             </div>

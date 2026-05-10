@@ -72,7 +72,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${project.title} | Case Study`,
     description: project.description,
     alternates: {
-      canonical: `https://ersurer.com/projects/${params.slug}`
+      canonical: `https://www.ersurer.com/projects/${params.slug}`
+    },
+    openGraph: {
+      title: `${project.title} | Case Study`,
+      description: project.description,
+      type: 'article',
+      url: `https://www.ersurer.com/projects/${params.slug}`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} | Case Study`,
+      description: project.description,
     }
   }
 }
@@ -84,21 +95,32 @@ export default async function CaseStudyPage({ params }: Props) {
     notFound()
   }
 
-  // CreativeWork Schema (Ideal for Case Studies / Projects)
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": project.title,
-    "description": project.description,
-    "author": {
-      "@type": "Person",
-      "name": "Resul Ersürer",
-      "url": "https://ersurer.com"
-    },
-    "about": {
-      "@type": "Thing",
-      "name": "Software Engineering Case Study"
-    }
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "name": project.title,
+        "description": project.description,
+        "author": {
+          "@type": "Person",
+          "name": "Resul Ersürer",
+          "url": "https://www.ersurer.com"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Software Engineering Case Study"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ersurer.com" },
+          { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.ersurer.com/#portfolio" },
+          { "@type": "ListItem", "position": 3, "name": project.title, "item": `https://www.ersurer.com/projects/${params.slug}` }
+        ]
+      }
+    ]
   }
 
   return (
