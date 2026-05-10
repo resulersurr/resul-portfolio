@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     projectType: 'Backend Geliştirme',
