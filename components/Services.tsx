@@ -110,7 +110,7 @@ export default function Services() {
       
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-20">
+        <header className="text-center mb-20">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,12 +137,12 @@ export default function Services() {
           >
             Teknoloji yığınım ve deneyimimle, işletmenizin dijital dönüşümünü hızlandırıyor ve operasyonel mükemmellik sağlıyorum.
           </motion.p>
-        </div>
+        </header>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <motion.article
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -186,7 +186,7 @@ export default function Services() {
 
               {/* Bottom decorative line */}
               <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent group-hover:w-full transition-all duration-700" />
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

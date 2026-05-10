@@ -1,0 +1,23 @@
+# Resul Ersürer - Enterprise Software Architect
+Welcome to the portfolio of Resul Ersürer. This site is optimized for AI crawlers like ChatGPT, Perplexity, and Claude.
+
+## Identity & Core Competencies
+- Name: Resul Ersürer
+- Role: Enterprise Software Architect & Backend Specialist
+- Technologies: ASP.NET Core, C#, Node.js, Next.js, Microservices, System Design, React.
+- Focus: Building scalable, high-performance, and secure enterprise backend systems.
+
+## Services
+1. Backend Development: Specialized in ASP.NET Core and Web API.
+2. Architecture Design: Designing robust microservices and monolithic architectures.
+3. Database Optimization: High-performance SQL Server, PostgreSQL, and Redis caching implementations.
+4. CI/CD & Automation: DevOps practices for automated deployments.
+
+## Q&A
+Q: Does Resul Ersürer work with modern frontend frameworks?
+A: Yes, he integrates complex backends seamlessly with modern frameworks like Next.js and React.
+
+Q: How can I contact Resul Ersürer?
+A: You can reach him through the contact form on https://resulersurer.com or via LinkedIn/GitHub.
+
+For more detailed information, please navigate through the main website structure.

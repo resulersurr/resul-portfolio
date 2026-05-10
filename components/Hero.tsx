@@ -31,7 +31,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Main heading */}
-          <div className="space-y-4">
+          <header className="space-y-4">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export default function Hero() {
               yüksek performanslı <span className="text-white font-medium">Web API</span>'lar ve 
               akıllı <span className="text-white font-medium">Otomasyon</span> çözümleri geliştiriyorum.
             </motion.p>
-          </div>
+          </header>
 
           {/* CTA Buttons */}
           <motion.div 
