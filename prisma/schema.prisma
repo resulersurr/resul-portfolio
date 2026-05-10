@@ -13,14 +13,17 @@ datasource db {
 }
 
 model ContactMessage {
-  id        String   @id @default(uuid())
-  name      String
-  email     String?
-  subject   String?
-  phone     String?
-  message   String
-  createdAt DateTime @default(now())
-  read      Boolean  @default(false)
+  id          String   @id @default(uuid())
+  name        String
+  email       String?
+  subject     String?
+  phone       String?
+  message     String
+  budget      String?
+  timeline    String?
+  projectType String?
+  createdAt   DateTime @default(now())
+  read        Boolean  @default(false)
 }
 
 model PaymentNotification {
@@ -61,4 +64,11 @@ model Project {
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model LoginAttempt {
+  id          String   @id @default(uuid())
+  ip          String   @unique
+  count       Int      @default(1)
+  lastAttempt DateTime @default(now())
 }
