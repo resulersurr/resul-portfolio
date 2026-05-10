@@ -1,0 +1,28 @@
+---
+title: 'Microservices vs Modular Monolith: Hangi Mimari?'
+date: '2026-05-06'
+description: 'Dağıtık mimariler her proje için uygun mu? Mikroservis cehenneminden kaçınmak ve Modular Monolith ile güvenli adımlar atmak.'
+readingTime: '11 min read'
+---
+
+# Microservices vs Modular Monolith: Hangi Mimari Ne Zaman Seçilmeli?
+
+Sektörde herkes mikroservis mimarisine geçmek istiyor. Ancak bu her zaman doğru karar mı?
+
+## Modular Monolith Nedir?
+Tek bir kod tabanı (repository) ve tek bir deploy süreci olan, ancak içerideki kod yapısının modüllere (domain bazlı) katı bir şekilde ayrıldığı mimaridir. Başlangıç maliyeti düşüktür.
+
+## Microservices Nedir?
+Her iş alanının (domain) kendi veritabanına, kendi deploy sürecine ve kendi sunucularına sahip olduğu yapıdır. Çok yüksek takım ve operasyon esnekliği sağlar ancak DevOps yükü devasadır.
+
+## Karar Kriterleri
+Eğer 3 farklı geliştirme ekibiniz yoksa ve sisteminizi parçalamak için sağlam bir teknik nedeniniz (örn. farklı teknolojiler kullanma ihtiyacı) yoksa, **Modular Monolith** ile başlayın.
+
+## Sıkça Sorulan Sorular (FAQ)
+
+**S: Modular Monolith yapısından Mikroservislere geçmek zor mudur?**
+C: Eğer modüller arası sınırlar (boundaries) doğru çizilmişse, bir modülü ayırıp mikroservis haline getirmek oldukça kolaydır.
+
+> **Kısaca:** Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.
+
+[Kurumsal Mimari Dönüşümü Hizmetlerim](/services/enterprise-architecture)

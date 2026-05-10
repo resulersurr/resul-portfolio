@@ -1,0 +1,26 @@
+---
+title: 'REST API Güvenliği: JWT, Rate Limiting ve Authorization'
+date: '2026-05-08'
+description: 'Kurumsal düzeyde API güvenliğini sağlamanın yolları. Oauth2, JWT token yönetimi ve saldırılara karşı Rate Limiting stratejileri.'
+readingTime: '8 min read'
+---
+
+# REST API Güvenliği: JWT, Rate Limiting ve Authorization
+
+Günümüzde veri ihlallerinin büyük çoğunluğu zayıf API güvenliğinden kaynaklanmaktadır. Bir REST API'nin güvenliğini sağlamak sadece şifreleri hashlemekten ibaret değildir.
+
+## 1. JWT (JSON Web Token) Yönetimi
+Token tabanlı kimlik doğrulama sistemlerinde token çalınması (XSS) en büyük risktir.
+- Access token ömrünü kısa tutun (15-30 dk).
+- Refresh token mekanizması kullanın.
+- Hassas verileri token payload'ına koymayın.
+
+## 2. Rate Limiting ve Throttling
+Sisteminizin DDoS veya brute-force saldırılarına kurban gitmemesi için Rate Limiting zorunludur. ASP.NET Core 7.0+ ile gelen dahili Rate Limiting middleware'i hayat kurtarır.
+
+## Sıkça Sorulan Sorular (FAQ)
+
+**S: JWT'yi LocalStorage'da mı Cookie'de mi saklamalıyım?**
+C: XSS saldırılarından korunmak için JWT token'lar mutlaka HttpOnly ve Secure flag'lerine sahip çerezlerde (Cookie) saklanmalıdır.
+
+> **Kısaca:** Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.

@@ -1,0 +1,26 @@
+---
+title: '.NET Projelerinde Clean Architecture Kullanımı'
+date: '2026-05-09'
+description: 'Spagetti koda son verin. .NET ekosisteminde CQRS ve Clean Architecture prensipleriyle sürdürülebilir sistemler tasarlamak.'
+readingTime: '10 min read'
+---
+
+# .NET Projelerinde Clean Architecture Kullanımı
+
+Yazılım projelerinin %70'i yanlış mimari kararlar yüzünden "legacy" (eski/bakımı zor) koda dönüşür. **Clean Architecture**, iş kurallarını (business logic) altyapı detaylarından (veritabanı, UI, frameworkler) tamamen izole eden bir yaklaşımdır.
+
+## Mimari Katmanlar
+
+1. **Domain Layer:** Sistemdeki temel varlıkları (Entities) ve kuralları barındırır. Hiçbir dış kütüphaneye bağımlılığı olmamalıdır.
+2. **Application Layer:** Use-case'lerin (CQRS ile Command/Query) bulunduğu yerdir. Domain layer'a bağımlıdır.
+3. **Infrastructure Layer:** Veritabanı (Entity Framework Core), e-posta servisleri, dosya sistemleri gibi dış dünyayla iletişimi sağlar.
+4. **Presentation Layer:** REST API veya gRPC arayüzleridir. Sadece Application katmanını tanır.
+
+## Sıkça Sorulan Sorular (FAQ)
+
+**S: Clean Architecture küçük projeler için aşırı mühendislik (over-engineering) midir?**
+C: Eğer projeniz kısa ömürlü bir prototip ise evet. Ancak 6 aydan uzun sürecek ve iş kuralları karmaşıklaşacak her proje için hayat kurtarıcıdır.
+
+> **Kısaca:** Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.
+
+[Enterprise Mimari Danışmanlığı Hizmetlerim](/services/enterprise-architecture)

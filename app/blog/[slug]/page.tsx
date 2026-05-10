@@ -65,24 +65,51 @@ export default function BlogPost({ params }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": blog.title,
-    "description": blog.description,
-    "author": {
-      "@type": "Person",
-      "name": "Resul Ersürer",
-      "url": "https://ersurer.com"
-    },
-    "datePublished": blog.date,
-    "publisher": {
-      "@type": "Organization",
-      "name": "Resul Ersürer Consulting",
-      "logo": "https://ersurer.com/images/logo2.png"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://ersurer.com/blog/${params.slug}`
-    }
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": blog.title,
+        "description": blog.description,
+        "author": {
+          "@type": "Person",
+          "name": "Resul Ersürer",
+          "url": "https://ersurer.com"
+        },
+        "datePublished": blog.date,
+        "publisher": {
+          "@type": "Organization",
+          "name": "Resul Ersürer Consulting",
+          "logo": "https://ersurer.com/images/logo2.png"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://ersurer.com/blog/${params.slug}`
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ersurer.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://ersurer.com/blog"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": blog.title,
+            "item": `https://ersurer.com/blog/${params.slug}`
+          }
+        ]
+      }
+    ]
   }
 
   return (

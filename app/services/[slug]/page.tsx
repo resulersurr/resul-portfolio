@@ -56,7 +56,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = servicesData[params.slug as keyof typeof servicesData]
-  
+
   if (!service) {
     return { title: 'Service Not Found' }
   }
@@ -133,15 +133,15 @@ export default function ServicePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       <Navigation />
-      
+
       <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <Link href="/#services" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-8 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Hizmetlere Dön
         </Link>
-        
+
         <header className="mb-12">
           <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-6 border border-white/10 shadow-xl">
             <Icon className="w-8 h-8 text-indigo-400" />
@@ -159,7 +159,7 @@ export default function ServicePage({ params }: Props) {
           <p className="text-gray-300 leading-relaxed text-lg">
             {service.longDescription}
           </p>
-          
+
           <h3 className="text-xl font-bold text-white mt-12 mb-6">Öne Çıkan Özellikler</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {service.features.map((feature, i) => (
@@ -192,8 +192,8 @@ export default function ServicePage({ params }: Props) {
             <p className="text-gray-300 max-w-2xl mx-auto">
               Projenizi ölçeklendirmek ve kurumsal standartlara taşımak için hemen iletişime geçin. Sizin için en uygun mimariyi birlikte belirleyelim.
             </p>
-            <Link 
-              href="/#contact" 
+            <Link
+              href="/#contact"
               className="inline-flex items-center px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform"
             >
               Projeyi Başlat

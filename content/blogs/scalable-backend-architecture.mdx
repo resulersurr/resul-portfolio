@@ -1,0 +1,27 @@
+---
+title: 'Ölçeklenebilir Backend Mimarisi Nasıl Tasarlanır?'
+date: '2026-05-07'
+description: 'Günde milyonlarca isteği sorunsuz karşılayacak backend mimarilerini Redis, RabbitMQ ve Load Balancing ile tasarlama rehberi.'
+readingTime: '15 min read'
+---
+
+# Ölçeklenebilir Backend Mimarisi Nasıl Tasarlanır?
+
+Ölçeklenebilirlik, sisteminize gelen yük arttığında sistemin performans kaybetmeden bu yükü karşılayabilme yeteneğidir. 
+
+## Caching (Önbellekleme)
+Veritabanına giden yükü azaltmanın en kesin yolu önbelleklemedir.
+- **L1 Cache (In-Memory):** Sık değişmeyen referans verileri için.
+- **L2 Cache (Distributed - Redis):** Session state, rate limit dataları ve ortak sorgu sonuçları için.
+
+## Message Brokers & Asenkron İşlemler
+Kullanıcıyı bekletmemesi gereken tüm işlemleri (eposta gönderimi, rapor oluşturma, resim işleme) asenkron hale getirin. RabbitMQ veya Kafka kullanarak işlemleri kuyruğa alın.
+
+## Sıkça Sorulan Sorular (FAQ)
+
+**S: Monolitik bir sistem yatay olarak ölçeklenebilir mi?**
+C: Evet. Stateless (durumsuz) olarak tasarlandığı ve session bilgileri Redis gibi dış bir serviste tutulduğu sürece Load Balancer arkasında yatay olarak ölçeklenebilir.
+
+> **Kısaca:** Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.
+
+[Yüksek Performanslı API Hizmetlerim](/services/web-api-development)

@@ -117,7 +117,7 @@ export default function Portfolio() {
                 {/* Links */}
                 <div className="flex items-center gap-4">
                   <a 
-                    href={`/portfolio/${project.id}`}
+                    href={`/projects/${project.id}`}
                     className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
                   >
                     Vaka Çalışması (Case Study)

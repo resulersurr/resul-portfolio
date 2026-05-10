@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: 'Backend Projesi',
+    projectType: 'Backend Geliştirme',
+    budget: '50.000 TL - 100.000 TL',
+    timeline: '1-3 Ay',
     message: '',
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -32,7 +33,10 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.subject,
+          subject: formData.projectType, // Keeping subject for backward compatibility with API
+          projectType: formData.projectType,
+          budget: formData.budget,
+          timeline: formData.timeline,
           message: formData.message,
         }),
       })
@@ -43,7 +47,7 @@ export default function Contact() {
       }
 
       setStatus('success')
-      setFormData({ name: '', email: '', subject: 'Backend Projesi', message: '' })
+      setFormData({ name: '', email: '', projectType: 'Backend Geliştirme', budget: '50.000 TL - 100.000 TL', timeline: '1-3 Ay', message: '' })
       
       // Reset success state after 5 seconds
       setTimeout(() => setStatus('idle'), 5000)
@@ -140,20 +144,54 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Konu</label>
+                  <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Proje Türü</label>
                   <div className="relative">
                     <select 
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      value={formData.projectType}
+                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
                     >
-                      <option className="bg-slate-900">Backend Projesi</option>
-                      <option className="bg-slate-900">API Entegrasyonu</option>
-                      <option className="bg-slate-900">Otomasyon Sistemleri</option>
+                      <option className="bg-slate-900">Backend Geliştirme (ASP.NET Core)</option>
+                      <option className="bg-slate-900">Web API / gRPC Entegrasyonu</option>
+                      <option className="bg-slate-900">Özel CRM / ERP Yazılımı</option>
+                      <option className="bg-slate-900">Kurumsal Mimari Danışmanlık</option>
                       <option className="bg-slate-900">Diğer</option>
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                       <Send className="w-4 h-4 rotate-90" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Bütçe Aralığı</label>
+                    <div className="relative">
+                      <select 
+                        value={formData.budget}
+                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
+                      >
+                        <option className="bg-slate-900">Belirsiz / Görüşülecek</option>
+                        <option className="bg-slate-900">50.000 TL - 100.000 TL</option>
+                        <option className="bg-slate-900">100.000 TL - 250.000 TL</option>
+                        <option className="bg-slate-900">250.000 TL ve üzeri</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Teslim Hedefi</label>
+                    <div className="relative">
+                      <select 
+                        value={formData.timeline}
+                        onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
+                      >
+                        <option className="bg-slate-900">Acil (1 Aydan Kısa)</option>
+                        <option className="bg-slate-900">1-3 Ay</option>
+                        <option className="bg-slate-900">3-6 Ay</option>
+                        <option className="bg-slate-900">Esnek</option>
+                      </select>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,29 @@
+---
+title: 'ASP.NET Core ile Enterprise API Geliştirme Rehberi'
+date: '2026-05-10'
+description: 'Büyük ölçekli projeler için ASP.NET Core kullanarak yüksek performanslı, güvenli ve ölçeklenebilir Enterprise API mimarisi tasarımı.'
+readingTime: '12 min read'
+---
+
+# ASP.NET Core ile Enterprise API Geliştirme Rehberi
+
+ASP.NET Core, günümüzde kurumsal yazılım mimarilerinin bel kemiği haline gelmiştir. Startup'lardan global şirketlere kadar birçok organizasyon, yüksek performanslı backend altyapılarını ASP.NET Core üzerinde inşa ediyor.
+
+## Neden ASP.NET Core?
+
+Modern bir backend mimarisi tasarlarken hız, güvenlik ve ölçeklenebilirlik en kritik üç faktördür. Kestrel web sunucusunun sunduğu devasa throughput (verim) ve cross-platform (Linux/Windows/macOS) çalışma yeteneği, ASP.NET Core'u rakipsiz kılıyor.
+
+### Enterprise Yaklaşımının Temelleri
+Kurumsal bir API geliştirirken sadece "çalışan kod" yazmak yeterli değildir. Bakımı kolay, test edilebilir ve izlenebilir (observability) bir sistem kurmak zorundasınız.
+
+1. **Dependency Injection (DI):** Sıkı bağlılığı (tight coupling) önlemek için native DI container kullanın.
+2. **Middleware Management:** Loglama, exception handling ve request validation işlemlerini global middleware'lere taşıyın.
+
+## Sıkça Sorulan Sorular (FAQ)
+
+**S: Kestrel tek başına production için yeterli mi?**
+C: Hayır. Kestrel çok hızlıdır ancak edge server (ters vekil) olarak Nginx, HAProxy veya IIS kullanılması güvenlik ve load balancing açısından zorunludur.
+
+> **Kısaca:** Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.
+
+[Web API Geliştirme Hizmetlerimi İnceleyin](/services/web-api-development)

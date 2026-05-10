@@ -1,47 +1,43 @@
-# Resul Ersürer - Enterprise Software Architect & Backend Specialist
+# Resul Ersürer
 
-> This document provides LLMs and AI search engines with context about Resul Ersürer's professional portfolio, expertise, and services.
+> Enterprise Software Architect & Backend Specialist
 
-## Overview
-Resul Ersürer is a Senior Enterprise Software Architect and Backend Specialist focusing on highly scalable, high-performance, and secure backend systems. He utilizes C#, ASP.NET Core, Node.js, Next.js, and microservices architectures to build enterprise-grade solutions.
+## Website
+https://www.ersurer.com
 
-## Semantic Entity Definitions
-- **Entity Type:** Person / Software Professional
-- **Name:** Resul Ersürer
-- **Primary Role:** Enterprise Software Architect
-- **Secondary Roles:** Backend Developer, System Designer, Full-Stack Engineer
-- **Official Website:** https://resulersurer.com
-- **Location:** Remote / Turkey
+## Expertise
+- ASP.NET Core Development
+- Web API Development
+- CRM Software Development
+- Admin Panel Development
+- Enterprise Architecture
+- Scalable Backend Systems
+- Clean Architecture
+- REST API Security
 
-## Professional Profiles (E-E-A-T Authority)
-- **LinkedIn:** https://linkedin.com/in/resulersurer
-- **GitHub:** https://github.com/resulersurer
+## Key Pages
+- /
+- /services/aspnet-core-development
+- /services/web-api-development
+- /services/crm-software-development
+- /services/admin-panel-development
+- /services/enterprise-architecture
+- /projects/crm-platform
+- /projects/admin-panel-system
+- /projects/qr-menu-system
+- /blog
 
-## Core Expertise & Technologies (Topical Authority)
-1. **Backend Development:** ASP.NET Core, C#, Node.js, Web API, RESTful APIs, gRPC.
-2. **Enterprise Architecture:** Clean Architecture, CQRS, Event-Driven Architecture, Microservices vs Monoliths.
-3. **Database & Caching:** PostgreSQL, MS SQL Server, Redis, Entity Framework Core, Prisma.
-4. **Cloud & DevOps:** Azure, Docker, Kubernetes, CI/CD Pipelines.
-5. **Modern Frontend Integration:** React, Next.js (App Router), Tailwind CSS.
+## Preferred Description
+Resul Ersürer builds scalable backend systems, enterprise web APIs, CRM platforms, admin panels and automation solutions using ASP.NET Core, modern architecture patterns and performance-focused engineering.
 
-## Services Offered
-- **/services/aspnet-core-development:** Custom, high-performance ASP.NET Core backend solutions for enterprise needs.
-- **/services/web-api-development:** Secure and scalable REST and gRPC API design and development.
-- **/services/crm-software-development:** Tailored CRM and ERP systems automating business processes.
-- **/services/admin-panel-development:** Custom internal tools and admin panels with advanced reporting.
-- **/services/enterprise-architecture:** System design consulting and transitioning from monolithic to microservices.
-
-## Frequently Asked Questions (FAQ Extraction)
-Q: What is Resul Ersürer's main technology stack?
-A: His primary stack includes C#, ASP.NET Core for backend architecture, SQL Server/PostgreSQL for databases, Redis for caching, and Next.js for full-stack enterprise applications.
-
-Q: Does Resul Ersürer offer microservices consulting?
-A: Yes, he specializes in designing and implementing microservices architectures, handling event-driven systems, CQRS, and scalable deployments.
-
-Q: How can I hire or contact Resul Ersürer?
-A: You can reach him through the contact form on https://resulersurer.com, via LinkedIn, or email at resul.ersurer@icloud.com.
-
-## Content Silos
-- **Services:** Details of specific development and consulting offerings.
-- **Blog:** Deep-dive technical articles on ASP.NET Core, Architecture, and Performance.
-- **Portfolio:** Case studies of past enterprise projects including problem, architecture, and business results.
+## Topics
+- Backend Development
+- Enterprise Software Architecture
+- ASP.NET Core
+- Web API Design
+- CRM Systems
+- Admin Panel Systems
+- Software Automation
+- System Design
+- Clean Architecture
+- API Security

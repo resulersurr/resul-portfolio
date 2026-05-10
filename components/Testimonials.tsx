@@ -5,22 +5,22 @@ import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'Ahmet Yılmaz',
-    role: 'CTO, Tech Solutions',
-    content: 'Resul ile çalışmak projemiz için verdiğimiz en iyi karardı. Karmaşık backend mimarimizi mükemmel bir şekilde kurguladı ve teslimat süresinden önce tamamladı.',
-    image: 'https://i.pravatar.cc/150?u=ahmet',
+    name: 'Finansal Raporlama Modülü',
+    role: 'B2B E-Ticaret Altyapısı',
+    content: 'Eski sistemde 4 saat süren raporlama işlemleri, yeni asenkron mimari ve PostgreSQL optimizasyonları sayesinde 2 dakikanın altına indirildi. Kesintisiz veri akışı sağlandı.',
+    image: '/images/logo2.png',
   },
   {
-    name: 'Elif Kaya',
-    role: 'Ürün Müdürü, E-Ticaret A.Ş.',
-    content: 'Otomasyon sistemlerimiz sayesinde verimliliğimiz %40 arttı. Teknik bilgisi kadar çözüm odaklı yaklaşımı da bizi çok etkiledi.',
-    image: 'https://i.pravatar.cc/150?u=elif',
+    name: 'Sipariş Otomasyonu (CRM)',
+    role: 'Lojistik & Dağıtım Ağı',
+    content: 'Manuel sipariş giriş süreçleri tamamen otomatikleştirildi. API entegrasyonları sayesinde insan hatası payı sıfıra indirilerek günlük operasyonel hız %40 artırıldı.',
+    image: '/images/logo2.png',
   },
   {
-    name: 'Murat Demir',
-    role: 'Kurucu, Startup Hub',
-    content: 'Yüksek trafikli uygulamamızın performans darboğazlarını 1 hafta içinde çözdü. Gerçek bir backend uzmanı arıyorsanız doğru yerdesiniz.',
-    image: 'https://i.pravatar.cc/150?u=murat',
+    name: 'Yüksek Trafikli API Gateway',
+    role: 'Mobil Uygulama Backend',
+    content: 'Anlık 10.000+ kullanıcılı sistemin darboğazları Redis cache stratejileri ve yatay ölçekleme (horizontal scaling) ile çözüldü. %99.99 uptime hedefine ulaşıldı.',
+    image: '/images/logo2.png',
   },
 ]
 
@@ -36,7 +36,7 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4"
           >
-            Yorumlar
+            Proje Çıktıları
           </motion.h2>
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl font-bold text-white mb-6"
           >
-            Müşteri <span className="gradient-text">Deneyimleri</span>
+            Kanıtlanmış <span className="gradient-text">Teknik Başarılar</span>
           </motion.h3>
         </header>
 
