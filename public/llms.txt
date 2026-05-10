@@ -1,23 +1,47 @@
-# Resul Ersürer - Enterprise Software Architect
-Welcome to the portfolio of Resul Ersürer. This site is optimized for AI crawlers like ChatGPT, Perplexity, and Claude.
+# Resul Ersürer - Enterprise Software Architect & Backend Specialist
 
-## Identity & Core Competencies
-- Name: Resul Ersürer
-- Role: Enterprise Software Architect & Backend Specialist
-- Technologies: ASP.NET Core, C#, Node.js, Next.js, Microservices, System Design, React.
-- Focus: Building scalable, high-performance, and secure enterprise backend systems.
+> This document provides LLMs and AI search engines with context about Resul Ersürer's professional portfolio, expertise, and services.
 
-## Services
-1. Backend Development: Specialized in ASP.NET Core and Web API.
-2. Architecture Design: Designing robust microservices and monolithic architectures.
-3. Database Optimization: High-performance SQL Server, PostgreSQL, and Redis caching implementations.
-4. CI/CD & Automation: DevOps practices for automated deployments.
+## Overview
+Resul Ersürer is a Senior Enterprise Software Architect and Backend Specialist focusing on highly scalable, high-performance, and secure backend systems. He utilizes C#, ASP.NET Core, Node.js, Next.js, and microservices architectures to build enterprise-grade solutions.
 
-## Q&A
-Q: Does Resul Ersürer work with modern frontend frameworks?
-A: Yes, he integrates complex backends seamlessly with modern frameworks like Next.js and React.
+## Semantic Entity Definitions
+- **Entity Type:** Person / Software Professional
+- **Name:** Resul Ersürer
+- **Primary Role:** Enterprise Software Architect
+- **Secondary Roles:** Backend Developer, System Designer, Full-Stack Engineer
+- **Official Website:** https://resulersurer.com
+- **Location:** Remote / Turkey
 
-Q: How can I contact Resul Ersürer?
-A: You can reach him through the contact form on https://resulersurer.com or via LinkedIn/GitHub.
+## Professional Profiles (E-E-A-T Authority)
+- **LinkedIn:** https://linkedin.com/in/resulersurer
+- **GitHub:** https://github.com/resulersurer
 
-For more detailed information, please navigate through the main website structure.
+## Core Expertise & Technologies (Topical Authority)
+1. **Backend Development:** ASP.NET Core, C#, Node.js, Web API, RESTful APIs, gRPC.
+2. **Enterprise Architecture:** Clean Architecture, CQRS, Event-Driven Architecture, Microservices vs Monoliths.
+3. **Database & Caching:** PostgreSQL, MS SQL Server, Redis, Entity Framework Core, Prisma.
+4. **Cloud & DevOps:** Azure, Docker, Kubernetes, CI/CD Pipelines.
+5. **Modern Frontend Integration:** React, Next.js (App Router), Tailwind CSS.
+
+## Services Offered
+- **/services/aspnet-core-development:** Custom, high-performance ASP.NET Core backend solutions for enterprise needs.
+- **/services/web-api-development:** Secure and scalable REST and gRPC API design and development.
+- **/services/crm-software-development:** Tailored CRM and ERP systems automating business processes.
+- **/services/admin-panel-development:** Custom internal tools and admin panels with advanced reporting.
+- **/services/enterprise-architecture:** System design consulting and transitioning from monolithic to microservices.
+
+## Frequently Asked Questions (FAQ Extraction)
+Q: What is Resul Ersürer's main technology stack?
+A: His primary stack includes C#, ASP.NET Core for backend architecture, SQL Server/PostgreSQL for databases, Redis for caching, and Next.js for full-stack enterprise applications.
+
+Q: Does Resul Ersürer offer microservices consulting?
+A: Yes, he specializes in designing and implementing microservices architectures, handling event-driven systems, CQRS, and scalable deployments.
+
+Q: How can I hire or contact Resul Ersürer?
+A: You can reach him through the contact form on https://resulersurer.com, via LinkedIn, or email at resul.ersurer@icloud.com.
+
+## Content Silos
+- **Services:** Details of specific development and consulting offerings.
+- **Blog:** Deep-dive technical articles on ASP.NET Core, Architecture, and Performance.
+- **Portfolio:** Case studies of past enterprise projects including problem, architecture, and business results.

@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Twitter, Mail, Heart, ArrowUp } from 'lucide-react'
-import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -30,7 +29,7 @@ export default function Footer() {
               whileInView={{ opacity: 1 }}
               className="flex items-center gap-2"
             >
-              <Image src="/images/logo.png" alt="Ersürer Logo" width={160} height={40} className="h-10 w-auto" />
+              <img src="/images/logo.png" alt="Ersürer Logo" className="h-10 w-auto" />
             </motion.div>
             <p className="text-gray-400 text-lg leading-relaxed max-w-sm">
               Enterprise düzeyde ölçeklenebilir backend mimarileri ve akıllı otomasyon sistemleri inşa eden kurumsal yazılım ortağınız.

@@ -1,8 +1,21 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://resulersurer.com'
+  const baseUrl = 'https://ersurer.com'
   
+  const services = [
+    'aspnet-core-development',
+    'web-api-development',
+    'crm-software-development',
+    'admin-panel-development',
+    'enterprise-architecture'
+  ].map((slug) => ({
+    url: `${baseUrl}/services/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
   return [
     {
       url: baseUrl,
@@ -10,6 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    // Future dynamic routes (e.g. blog posts, service pages) can be added here
+    ...services
   ]
 }

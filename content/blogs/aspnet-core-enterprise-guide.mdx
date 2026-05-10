@@ -1,0 +1,54 @@
+---
+title: 'ASP.NET Core Enterprise Guide'
+date: '2026-05-10'
+description: 'A comprehensive guide to building scalable, high-performance enterprise backend systems using ASP.NET Core and Clean Architecture.'
+readingTime: '10 min read'
+---
+
+# ASP.NET Core Enterprise Guide
+
+ASP.NET Core is the modern standard for building scalable and high-performance enterprise applications. In this guide, we will explore the best practices for setting up a robust architecture that scales.
+
+## Why ASP.NET Core?
+
+Unlike older frameworks, ASP.NET Core provides built-in dependency injection, an incredibly fast Kestrel web server, and cross-platform support. It allows organizations to deploy easily via Docker and Kubernetes.
+
+## Clean Architecture in .NET
+
+The secret to a maintainable enterprise application is separating concerns. By utilizing **Clean Architecture**, you isolate your core business logic from frameworks and databases.
+
+### Layers:
+1. **Domain Layer:** Contains Enterprise-wide logic and Types.
+2. **Application Layer:** Contains Business Logic and Interfaces.
+3. **Infrastructure Layer:** Contains Database Access (Entity Framework Core) and external services.
+4. **Presentation/API Layer:** Exposes the Application layer to clients (REST/gRPC).
+
+```csharp
+// Example of a CQRS Command Handler in the Application Layer
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+{
+    private readonly IUserRepository _repository;
+    
+    public CreateUserCommandHandler(IUserRepository repository)
+    {
+        _repository = repository;
+    }
+    
+    public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    {
+        var user = new User(request.Name, request.Email);
+        await _repository.AddAsync(user);
+        return user.Id;
+    }
+}
+```
+
+## Performance Optimization
+
+To achieve sub-millisecond response times, caching is non-negotiable. 
+- Use **MemoryCache** for frequently accessed, rarely changing data.
+- Use **Redis** for distributed caching across microservices.
+
+## Conclusion
+
+ASP.NET Core is more than just a framework; it's an ecosystem designed for the enterprise. By combining it with Clean Architecture, CQRS, and proper caching, you ensure your software remains scalable for years to come.

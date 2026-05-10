@@ -38,7 +38,7 @@ export default function Portfolio() {
     <section id="portfolio" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <header className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div className="max-w-2xl">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
@@ -68,12 +68,12 @@ export default function Portfolio() {
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </motion.div>
-        </div>
+        </header>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {projects.map((project, index) => (
-            <motion.div
+            <motion.article
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -117,11 +117,11 @@ export default function Portfolio() {
                 {/* Links */}
                 <div className="flex items-center gap-4">
                   <a 
-                    href={project.link || '#'}
+                    href={`/portfolio/${project.id}`}
                     className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
                   >
-                    Projeyi İncele
-                    <ExternalLink className="w-4 h-4" />
+                    Vaka Çalışması (Case Study)
+                    <ChevronRight className="w-4 h-4" />
                   </a>
                   <a 
                     href={project.github || '#'}
@@ -132,7 +132,7 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

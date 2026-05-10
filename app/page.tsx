@@ -9,6 +9,7 @@ import Navigation from '@/components/Navigation'
 const About = dynamic(() => import('@/components/About'))
 const Process = dynamic(() => import('@/components/Process'))
 const Testimonials = dynamic(() => import('@/components/Testimonials'))
+const Authority = dynamic(() => import('@/components/Authority'))
 const Contact = dynamic(() => import('@/components/Contact'))
 const Footer = dynamic(() => import('@/components/Footer'))
 
@@ -17,10 +18,10 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://resulersurer.com/#person",
+      "@id": "https://ersurer.com/#person",
       "name": "Resul Ersürer",
       "jobTitle": "Enterprise Software Architect",
-      "url": "https://resulersurer.com",
+      "url": "https://ersurer.com",
       "sameAs": [
         "https://github.com/resulersurer",
         "https://linkedin.com/in/resulersurer"
@@ -29,10 +30,10 @@ const jsonLd = {
     },
     {
       "@type": "Organization",
-      "@id": "https://resulersurer.com/#organization",
+      "@id": "https://ersurer.com/#organization",
       "name": "Resul Ersürer Consulting",
-      "url": "https://resulersurer.com",
-      "logo": "https://resulersurer.com/images/logo2.png"
+      "url": "https://ersurer.com",
+      "logo": "https://ersurer.com/images/logo2.png"
     },
     {
       "@type": "FAQPage",
@@ -54,6 +55,15 @@ const jsonLd = {
           }
         }
       ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ersurer.com/#website",
+      "url": "https://ersurer.com",
+      "name": "Resul Ersürer | Enterprise Software Architect",
+      "publisher": {
+        "@id": "https://ersurer.com/#organization"
+      }
     }
   ]
 }
@@ -74,6 +84,7 @@ export default function Home() {
         <About />
         <Process />
         <Testimonials />
+        <Authority />
         <Contact />
       </div>
       <Footer />

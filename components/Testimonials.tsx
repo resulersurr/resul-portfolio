@@ -29,7 +29,7 @@ export default function Testimonials() {
     <section id="testimonials" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/20">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-20">
+        <header className="text-center mb-20">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -47,12 +47,12 @@ export default function Testimonials() {
           >
             Müşteri <span className="gradient-text">Deneyimleri</span>
           </motion.h3>
-        </div>
+        </header>
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <motion.article
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -89,7 +89,7 @@ export default function Testimonials() {
 
               {/* Decorative side line */}
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

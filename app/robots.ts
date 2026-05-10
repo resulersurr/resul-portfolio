@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/admin/'],
     },
-    sitemap: 'https://resulersurer.com/sitemap.xml',
+    sitemap: 'https://ersurer.com/sitemap.xml',
   }
 }
