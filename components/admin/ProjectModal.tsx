@@ -8,7 +8,7 @@ interface ProjectModalProps {
   isOpen: boolean
   onClose: () => void
   project: Project | null
-  onSubmit: (data: any) => Promise<void>
+  onSubmit: (data: FormData) => Promise<void>
 }
 
 export default function ProjectModal({
@@ -44,12 +44,16 @@ export default function ProjectModal({
             <form onSubmit={async (e) => {
               e.preventDefault()
               const formData = new FormData(e.currentTarget)
-              const data = Object.fromEntries(formData.entries())
-              await onSubmit({
-                ...data,
-                order: parseInt(data.order as string),
-                isActive: data.isActive === 'on'
-              })
+              const image = formData.get('image')
+
+              formData.set('order', String(parseInt(String(formData.get('order') || '0'), 10) || 0))
+              formData.set('isActive', formData.get('isActive') === 'on' ? 'true' : 'false')
+
+              if (project && image instanceof File && image.size === 0) {
+                formData.delete('image')
+              }
+
+              await onSubmit(formData)
             }} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -73,8 +77,17 @@ export default function ProjectModal({
                   <input name="tech" defaultValue={project?.tech} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Resim URL</label>
-                  <input name="image" defaultValue={project?.image} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none" />
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Resim</label>
+                  <input
+                    name="image"
+                    type="file"
+                    accept="image/*"
+                    required={!project}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-500 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-indigo-600 focus:ring-2 focus:ring-indigo-500/50 outline-none"
+                  />
+                  {project?.image && (
+                    <p className="text-xs text-slate-500">Mevcut resim: {project.image}</p>
+                  )}
                 </div>
               </div>
 

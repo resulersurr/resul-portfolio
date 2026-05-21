@@ -199,14 +199,19 @@ export default function AdminDashboard() {
     setIsEditModalOpen(false)
   }
 
-  const handleProjectSubmit = async (data: any) => {
+  const handleProjectSubmit = async (data: FormData) => {
     const url = selectedProject ? `/api/admin/projects/${selectedProject.id}` : '/api/admin/projects'
     const method = selectedProject ? 'PATCH' : 'POST'
-    await fetch(url, {
+    const response = await fetch(url, {
       method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: data
     })
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Proje kaydedilemedi' }))
+      throw new Error(error.error || 'Proje kaydedilemedi')
+    }
+
     fetchProjects()
     setIsEditModalOpen(false)
   }

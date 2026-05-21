@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAuthenticated } from '@/lib/auth'
+import { parseProjectRequest } from '@/lib/project-images'
 
 // PATCH /api/admin/projects/[id] - Update project
 export async function PATCH(
@@ -11,7 +12,7 @@ export async function PATCH(
   if (authError) return authError
 
   try {
-    const body = await request.json()
+    const body = await parseProjectRequest(request, false)
     const { title, category, description, tech, image, link, github, isActive, order } = body
 
     const updateData: any = {}
@@ -33,6 +34,14 @@ export async function PATCH(
     return NextResponse.json({ success: true, project })
   } catch (error) {
     console.error('Error updating project:', error)
+
+    if (error instanceof Error && (
+      error.message === 'Only JPG, PNG, WEBP and GIF images are allowed' ||
+      error.message === 'Image must be smaller than 5MB'
+    )) {
+      return NextResponse.json({ error: error.message }, { status: 400 })
+    }
+
     return NextResponse.json(
       { error: 'Failed to update project' },
       { status: 500 }
