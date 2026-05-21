@@ -57,9 +57,9 @@ export async function POST(request: NextRequest) {
     console.error('Error creating project:', error)
 
     if (error instanceof Error && (
-      error.message === 'Image is required' ||
-      error.message === 'Only JPG, PNG, WEBP and GIF images are allowed' ||
-      error.message === 'Image must be smaller than 5MB'
+      error.message === 'Resim secmeniz gerekiyor' ||
+      error.message === 'Sadece JPG, PNG, WEBP veya GIF formatinda resim yukleyebilirsiniz' ||
+      error.message === 'Resim 5MB boyutundan kucuk olmali'
     )) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }

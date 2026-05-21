@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { Project } from '@/types/admin'
@@ -17,6 +18,9 @@ export default function ProjectModal({
   project,
   onSubmit
 }: ProjectModalProps) {
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -43,6 +47,9 @@ export default function ProjectModal({
 
             <form onSubmit={async (e) => {
               e.preventDefault()
+              setError('')
+              setIsSubmitting(true)
+
               const formData = new FormData(e.currentTarget)
               const image = formData.get('image')
 
@@ -53,8 +60,20 @@ export default function ProjectModal({
                 formData.delete('image')
               }
 
-              await onSubmit(formData)
+              try {
+                await onSubmit(formData)
+              } catch (err) {
+                setError(err instanceof Error ? err.message : 'Proje kaydedilemedi')
+              } finally {
+                setIsSubmitting(false)
+              }
             }} className="space-y-6">
+              {error && (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-200">
+                  {error}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Başlık</label>
@@ -114,10 +133,10 @@ export default function ProjectModal({
               </div>
 
               <div className="flex gap-4 pt-4">
-                <button type="submit" className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-indigo-500/20">
-                  {project ? 'Güncelle' : 'Oluştur'}
+                <button type="submit" disabled={isSubmitting} className="flex-1 bg-indigo-500 hover:bg-indigo-600 disabled:cursor-not-allowed disabled:opacity-60 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-indigo-500/20">
+                  {isSubmitting ? 'Kaydediliyor...' : project ? 'Güncelle' : 'Oluştur'}
                 </button>
-                <button type="button" onClick={onClose} className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all">
+                <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 bg-white/5 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 text-white font-bold py-4 rounded-2xl transition-all">
                   Vazgeç
                 </button>
               </div>

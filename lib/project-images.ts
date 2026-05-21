@@ -1,8 +1,4 @@
-import { mkdir, writeFile } from 'fs/promises'
-import path from 'path'
-
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads', 'projects')
 
 const EXTENSIONS_BY_TYPE: Record<string, string> = {
   'image/jpeg': 'jpg',
@@ -11,36 +7,21 @@ const EXTENSIONS_BY_TYPE: Record<string, string> = {
   'image/gif': 'gif',
 }
 
-function slugifyFilename(value: string) {
-  return value
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 80) || 'project'
-}
-
 export async function saveProjectImage(file: File) {
   const extension = EXTENSIONS_BY_TYPE[file.type]
 
   if (!extension) {
-    throw new Error('Only JPG, PNG, WEBP and GIF images are allowed')
+    throw new Error('Sadece JPG, PNG, WEBP veya GIF formatinda resim yukleyebilirsiniz')
   }
 
   if (file.size > MAX_IMAGE_SIZE) {
-    throw new Error('Image must be smaller than 5MB')
+    throw new Error('Resim 5MB boyutundan kucuk olmali')
   }
 
-  await mkdir(UPLOAD_DIR, { recursive: true })
-
-  const baseName = slugifyFilename(file.name.replace(/\.[^.]+$/, ''))
-  const filename = `${baseName}-${Date.now()}.${extension}`
   const bytes = await file.arrayBuffer()
+  const base64 = Buffer.from(bytes).toString('base64')
 
-  await writeFile(path.join(UPLOAD_DIR, filename), Buffer.from(bytes))
-
-  return `/uploads/projects/${filename}`
+  return `data:${file.type};base64,${base64}`
 }
 
 export async function parseProjectRequest(request: Request, requireImage: boolean) {
@@ -63,7 +44,7 @@ export async function parseProjectRequest(request: Request, requireImage: boolea
   if (imageFile instanceof File && imageFile.size > 0) {
     data.image = await saveProjectImage(imageFile)
   } else if (requireImage) {
-    throw new Error('Image is required')
+    throw new Error('Resim secmeniz gerekiyor')
   }
 
   if (typeof data.order === 'string') {
