@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, ChevronRight } from 'lucide-react'
+import { ExternalLink, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 interface Project {
@@ -14,6 +14,16 @@ interface Project {
   link: string | null
   github: string | null
 }
+
+const PRODUCT_ORDER = [
+  'Canlı Konum Takip',
+  'TurTakip',
+  'CoreDesk',
+  'StudioFlow',
+  'Founder Website Kit',
+  'Crypto MA100 Scanner',
+  'Trend Scanner',
+]
 
 export default function Portfolio() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -34,6 +44,17 @@ export default function Portfolio() {
   useEffect(() => {
     fetchProjects()
   }, [])
+
+  const sortedProjects = [...projects].sort((a, b) => {
+    const aIndex = PRODUCT_ORDER.indexOf(a.title)
+    const bIndex = PRODUCT_ORDER.indexOf(b.title)
+
+    if (aIndex === -1 && bIndex === -1) return 0
+    if (aIndex === -1) return 1
+    if (bIndex === -1) return -1
+    return aIndex - bIndex
+  })
+
   return (
     <section id="portfolio" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
       <div className="max-w-7xl mx-auto">
@@ -46,7 +67,7 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4"
             >
-              Portfolyo
+              Dijital Ürünler
             </motion.h2>
             <motion.h3 
               initial={{ opacity: 0, x: -20 }}
@@ -55,8 +76,17 @@ export default function Portfolio() {
               transition={{ delay: 0.1 }}
               className="text-4xl sm:text-6xl font-bold text-white"
             >
-              Öne Çıkan <span className="gradient-text">Projelerim</span>
+              Hazır Kurulabilir <span className="gradient-text">Yazılım Ürünleri</span>
             </motion.h3>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-400 text-lg leading-relaxed mt-6"
+            >
+              Turizmden ajans yönetimine, işletme operasyonlarından veri analizine kadar farklı alanlarda hızlı kurulabilen web ve SaaS ürünleri.
+            </motion.p>
           </div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -64,7 +94,7 @@ export default function Portfolio() {
             viewport={{ once: true }}
           >
             <a href="#" className="group flex items-center gap-2 text-white font-semibold hover:text-indigo-400 transition-colors">
-              Tüm Projeleri Gör
+              Tüm Ürünleri Gör
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </motion.div>
@@ -72,7 +102,7 @@ export default function Portfolio() {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {projects.map((project, index) => (
+          {sortedProjects.map((project, index) => (
             <motion.article
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -120,15 +150,16 @@ export default function Portfolio() {
                     href={`/projects/${project.id}`}
                     className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
                   >
-                    Vaka Çalışması (Case Study)
+                    Ürünü İncele
                     <ChevronRight className="w-4 h-4" />
                   </a>
                   <a 
-                    href={project.github || '#'}
-                    className="p-3 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300"
-                    aria-label="GitHub"
+                    href={`/#contact?service=${encodeURIComponent(project.title)}`}
+                    className="shrink-0 flex items-center justify-center gap-2 py-3 px-4 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300 text-sm font-bold"
+                    aria-label="Demo Talep Et"
                   >
-                    <Github className="w-5 h-5" />
+                    Demo Talep Et
+                    <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>
               </div>

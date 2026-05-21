@@ -18,9 +18,9 @@ export default function Footer() {
         {/* CTA Banner */}
         <div className="mb-20 p-8 rounded-3xl glass border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-1">Projenizi Konuşalım</p>
-            <h3 className="text-2xl font-black text-white">Ücretsiz Teknik Ön Analiz Al</h3>
-            <p className="text-gray-400 mt-1 text-sm">Backend mimarinizi birlikte değerlendirelim.</p>
+            <p className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-1">Ürününüzü Konuşalım</p>
+            <h3 className="text-2xl font-black text-white">Uygun Yazılım Çözümünü Birlikte Netleştirelim</h3>
+            <p className="text-gray-400 mt-1 text-sm">SaaS MVP, web sistemi veya AI otomasyon ihtiyacınızı değerlendirelim.</p>
           </div>
           <Link
             href="/#contact"
@@ -44,7 +44,7 @@ export default function Footer() {
               </Link>
             </motion.div>
             <p className="text-gray-400 text-base leading-relaxed max-w-sm">
-              ASP.NET Core, Web API, CRM ve kurumsal backend mimarisi alanında ölçeklenebilir yazılım çözümleri. Enterprise düzeyde, performans odaklı mühendislik.
+              Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.
             </p>
             {/* Social Links — prominent */}
             <div className="space-y-3">
@@ -86,11 +86,11 @@ export default function Footer() {
             <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6">Hizmetler</h4>
             <ul className="space-y-3">
               {[
-                { name: 'ASP.NET Core Geliştirme', href: '/services/aspnet-core-development' },
-                { name: 'Web API Geliştirme', href: '/services/web-api-development' },
-                { name: 'CRM Yazılımı', href: '/services/crm-software-development' },
-                { name: 'Admin Panel', href: '/services/admin-panel-development' },
-                { name: 'Kurumsal Mimari', href: '/services/enterprise-architecture' },
+                { name: 'SaaS MVP Geliştirme', href: '/#contact?service=SaaS%20MVP%20Geli%C5%9Ftirme' },
+                { name: 'AI Otomasyon', href: '/#contact?service=AI%20Otomasyon%20Sistemi' },
+                { name: 'İşletme Web Sitesi', href: '/#contact?service=%C4%B0%C5%9Fletme%20Web%20Sitesi' },
+                { name: 'Admin Panel', href: '/#contact?service=Admin%20Panel%20%2F%20Dashboard' },
+                { name: 'Ürün Özelleştirme', href: '/#contact?service=Haz%C4%B1r%20%C3%9Cr%C3%BCn%20%C3%96zelle%C5%9Ftirme' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className="text-gray-400 hover:text-indigo-400 transition-colors duration-200 flex items-center group text-sm">
@@ -102,15 +102,15 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* İçerik & Projeler */}
-          <nav aria-label="İçerik ve Projeler">
-            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6">İçerik & Projeler</h4>
+          {/* İçerik & Ürünler */}
+          <nav aria-label="İçerik ve Ürünler">
+            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6">İçerik & Ürünler</h4>
             <ul className="space-y-3">
               {[
                 { name: 'Blog Yazıları', href: '/blog' },
-                { name: 'CRM Platform Case Study', href: '/projects/crm-platform' },
-                { name: 'Admin Panel Case Study', href: '/projects/admin-panel-system' },
-                { name: 'QR Menü Sistemi', href: '/projects/qr-menu-system' },
+                { name: 'Dijital Ürünler', href: '/#portfolio' },
+                { name: 'Canlı Konum Takip', href: '/#portfolio' },
+                { name: 'Admin Panel & Dashboard', href: '/#services' },
                 { name: 'İletişim', href: '/#contact' },
               ].map((link) => (
                 <li key={link.name}>
@@ -130,7 +130,7 @@ export default function Footer() {
             <p>© {currentYear} Resul Ersürer. Tüm hakları saklıdır.</p>
             <span className="hidden md:block w-1 h-1 bg-gray-700 rounded-full" />
             <p className="flex items-center gap-1.5">
-              Next.js & Tailwind ile <Heart className="w-3.5 h-3.5 text-red-500 fill-current" /> ile geliştirildi.
+              Next.js, Vercel & Tailwind ile <Heart className="w-3.5 h-3.5 text-red-500 fill-current" /> geliştirildi.
             </p>
           </div>
           <div className="flex items-center gap-4">

@@ -5,21 +5,21 @@ import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'Finansal Raporlama Modülü',
-    role: 'B2B E-Ticaret Altyapısı',
-    content: 'Eski sistemde 4 saat süren raporlama işlemleri, yeni asenkron mimari ve PostgreSQL optimizasyonları sayesinde 2 dakikanın altına indirildi. Kesintisiz veri akışı sağlandı.',
+    name: 'Turizm Operasyon Paneli',
+    role: 'Canlı Konum & Ekip Takibi',
+    content: 'Araç, rehber ve müşteri hareketleri tek panelde toplandı. Operasyon ekibi günlük takip sürecini daha az manuel iş ve daha hızlı koordinasyonla yönetmeye başladı.',
     image: '/images/logo2.png',
   },
   {
-    name: 'Sipariş Otomasyonu (CRM)',
-    role: 'Lojistik & Dağıtım Ağı',
-    content: 'Manuel sipariş giriş süreçleri tamamen otomatikleştirildi. API entegrasyonları sayesinde insan hatası payı sıfıra indirilerek günlük operasyonel hız %40 artırıldı.',
+    name: 'Ajans Yönetim Sistemi',
+    role: 'SaaS Dashboard Altyapısı',
+    content: 'Müşteri, proje, görev ve raporlama süreçleri tek dashboard altında birleşti. Hazır Next.js altyapısı sayesinde ürün haftalar içinde kullanılabilir hale geldi.',
     image: '/images/logo2.png',
   },
   {
-    name: 'Yüksek Trafikli API Gateway',
-    role: 'Mobil Uygulama Backend',
-    content: 'Anlık 10.000+ kullanıcılı sistemin darboğazları Redis cache stratejileri ve yatay ölçekleme (horizontal scaling) ile çözüldü. %99.99 uptime hedefine ulaşıldı.',
+    name: 'AI Raporlama Otomasyonu',
+    role: 'Tekrarlayan İş Süreçleri',
+    content: 'Manuel veri kontrolü ve raporlama adımları AI destekli otomasyonlarla hızlandı. Ekip, tekrar eden işlerden stratejik kararlara daha fazla zaman ayırabildi.',
     image: '/images/logo2.png',
   },
 ]
@@ -28,32 +28,30 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/20">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <header className="text-center mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4"
           >
-            Proje Çıktıları
+            Ürün Çıktıları
           </motion.h2>
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl font-bold text-white mb-6"
           >
-            Kanıtlanmış <span className="gradient-text">Teknik Başarılar</span>
+            Hazır Sistemlerle <span className="gradient-text">Hızlı Sonuçlar</span>
           </motion.h3>
         </header>
 
-        {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {testimonials.map((testimonial, index) => (
             <motion.article
-              key={index}
+              key={testimonial.name}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -61,12 +59,10 @@ export default function Testimonials() {
               whileHover={{ y: -10 }}
               className="p-8 rounded-[2rem] glass border border-white/5 flex flex-col relative group overflow-hidden"
             >
-              {/* Floating Quote Icon */}
               <div className="absolute top-6 right-8 text-white/5 group-hover:text-indigo-500/20 transition-colors duration-500">
                 <Quote size={80} />
               </div>
 
-              {/* Stars */}
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={14} className="fill-indigo-400 text-indigo-400" />
@@ -87,7 +83,6 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              {/* Decorative side line */}
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.article>
           ))}

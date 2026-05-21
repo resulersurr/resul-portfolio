@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
@@ -10,11 +10,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ersurer.com'),
   title: {
-    default: 'Resul Ersürer | Enterprise Software Architect & Backend Specialist',
-    template: '%s | Resul Ersürer'
+    default: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
+    template: '%s | Resul Ersürer',
   },
-  description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri, Web API ve otomasyon çözümleri. ASP.NET Core & Enterprise Architecture uzmanlığı.',
-  keywords: ['Backend Architect', 'ASP.NET Core', 'Enterprise Software', 'Web API', 'System Design', 'C#', 'Microservices', 'Software Architecture', 'Node.js'],
+  description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
+  keywords: ['Next.js', 'Vercel', 'SaaS MVP', 'AI otomasyon', 'web sitesi', 'admin panel', 'dijital ürünler', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
   authors: [{ name: 'Resul Ersürer', url: 'https://www.ersurer.com' }],
   creator: 'Resul Ersürer',
   alternates: {
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     icon: '/images/logo2.png',
   },
   openGraph: {
-    title: 'Resul Ersürer | Enterprise Software Architect',
-    description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri ve mimari çözümler.',
+    title: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
+    description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
     url: 'https://www.ersurer.com',
-    siteName: 'Resul Ersürer Portfolio',
+    siteName: 'Resul Ersürer',
     type: 'website',
     locale: 'tr_TR',
     images: [
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
         url: '/images/logo2.png',
         width: 1200,
         height: 630,
-        alt: 'Resul Ersürer - Enterprise Software Architect',
+        alt: 'Resul Ersürer - Next.js SaaS Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Resul Ersürer | Enterprise Software Architect',
-    description: 'Kurumsal düzeyde ölçeklenebilir backend sistemleri ve mimari çözümler.',
+    title: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
+    description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
     images: ['/images/logo2.png'],
   },
   robots: {

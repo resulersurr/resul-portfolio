@@ -1,8 +1,41 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Bot, Code2, Globe, LayoutDashboard, RefreshCcw, Rocket, Settings } from 'lucide-react'
+
+const SERVICE_ITEMS = [
+  {
+    title: 'SaaS MVP Geliştirme',
+    icon: Rocket,
+    description: 'Next.js ve Vercel ile fikrinizi hızlıca çalışan, yayına hazır bir SaaS MVP’ye dönüştürüyorum.',
+  },
+  {
+    title: 'AI Otomasyon Sistemleri',
+    icon: Bot,
+    description: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla hızlandırıp daha verimli hale getiriyorum.',
+  },
+  {
+    title: 'İşletme Web Sitesi',
+    icon: Globe,
+    description: 'İşletmeniz için modern, hızlı, mobil uyumlu ve dönüşüm odaklı web sitesi hazırlıyorum.',
+  },
+  {
+    title: 'Admin Panel & Dashboard',
+    icon: LayoutDashboard,
+    description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
+  },
+  {
+    title: 'Ürün Özelleştirme & Kurulum',
+    icon: Settings,
+    description: 'Hazır dijital ürünlerimi işletmenizin süreçlerine göre özelleştirip yayına alıyorum.',
+  },
+  {
+    title: 'Mevcut Siteyi Modernleştirme',
+    icon: RefreshCcw,
+    description: 'Eski veya yavaş web sitenizi modern tasarım, hızlı altyapı ve SEO uyumuyla yeniliyorum.',
+  },
+]
 
 const ICON_MAP: Record<string, any> = {
   Rocket,
@@ -12,33 +45,6 @@ const ICON_MAP: Record<string, any> = {
   RefreshCcw,
   Settings,
   Code2,
-}
-
-const SERVICE_CONTENT: Record<string, { icon: any; description: string }> = {
-  'SaaS MVP Geliştirme': {
-    icon: Rocket,
-    description: 'Next.js ve Vercel ile fikrinizi hızlıca çalışan, yayına hazır bir SaaS MVP’ye dönüştürüyorum.',
-  },
-  'AI Otomasyon Sistemleri': {
-    icon: Bot,
-    description: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla hızlandırıp daha verimli hale getiriyorum.',
-  },
-  'İşletme Web Sitesi': {
-    icon: Globe,
-    description: 'İşletmeniz için modern, hızlı, mobil uyumlu ve dönüşüm odaklı web sitesi hazırlıyorum.',
-  },
-  'Admin Panel & Dashboard': {
-    icon: LayoutDashboard,
-    description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
-  },
-  'Mevcut Siteyi Modernleştirme': {
-    icon: RefreshCcw,
-    description: 'Eski veya yavaş web sitenizi modern tasarım, hızlı altyapı ve SEO uyumuyla yeniliyorum.',
-  },
-  'Ürün Özelleştirme & Kurulum': {
-    icon: Settings,
-    description: 'Hazır dijital ürünlerimi işletmenizin süreçlerine göre özelleştirip yayına alıyorum.',
-  },
 }
 
 interface Service {
@@ -71,11 +77,24 @@ export default function Services() {
     fetchServices()
   }, [])
 
-  const requestQuote = (serviceTitle: string) => {
-    const params = new URLSearchParams(window.location.search)
-    params.set('service', serviceTitle)
+  const displayServices = useMemo(() => {
+    return SERVICE_ITEMS.map((item, index) => {
+      const existing = services.find((service) => service.title === item.title) || services[index]
 
-    window.history.pushState(null, '', `/?${params.toString()}#contact`)
+      return {
+        ...item,
+        id: existing?.id || item.title,
+        price: existing?.price ?? 0,
+        priceUnit: existing?.priceUnit || 'USDT',
+        color: existing?.color || 'from-indigo-500 to-cyan-500',
+        iconName: existing?.icon,
+      }
+    })
+  }, [services])
+
+  const requestQuote = (serviceTitle: string) => {
+    const encodedService = encodeURIComponent(serviceTitle)
+    window.history.pushState(null, '', `/#contact?service=${encodedService}`)
     window.dispatchEvent(new CustomEvent('service-selected', { detail: serviceTitle }))
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -101,7 +120,7 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-6xl font-bold text-white mb-6"
           >
-            Dijital ürünler için <span className="gradient-text">premium geliştirme</span>
+            SaaS, web sistemleri ve <span className="gradient-text">AI otomasyon</span>
           </motion.h3>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -110,7 +129,7 @@ export default function Services() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
           >
-            Hazır ürün altyapıları, SaaS MVP geliştirme ve AI destekli otomasyonlarla işletmenizi dijitalde daha hızlı büyütün.
+            SaaS MVP geliştirme, işletme web siteleri, admin paneller ve AI destekli otomasyonlarla dijital süreçlerinizi hızlandırıyorum.
           </motion.p>
         </header>
 
@@ -122,9 +141,8 @@ export default function Services() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => {
-              const content = SERVICE_CONTENT[service.title]
-              const Icon = content?.icon || ICON_MAP[service.icon] || Code2
+            {displayServices.map((service, index) => {
+              const Icon = service.icon || ICON_MAP[service.iconName || ''] || Code2
 
               return (
                 <motion.article
@@ -149,7 +167,7 @@ export default function Services() {
                   </h4>
 
                   <p className="text-gray-400 leading-relaxed text-sm flex-grow">
-                    {content?.description || service.description}
+                    {service.description}
                   </p>
 
                   <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">

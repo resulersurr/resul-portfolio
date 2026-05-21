@@ -6,24 +6,44 @@ import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2, AlertCircle 
 
 const PROJECT_TYPES = [
   'SaaS MVP Geliştirme',
-  'AI Otomasyon Sistemleri',
+  'AI Otomasyon Sistemi',
   'İşletme Web Sitesi',
-  'Admin Panel & Dashboard',
+  'Admin Panel / Dashboard',
+  'Hazır Ürün Özelleştirme',
   'Mevcut Siteyi Modernleştirme',
-  'Ürün Özelleştirme & Kurulum',
-  'Backend Geliştirme (ASP.NET Core)',
-  'Web API / gRPC Entegrasyonu',
-  'Özel CRM / ERP Yazılımı',
-  'Kurumsal Mimari Danışmanlık',
   'Diğer',
 ]
+
+const BUDGET_OPTIONS = [
+  'Belirsiz / Görüşülecek',
+  '500 - 1.000 USDT',
+  '1.000 - 2.500 USDT',
+  '2.500 USDT ve üzeri',
+]
+
+const TIMELINE_OPTIONS = [
+  'Acil (1 Aydan Kısa)',
+  '1-3 Ay',
+  '3-6 Ay',
+  'Esnek',
+]
+
+const SERVICE_TYPE_ALIASES: Record<string, string> = {
+  'AI Otomasyon Sistemleri': 'AI Otomasyon Sistemi',
+  'Admin Panel & Dashboard': 'Admin Panel / Dashboard',
+  'Ürün Özelleştirme & Kurulum': 'Hazır Ürün Özelleştirme',
+}
+
+function normalizeProjectType(value: string) {
+  return SERVICE_TYPE_ALIASES[value] || value
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     projectType: PROJECT_TYPES[0],
-    budget: '50.000 TL - 100.000 TL',
+    budget: BUDGET_OPTIONS[0],
     timeline: '1-3 Ay',
     message: '',
   })
@@ -31,11 +51,12 @@ export default function Contact() {
 
   useEffect(() => {
     const selectServiceFromUrl = () => {
-      const params = new URLSearchParams(window.location.search)
+      const hashQuery = window.location.hash.split('?')[1]
+      const params = new URLSearchParams(hashQuery || window.location.search)
       const selectedService = params.get('service')
 
       if (selectedService) {
-        setFormData((prev) => ({ ...prev, projectType: selectedService }))
+        setFormData((prev) => ({ ...prev, projectType: normalizeProjectType(selectedService) }))
       }
     }
 
@@ -43,15 +64,17 @@ export default function Contact() {
       const selectedService = (event as CustomEvent<string>).detail
 
       if (selectedService) {
-        setFormData((prev) => ({ ...prev, projectType: selectedService }))
+        setFormData((prev) => ({ ...prev, projectType: normalizeProjectType(selectedService) }))
       }
     }
 
     selectServiceFromUrl()
+    window.addEventListener('hashchange', selectServiceFromUrl)
     window.addEventListener('popstate', selectServiceFromUrl)
     window.addEventListener('service-selected', handleServiceSelected)
 
     return () => {
+      window.removeEventListener('hashchange', selectServiceFromUrl)
       window.removeEventListener('popstate', selectServiceFromUrl)
       window.removeEventListener('service-selected', handleServiceSelected)
     }
@@ -59,8 +82,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Basic local validation check
+
     if (!formData.name || !formData.email || !formData.message) {
       setStatus('error')
       setTimeout(() => setStatus('idle'), 3000)
@@ -76,7 +98,7 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.projectType, // Keeping subject for backward compatibility with API
+          subject: formData.projectType,
           projectType: formData.projectType,
           budget: formData.budget,
           timeline: formData.timeline,
@@ -90,9 +112,7 @@ export default function Contact() {
       }
 
       setStatus('success')
-      setFormData({ name: '', email: '', projectType: PROJECT_TYPES[0], budget: '50.000 TL - 100.000 TL', timeline: '1-3 Ay', message: '' })
-      
-      // Reset success state after 5 seconds
+      setFormData({ name: '', email: '', projectType: PROJECT_TYPES[0], budget: BUDGET_OPTIONS[0], timeline: '1-3 Ay', message: '' })
       setTimeout(() => setStatus('idle'), 5000)
     } catch (error) {
       console.error('Gönderim hatası:', error)
@@ -103,13 +123,10 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] -z-10" />
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          
-          {/* Left Side: Text & Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -118,20 +135,20 @@ export default function Contact() {
           >
             <h2 className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">İletişim</h2>
             <h3 className="text-5xl sm:text-7xl font-black text-white mb-8 leading-tight">
-              Birlikte <span className="gradient-text">Geliştirelim</span>
+              İşletmeniz İçin Uygun <span className="gradient-text">Yazılım Çözümünü</span> Birlikte Belirleyelim
             </h3>
             <p className="text-gray-400 text-lg leading-relaxed mb-12 max-w-md">
-              Yeni bir proje fikriniz mi var veya mevcut sisteminizi ölçeklendirmek mi istiyorsunuz? Hemen iletişime geçin, teknik stratejinizi birlikte kurgulayalım.
+              Hazır ürünler, SaaS MVP geliştirme, işletme web siteleri veya AI otomasyon ihtiyaçlarınız için benimle iletişime geçin. İhtiyacınıza en uygun çözümü birlikte netleştirelim.
             </p>
 
             <div className="space-y-6">
               {[
                 { icon: Mail, label: 'Email', value: 'resul.ersurer@icloud.com', href: 'mailto:resul.ersurer@icloud.com' },
                 { icon: MessageSquare, label: 'WhatsApp', value: '+90 538 778 17 98', href: 'https://wa.me/905387781798' },
-                { icon: Calendar, label: 'Toplantı Planla', value: 'Calendly Üzerinden', href: '#' },
+                { icon: Calendar, label: 'Toplantı Planla', value: 'Kısa keşif görüşmesi', href: '#contact' },
               ].map((item, i) => (
-                <motion.a 
-                  key={i} 
+                <motion.a
+                  key={i}
                   href={item.href}
                   whileHover={{ x: 10, backgroundColor: 'rgba(99, 102, 241, 0.05)' }}
                   className="flex items-center gap-6 p-4 rounded-2xl glass border border-white/5 transition-all duration-300 group w-fit pr-10"
@@ -148,7 +165,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right Side: Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -157,15 +173,14 @@ export default function Contact() {
             className="p-1 pr-1 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-cyan-500/20 rounded-[3rem]"
           >
             <div className="p-10 rounded-[2.9rem] bg-slate-950/90 backdrop-blur-3xl relative overflow-hidden">
-              {/* Form Title */}
               <h4 className="text-2xl font-bold text-white mb-8">Hızlı Mesaj Gönder</h4>
-              
+
               <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Ad Soyad</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -175,8 +190,8 @@ export default function Contact() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">E-Posta</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -189,7 +204,7 @@ export default function Contact() {
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Proje Türü</label>
                   <div className="relative">
-                    <select 
+                    <select
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
@@ -210,30 +225,32 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Bütçe Aralığı</label>
                     <div className="relative">
-                      <select 
+                      <select
                         value={formData.budget}
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
                       >
-                        <option className="bg-slate-900">Belirsiz / Görüşülecek</option>
-                        <option className="bg-slate-900">50.000 TL - 100.000 TL</option>
-                        <option className="bg-slate-900">100.000 TL - 250.000 TL</option>
-                        <option className="bg-slate-900">250.000 TL ve üzeri</option>
+                        {BUDGET_OPTIONS.map((budget) => (
+                          <option key={budget} className="bg-slate-900" value={budget}>
+                            {budget}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Teslim Hedefi</label>
                     <div className="relative">
-                      <select 
+                      <select
                         value={formData.timeline}
                         onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
                       >
-                        <option className="bg-slate-900">Acil (1 Aydan Kısa)</option>
-                        <option className="bg-slate-900">1-3 Ay</option>
-                        <option className="bg-slate-900">3-6 Ay</option>
-                        <option className="bg-slate-900">Esnek</option>
+                        {TIMELINE_OPTIONS.map((timeline) => (
+                          <option key={timeline} className="bg-slate-900" value={timeline}>
+                            {timeline}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -241,12 +258,12 @@ export default function Contact() {
 
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Mesajınız</label>
-                  <textarea 
-                    rows={4} 
+                  <textarea
+                    rows={4}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Projenizden bahsedin..."
+                    placeholder="İşletmeniz, ürün fikriniz veya otomasyon ihtiyacınızdan bahsedin..."
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300 resize-none hover:bg-white/10"
                   />
                 </div>
@@ -257,8 +274,8 @@ export default function Contact() {
                   whileHover={{ scale: (status === 'loading' || status === 'success') ? 1 : 1.02 }}
                   whileTap={{ scale: (status === 'loading' || status === 'success') ? 1 : 0.98 }}
                   className={`w-full py-5 rounded-2xl font-bold text-white shadow-xl flex items-center justify-center gap-3 transition-all duration-500 ${
-                    status === 'success' 
-                      ? 'bg-emerald-500 shadow-emerald-500/20' 
+                    status === 'success'
+                      ? 'bg-emerald-500 shadow-emerald-500/20'
                       : status === 'error'
                       ? 'bg-red-500 shadow-red-500/20'
                       : 'gradient-bg shadow-indigo-500/20'
@@ -286,10 +303,10 @@ export default function Contact() {
                     </>
                   )}
                 </motion.button>
-                
+
                 <AnimatePresence>
                   {status === 'error' && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
@@ -299,7 +316,7 @@ export default function Contact() {
                     </motion.p>
                   )}
                   {status === 'success' && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
@@ -311,7 +328,6 @@ export default function Contact() {
                 </AnimatePresence>
               </form>
 
-              {/* Decorative dots */}
               <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
             </div>
           </motion.div>

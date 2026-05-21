@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Briefcase, Zap, Shield, Rocket } from 'lucide-react'
+import { ArrowRight, Bot, Boxes, Rocket, Sparkles } from 'lucide-react'
 
 export default function Hero() {
   return (
@@ -26,7 +26,7 @@ export default function Hero() {
           >
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2" />
             <span className="text-xs sm:text-sm font-medium text-gray-300 tracking-wide uppercase">
-              Yeni Projeler İçin Müsait
+              Yeni ürün ve otomasyon projeleri için müsait
             </span>
           </motion.div>
 
@@ -38,8 +38,8 @@ export default function Hero() {
               transition={{ delay: 0.4 }}
               className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight"
             >
-              <span className="block text-white">Geleceği</span>
-              <span className="gradient-text">Kodla İnşa Edin</span>
+              <span className="block text-white">Hazır SaaS MVP’leri ve AI Otomasyonlarla</span>
+              <span className="gradient-text">İşletmenizi Dijitalleştirin</span>
             </motion.h1>
             
             <motion.p 
@@ -48,9 +48,7 @@ export default function Hero() {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light"
             >
-              Kurumsal düzeyde <span className="text-white font-medium">Scalable Backend</span> sistemleri, 
-              yüksek performanslı <span className="text-white font-medium">Web API</span>'lar ve 
-              akıllı <span className="text-white font-medium">Otomasyon</span> çözümleri geliştiriyorum.
+              Next.js, Vercel ve modern web teknolojileriyle geliştirdiğim hazır ürün altyapılarını işletmenizin ihtiyacına göre özelleştirip hızlıca yayına alıyorum.
             </motion.p>
           </header>
 
@@ -62,22 +60,22 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
             <motion.a
-              href="#contact"
+              href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group relative inline-flex items-center px-10 py-5 gradient-bg text-white font-bold rounded-2xl shadow-2xl shadow-indigo-500/40 transition-all duration-300"
             >
-              Projenizi Başlatın
+              Ürünleri İncele
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </motion.a>
             
             <motion.a
-              href="#portfolio"
+              href="#contact"
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center px-10 py-5 glass text-white font-bold rounded-2xl border border-white/10 transition-all duration-300"
             >
-              Çalışmalarımı İnceleyin
+              Teklif Al
             </motion.a>
           </motion.div>
 
@@ -89,10 +87,10 @@ export default function Hero() {
             className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-20 max-w-4xl mx-auto"
           >
             {[
-              { icon: Zap, label: 'Hızlı Teslimat', desc: 'Optimize edilmiş süreçler' },
-              { icon: Shield, label: 'Güvenli Mimari', desc: 'Enterprise standartlar' },
-              { icon: Rocket, label: 'Ölçeklenebilir', desc: 'Büyümeye hazır altyapı' },
-              { icon: Briefcase, label: 'Profesyonel', desc: 'Uçtan uca destek' }
+              { icon: Sparkles, label: 'Next.js & Vercel', desc: 'Modern web altyapısı' },
+              { icon: Rocket, label: 'SaaS MVP', desc: 'Hızlı yayına çıkış' },
+              { icon: Bot, label: 'AI Otomasyon', desc: 'Verimli iş akışları' },
+              { icon: Boxes, label: 'Hazır Dijital Ürünler', desc: 'Kurulabilir sistemler' }
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center space-y-2 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-300">
                 <item.icon className="w-6 h-6 text-indigo-400" />

@@ -1,25 +1,37 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Code2, Database, Globe, Zap, Cpu, Server, Layers, Workflow } from 'lucide-react'
+import { Bot, Code2, Cpu, Database, Globe, Layers, Rocket, Server, Workflow, Zap } from 'lucide-react'
 
 const skills = [
-  { icon: Code2, name: 'ASP.NET Core', level: 95, color: 'from-blue-400 to-indigo-500' },
-  { icon: Database, name: 'Web API & Microservices', level: 90, color: 'from-purple-400 to-pink-500' },
-  { icon: Server, name: 'SQL Server & PostgreSQL', level: 92, color: 'from-cyan-400 to-blue-500' },
-  { icon: Workflow, name: 'CRM & Otomasyon', level: 88, color: 'from-emerald-400 to-teal-500' },
+  { name: 'Next.js', level: 95, color: 'from-cyan-400 to-blue-500' },
+  { name: 'TypeScript', level: 90, color: 'from-blue-400 to-indigo-500' },
+  { name: 'Tailwind CSS', level: 90, color: 'from-sky-400 to-cyan-500' },
+  { name: 'Vercel', level: 90, color: 'from-white to-slate-400' },
+  { name: 'Prisma/PostgreSQL', level: 85, color: 'from-emerald-400 to-teal-500' },
+  { name: 'AI Automation', level: 85, color: 'from-purple-400 to-pink-500' },
+  { name: 'API Integrations', level: 85, color: 'from-amber-300 to-orange-500' },
+  { name: 'ASP.NET Core', level: 70, color: 'from-slate-400 to-indigo-400' },
+]
+
+const techStack = [
+  { icon: Code2, name: 'Next.js' },
+  { icon: Rocket, name: 'Vercel' },
+  { icon: Code2, name: 'TypeScript' },
+  { icon: Globe, name: 'Tailwind CSS' },
+  { icon: Database, name: 'Prisma' },
+  { icon: Server, name: 'PostgreSQL' },
+  { icon: Bot, name: 'AI Automation' },
+  { icon: Workflow, name: 'API Integrations' },
 ]
 
 export default function About() {
   return (
     <section id="about" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute top-1/2 left-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-[100px]" />
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-          
-          {/* Left Side: About Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -29,31 +41,30 @@ export default function About() {
             <h2 className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">Hakkımda</h2>
             <h3 className="text-4xl sm:text-5xl font-black text-white mb-8 leading-tight">
               Sadece Kod Yazmıyorum, <br />
-              <span className="gradient-text">Değer Üretiyorum</span>
+              <span className="gradient-text">Ürünleştirilebilir Sistemler Kuruyorum</span>
             </h3>
-            
+
             <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
               <p>
-                Modern teknolojileri kullanarak ölçeklenebilir backend sistemleri, kurumsal admin panelleri ve iş otomasyon araçları oluşturma konusunda uzmanlaşmış bir <span className="text-white font-semibold">Backend Mimarıyım.</span>
+                Next.js, Vercel, modern web teknolojileri ve AI otomasyon araçlarıyla işletmeler için hızlı kurulabilen SaaS MVP’leri, admin paneller, web sistemleri ve dijital ürün altyapıları geliştiriyorum.
               </p>
               <p>
-                İş gereksinimlerini derinlemesine anlayarak, bunları büyümeyi ve verimliliği artıran teknik çözümlere dönüştürüyorum. Temiz kod prensipleri ve modern mimari yaklaşımlarla, işletmenizin gelecekteki ihtiyaçlarına da yanıt verecek sistemler kuruyorum.
+                Amacım, işletmelerin aylar süren yazılım süreçlerine girmeden daha hızlı yayına çıkmasını sağlamak. Hazır ürün altyapılarımı müşterinin sektörüne, iş akışına ve marka yapısına göre özelleştiriyorum.
               </p>
-              
+
               <div className="grid grid-cols-2 gap-6 pt-6">
                 <div className="p-6 rounded-2xl glass border border-white/5">
                   <div className="text-3xl font-black text-white mb-1">5+</div>
-                  <div className="text-xs text-gray-500 uppercase tracking-widest font-bold">Yıllık Deneyim</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-widest font-bold">Yıllık Ürün Deneyimi</div>
                 </div>
                 <div className="p-6 rounded-2xl glass border border-white/5">
                   <div className="text-3xl font-black text-white mb-1">50+</div>
-                  <div className="text-xs text-gray-500 uppercase tracking-widest font-bold">Başarılı Proje</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-widest font-bold">Kurulabilir Sistem</div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Side: Skills \u0026 "Currently Building" */}
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -66,9 +77,17 @@ export default function About() {
                 <Cpu className="w-5 h-5 text-indigo-400" />
                 Teknoloji Yığınım
               </h4>
-              <div className="space-y-8">
+              <div className="grid grid-cols-2 gap-3 mb-10">
+                {techStack.map((tech) => (
+                  <div key={tech.name} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3">
+                    <tech.icon className="w-4 h-4 text-indigo-300" />
+                    <span className="text-sm font-bold text-gray-300">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-6">
                 {skills.map((skill, index) => (
-                  <div key={index} className="space-y-3">
+                  <div key={skill.name} className="space-y-3">
                     <div className="flex justify-between items-end">
                       <span className="text-gray-300 font-bold text-sm tracking-wide">{skill.name}</span>
                       <span className="text-indigo-400 font-black text-xs">{skill.level}%</span>
@@ -87,7 +106,6 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* Currently Building Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -102,23 +120,21 @@ export default function About() {
                   Şu An Ne Geliştiriyorum?
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-4">
-                  Multi-Tenant AI SaaS Altyapısı
+                  Hazır Next.js SaaS Ürün Altyapıları
                 </h4>
                 <p className="text-white/70 text-sm leading-relaxed mb-6">
-                  Ölçeklenebilir, yapay zeka destekli ve mikroservis mimarisine sahip yeni nesil bir SaaS framework üzerinde çalışıyorum.
+                  Turizm, ajans yönetimi, işletme operasyonları ve veri analizine uyarlanabilen, Vercel üzerinde hızlı yayına alınan ürün sistemleri geliştiriyorum.
                 </p>
                 <div className="flex items-center gap-4 text-xs font-bold text-white">
                   <span className="flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]" />
                     Aktif Geliştirme
                   </span>
-                  <span className="px-3 py-1 rounded-lg bg-white/10">v0.8.4</span>
+                  <span className="px-3 py-1 rounded-lg bg-white/10">Next.js + AI</span>
                 </div>
               </div>
-              
-              {/* Decorative graphic */}
               <div className="absolute -right-8 -bottom-8 opacity-20 transform rotate-12 group-hover:rotate-0 transition-transform duration-700">
-                <Workflow size={120} className="text-white" />
+                <Zap size={120} className="text-white" />
               </div>
             </motion.div>
           </div>

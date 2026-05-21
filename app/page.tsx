@@ -20,18 +20,18 @@ const jsonLd = {
       "@type": "Person",
       "@id": "https://ersurer.com/#person",
       "name": "Resul Ersürer",
-      "jobTitle": "Enterprise Software Architect",
+      "jobTitle": "SaaS Product Developer & AI Automation Specialist",
       "url": "https://ersurer.com",
       "sameAs": [
         "https://github.com/resulersurer",
         "https://linkedin.com/in/resulersurer"
       ],
-      "knowsAbout": ["ASP.NET Core", "Backend Architecture", "Microservices", "System Design", "Node.js", "Next.js"]
+      "knowsAbout": ["Next.js", "Vercel", "TypeScript", "Tailwind CSS", "SaaS MVP", "AI Automation", "API Integrations", "Prisma", "PostgreSQL"]
     },
     {
       "@type": "Organization",
       "@id": "https://ersurer.com/#organization",
-      "name": "Resul Ersürer Consulting",
+      "name": "Resul Ersürer Product Studio",
       "url": "https://ersurer.com",
       "logo": "https://ersurer.com/images/logo2.png"
     },
@@ -40,18 +40,18 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Hangi teknolojilerle backend geliştiriyorsunuz?",
+          "name": "Hangi teknolojilerle SaaS MVP ve web sistemleri geliştiriyorsunuz?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Temel olarak ASP.NET Core, C#, Node.js ve mikroservis mimarileri üzerine uzmanlığım bulunmaktadır. Veritabanı olarak PostgreSQL, SQL Server ve Redis gibi teknolojileri kullanıyorum."
+            "text": "Next.js, Vercel, TypeScript, Tailwind CSS, Prisma, PostgreSQL ve AI otomasyon araçlarıyla hızlı kurulabilen SaaS MVP, web sistemi ve admin panel altyapıları geliştiriyorum."
           }
         },
         {
           "@type": "Question",
-          "name": "Kurumsal mimari çözümleri sunuyor musunuz?",
+          "name": "Hazır dijital ürünleri işletmeye göre özelleştiriyor musunuz?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Evet, ölçeklenebilir, yüksek performanslı ve güvenli kurumsal seviye yazılım mimarileri tasarlayıp geliştiriyorum."
+            "text": "Evet, hazır SaaS ve web ürün altyapılarını işletmenin sektörüne, marka yapısına, veri akışına ve entegrasyon ihtiyaçlarına göre özelleştirip yayına alıyorum."
           }
         }
       ]
@@ -60,7 +60,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://ersurer.com/#website",
       "url": "https://ersurer.com",
-      "name": "Resul Ersürer | Enterprise Software Architect",
+      "name": "Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri",
       "publisher": {
         "@id": "https://ersurer.com/#organization"
       }
