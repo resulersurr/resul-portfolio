@@ -1,19 +1,61 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
+
+const PROJECT_TYPES = [
+  'SaaS MVP Geliştirme',
+  'AI Otomasyon Sistemleri',
+  'İşletme Web Sitesi',
+  'Admin Panel & Dashboard',
+  'Mevcut Siteyi Modernleştirme',
+  'Ürün Özelleştirme & Kurulum',
+  'Backend Geliştirme (ASP.NET Core)',
+  'Web API / gRPC Entegrasyonu',
+  'Özel CRM / ERP Yazılımı',
+  'Kurumsal Mimari Danışmanlık',
+  'Diğer',
+]
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    projectType: 'Backend Geliştirme',
+    projectType: PROJECT_TYPES[0],
     budget: '50.000 TL - 100.000 TL',
     timeline: '1-3 Ay',
     message: '',
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  useEffect(() => {
+    const selectServiceFromUrl = () => {
+      const params = new URLSearchParams(window.location.search)
+      const selectedService = params.get('service')
+
+      if (selectedService) {
+        setFormData((prev) => ({ ...prev, projectType: selectedService }))
+      }
+    }
+
+    const handleServiceSelected = (event: Event) => {
+      const selectedService = (event as CustomEvent<string>).detail
+
+      if (selectedService) {
+        setFormData((prev) => ({ ...prev, projectType: selectedService }))
+      }
+    }
+
+    selectServiceFromUrl()
+    window.addEventListener('popstate', selectServiceFromUrl)
+    window.addEventListener('service-selected', handleServiceSelected)
+
+    return () => {
+      window.removeEventListener('popstate', selectServiceFromUrl)
+      window.removeEventListener('service-selected', handleServiceSelected)
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,7 +90,7 @@ export default function Contact() {
       }
 
       setStatus('success')
-      setFormData({ name: '', email: '', projectType: 'Backend Geliştirme', budget: '50.000 TL - 100.000 TL', timeline: '1-3 Ay', message: '' })
+      setFormData({ name: '', email: '', projectType: PROJECT_TYPES[0], budget: '50.000 TL - 100.000 TL', timeline: '1-3 Ay', message: '' })
       
       // Reset success state after 5 seconds
       setTimeout(() => setStatus('idle'), 5000)
@@ -152,11 +194,11 @@ export default function Contact() {
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500 transition-all duration-300 appearance-none hover:bg-white/10"
                     >
-                      <option className="bg-slate-900">Backend Geliştirme (ASP.NET Core)</option>
-                      <option className="bg-slate-900">Web API / gRPC Entegrasyonu</option>
-                      <option className="bg-slate-900">Özel CRM / ERP Yazılımı</option>
-                      <option className="bg-slate-900">Kurumsal Mimari Danışmanlık</option>
-                      <option className="bg-slate-900">Diğer</option>
+                      {PROJECT_TYPES.map((projectType) => (
+                        <option key={projectType} className="bg-slate-900" value={projectType}>
+                          {projectType}
+                        </option>
+                      ))}
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                       <Send className="w-4 h-4 rotate-90" />
