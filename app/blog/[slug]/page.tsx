@@ -125,7 +125,7 @@ export default function BlogPost({ params }: Props) {
       <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <Link href="/blog" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-12 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-          Blog'a Dön
+          Blog&apos;a Dön
         </Link>
         
         <header className="mb-12 border-b border-white/10 pb-12">

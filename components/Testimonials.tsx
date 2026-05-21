@@ -70,7 +70,7 @@ export default function Testimonials() {
               </div>
 
               <p className="text-gray-300 leading-relaxed italic mb-8 flex-grow relative z-10">
-                "{testimonial.content}"
+                &ldquo;{testimonial.content}&rdquo;
               </p>
 
               <div className="flex items-center gap-4 relative z-10">
