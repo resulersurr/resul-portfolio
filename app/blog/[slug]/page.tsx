@@ -78,7 +78,7 @@ export default function BlogPost({ params }: Props) {
         "datePublished": blog.date,
         "publisher": {
           "@type": "Organization",
-          "name": "Resul Ersürer Consulting",
+          "name": "Resul Ersürer Product Studio",
           "logo": "https://ersurer.com/images/logo2.png"
         },
         "mainEntityOfPage": {
@@ -158,12 +158,12 @@ export default function BlogPost({ params }: Props) {
         
         {/* Smart Internal Linking CTA */}
         <aside className="mt-20 p-8 rounded-3xl mesh-gradient relative overflow-hidden border border-white/10 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Mimarimizi İnceleyin</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">Ürününüzü Hızlıca Yayına Alalım</h3>
           <p className="text-gray-300 mb-6 max-w-md mx-auto">
-            Bu makalede bahsettiğimiz teknolojileri kullanarak geliştirdiğimiz Enterprise mimari çözümlerine göz atın.
+            Hazır Next.js, Vercel ve AI otomasyon altyapılarıyla işletmenize uygun SaaS MVP, admin panel veya web sistemi kuralım.
           </p>
-          <Link href="/services/enterprise-architecture" className="inline-flex px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
-            Danışmanlık Hizmetleri
+          <Link href="/#contact" className="inline-flex px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
+            Projemi Birlikte Planlayalım
           </Link>
         </aside>
       </article>

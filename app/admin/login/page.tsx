@@ -141,7 +141,7 @@ export default function AdminLogin() {
         </div>
         
         <p className="text-center mt-8 text-xs text-slate-600 font-medium">
-          © {new Date().getFullYear()} Ersürer Enterprise Security Systems
+          © {new Date().getFullYear()} Ersürer Product Studio Admin
         </p>
       </motion.div>
     </div>

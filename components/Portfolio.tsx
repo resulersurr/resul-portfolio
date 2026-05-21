@@ -145,7 +145,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Links */}
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-3">
                   <a 
                     href={`/projects/${project.id}`}
                     className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
@@ -156,9 +156,9 @@ export default function Portfolio() {
                   <a 
                     href={`/#contact?service=${encodeURIComponent(project.title)}`}
                     className="shrink-0 flex items-center justify-center gap-2 py-3 px-4 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300 text-sm font-bold"
-                    aria-label="Demo Talep Et"
+                    aria-label="Planı konuşalım"
                   >
-                    Demo Talep Et
+                    Planı Konuşalım
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>

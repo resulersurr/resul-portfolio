@@ -6,10 +6,9 @@ import { ArrowRight, Bot, Boxes, Rocket, Sparkles } from 'lucide-react'
 export default function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden mesh-gradient">
-      {/* Animated shapes in background */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-[120px] animate-pulse-slow" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse-slow" />
-      
+
       <div className="max-w-5xl mx-auto text-center relative z-10 pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,8 +16,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Badge */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
@@ -30,9 +28,8 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Main heading */}
           <header className="space-y-4">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -41,8 +38,8 @@ export default function Hero() {
               <span className="block text-white">Hazır SaaS MVP’leri ve AI Otomasyonlarla</span>
               <span className="gradient-text">İşletmenizi Dijitalleştirin</span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -52,35 +49,33 @@ export default function Hero() {
             </motion.p>
           </header>
 
-          {/* CTA Buttons */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
             <motion.a
-              href="#portfolio"
+              href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center px-10 py-5 gradient-bg text-white font-bold rounded-2xl shadow-2xl shadow-indigo-500/40 transition-all duration-300"
+              className="group relative inline-flex w-full sm:w-auto items-center justify-center px-6 sm:px-10 py-5 gradient-bg text-white font-bold rounded-2xl shadow-2xl shadow-indigo-500/40 transition-all duration-300 text-center leading-snug"
             >
-              Ürünleri İncele
+              Ücretsiz 15 Dakikalık Yazılım Analizi Al
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </motion.a>
-            
+
             <motion.a
-              href="#contact"
+              href="#portfolio"
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center px-10 py-5 glass text-white font-bold rounded-2xl border border-white/10 transition-all duration-300"
+              className="inline-flex w-full sm:w-auto items-center justify-center px-6 sm:px-10 py-5 glass text-white font-bold rounded-2xl border border-white/10 transition-all duration-300 text-center leading-snug"
             >
-              Teklif Al
+              Hazır SaaS Çözümlerini İncele
             </motion.a>
           </motion.div>
 
-          {/* Trust indicators / Tech stats */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
@@ -90,9 +85,9 @@ export default function Hero() {
               { icon: Sparkles, label: 'Next.js & Vercel', desc: 'Modern web altyapısı' },
               { icon: Rocket, label: 'SaaS MVP', desc: 'Hızlı yayına çıkış' },
               { icon: Bot, label: 'AI Otomasyon', desc: 'Verimli iş akışları' },
-              { icon: Boxes, label: 'Hazır Dijital Ürünler', desc: 'Kurulabilir sistemler' }
-            ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center space-y-2 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-300">
+              { icon: Boxes, label: 'Hazır Dijital Ürünler', desc: 'Kurulabilir sistemler' },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center space-y-2 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-300">
                 <item.icon className="w-6 h-6 text-indigo-400" />
                 <span className="text-white font-semibold text-sm">{item.label}</span>
                 <span className="text-gray-500 text-xs text-center">{item.desc}</span>
@@ -102,7 +97,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Background decoration elements */}
       <div className="absolute top-1/4 left-10 w-2 h-2 bg-indigo-500 rounded-full animate-ping" />
       <div className="absolute top-3/4 right-20 w-3 h-3 bg-purple-500 rounded-full animate-ping" />
       <div className="absolute bottom-1/4 left-1/4 w-1 h-1 bg-cyan-500 rounded-full animate-ping" />

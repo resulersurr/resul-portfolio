@@ -7,14 +7,33 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+const siteTitle = 'Resul Ersürer | Next.js, Vercel, SaaS MVP ve AI Otomasyon'
+const siteDescription =
+  'İşletmeler için Next.js, Vercel ve AI destekli SaaS MVP’leri, admin panelleri, web siteleri ve otomasyon sistemleri geliştiriyorum.'
+const ogTitle = 'Next.js, Vercel ve AI Destekli SaaS MVP Geliştirme'
+const ogDescription =
+  'İşletmenize özel hızlı yayına alınabilen SaaS MVP, admin panel, web sitesi ve AI otomasyon sistemleri.'
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ersurer.com'),
   title: {
-    default: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
+    default: siteTitle,
     template: '%s | Resul Ersürer',
   },
-  description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
-  keywords: ['Next.js', 'Vercel', 'SaaS MVP', 'AI otomasyon', 'web sitesi', 'admin panel', 'dijital ürünler', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
+  description: siteDescription,
+  keywords: [
+    'Next.js developer',
+    'Vercel developer',
+    'SaaS MVP',
+    'AI automation',
+    'admin panel development',
+    'business website',
+    'TypeScript developer',
+    'Prisma',
+    'PostgreSQL',
+    'Tailwind CSS',
+    'Türkiye web geliştirici',
+  ],
   authors: [{ name: 'Resul Ersürer', url: 'https://www.ersurer.com' }],
   creator: 'Resul Ersürer',
   alternates: {
@@ -24,8 +43,8 @@ export const metadata: Metadata = {
     icon: '/images/logo2.png',
   },
   openGraph: {
-    title: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
-    description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
+    title: ogTitle,
+    description: ogDescription,
     url: 'https://www.ersurer.com',
     siteName: 'Resul Ersürer',
     type: 'website',
@@ -35,14 +54,14 @@ export const metadata: Metadata = {
         url: '/images/logo2.png',
         width: 1200,
         height: 630,
-        alt: 'Resul Ersürer - Next.js SaaS Developer',
+        alt: 'Resul Ersürer - Next.js, Vercel, SaaS MVP ve AI Otomasyon',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Resul Ersürer | Next.js, SaaS MVP ve AI Otomasyon Çözümleri',
-    description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.',
+    title: ogTitle,
+    description: ogDescription,
     images: ['/images/logo2.png'],
   },
   robots: {

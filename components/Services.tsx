@@ -9,31 +9,37 @@ const SERVICE_ITEMS = [
     title: 'SaaS MVP Geliştirme',
     icon: Rocket,
     description: 'Next.js ve Vercel ile fikrinizi hızlıca çalışan, yayına hazır bir SaaS MVP’ye dönüştürüyorum.',
+    cta: 'Hızlı MVP Planı Al',
   },
   {
     title: 'AI Otomasyon Sistemleri',
     icon: Bot,
     description: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla hızlandırıp daha verimli hale getiriyorum.',
+    cta: 'AI Otomasyon Fikrim İçin Görüşme Planla',
   },
   {
     title: 'İşletme Web Sitesi',
     icon: Globe,
     description: 'İşletmeniz için modern, hızlı, mobil uyumlu ve dönüşüm odaklı web sitesi hazırlıyorum.',
+    cta: 'İşletmeme Uygun Web Planını Bul',
   },
   {
     title: 'Admin Panel & Dashboard',
     icon: LayoutDashboard,
     description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
+    cta: 'Operasyon Panelimi Planlayalım',
   },
   {
     title: 'Ürün Özelleştirme & Kurulum',
     icon: Settings,
     description: 'Hazır dijital ürünlerimi işletmenizin süreçlerine göre özelleştirip yayına alıyorum.',
+    cta: 'İşletmeme Uygun SaaS Çözümünü Bul',
   },
   {
     title: 'Mevcut Siteyi Modernleştirme',
     icon: RefreshCcw,
     description: 'Eski veya yavaş web sitenizi modern tasarım, hızlı altyapı ve SEO uyumuyla yeniliyorum.',
+    cta: '7 Günde Yayına Çıkabilecek Sistemi Konuşalım',
   },
 ]
 
@@ -180,9 +186,9 @@ export default function Services() {
 
                   <button
                     onClick={() => requestQuote(service.title)}
-                    className="mt-4 w-full py-3.5 px-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition-all duration-300 flex items-center justify-center gap-2 group/button"
+                    className="mt-4 w-full min-h-[52px] py-3.5 px-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition-all duration-300 flex items-center justify-center gap-2 group/button text-center leading-snug"
                   >
-                    Teklif Al
+                    {service.cta}
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />
                   </button>
 

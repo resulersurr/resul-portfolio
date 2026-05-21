@@ -4,11 +4,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.ersurer.com'
 
   const services = [
-    'aspnet-core-development',
-    'web-api-development',
-    'crm-software-development',
-    'admin-panel-development',
-    'enterprise-architecture'
+    'saas-mvp-development',
+    'ai-automation',
+    'business-website',
+    'admin-panel-dashboard',
+    'product-customization',
+    'website-modernization'
   ].map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
     lastModified: new Date(),
@@ -24,16 +25,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const blogRoutes = [
+    'nextjs-vercel-saas-mvp-yayina-cikis',
+    'ai-otomasyon-isletme-surecleri',
+    'isletme-web-sitesi-nextjs-seo',
+    'admin-panel-dashboard-veri-takibi',
+    'startup-mvp-gelistirme-kapsam-planlama',
     'aspnet-core-enterprise-api-development',
     'clean-architecture-dotnet',
     'rest-api-security-best-practices',
     'scalable-backend-architecture',
     'microservices-vs-modular-monolith'
-  ].map((slug) => ({
+  ].map((slug, index) => ({
     url: `${baseUrl}/blog/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: index < 5 ? 0.8 : 0.55,
   }))
 
   return [

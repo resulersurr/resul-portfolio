@@ -298,7 +298,7 @@ export default function Contact() {
                     </>
                   ) : (
                     <>
-                      Mesajı Gönder
+                      Ücretsiz Yazılım Analizi Talep Et
                       <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </>
                   )}

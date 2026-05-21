@@ -26,7 +26,7 @@ export default function Footer() {
             href="/#contact"
             className="shrink-0 px-8 py-4 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
           >
-            Hemen İletişime Geç →
+            Ücretsiz Yazılım Analizi Al
           </Link>
         </div>
 

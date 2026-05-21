@@ -12,79 +12,79 @@ type Props = {
 
 const mockCaseStudies: Record<string, any> = {
   'crm-platform': {
-    title: 'Enterprise CRM Migration & Architecture',
-    description: 'A complete overhaul of a legacy CRM system using ASP.NET Core Microservices.',
-    problem: 'Mevcut CRM altyapısı monolitik bir yapıda olup, günde 1 milyon üzeri isteği karşılamakta zorlanıyordu. API yanıt süreleri ortalama 2.5 saniyeye kadar çıkıyordu.',
-    solution: 'CQRS ve Event-Driven Architecture kullanılarak sistem mikroservislere bölündü. RabbitMQ ile asenkron işlemler yönetildi ve Redis kullanılarak response süresi optimize edildi.',
-    architecture: 'Clean Architecture, CQRS (MediatR), Domain-Driven Design (DDD)',
+    title: 'Operasyon Paneli Modernizasyonu',
+    description: 'Dağınık müşteri ve operasyon süreçlerini tek dashboard altında toplayan modern web sistemi.',
+    problem: 'Mevcut müşteri ve operasyon takibi farklı araçlara dağılmıştı. Ekipler rapor, görev ve müşteri durumunu manuel kontrol ettiği için karar alma süreci yavaşlıyordu.',
+    solution: 'Next.js tabanlı yönetim paneli, PostgreSQL veri modeli ve otomasyon akışlarıyla müşteri, görev ve raporlama süreçleri tek arayüzde toplandı.',
+    architecture: 'Next.js App Router, Prisma, PostgreSQL, Dashboard UI',
     performanceMetrics: [
-      { label: 'API Response Time Hedefi', before: '2.5s', after: '<45ms' },
-      { label: 'Uptime', before: '98.5%', after: '99.99%' },
-      { label: 'Manuel Operasyon Azaltma', before: '%0', after: '%60+' }
+      { label: 'Rapor Hazırlama', before: 'Saatler', after: 'Dakikalar' },
+      { label: 'Operasyon Görünürlüğü', before: 'Dağınık', after: 'Tek panel' },
+      { label: 'Manuel İş Yükü', before: 'Yüksek', after: '%60+ azalma' },
     ],
-    techStack: ['ASP.NET Core', 'SQL Server', 'Redis', 'RabbitMQ', 'Next.js', 'Docker', 'Azure'],
-    businessResult: 'Sistem 10 kat daha hızlı çalışmaya başladı, altyapı maliyetleri optimize edildi ve operasyonel iş yükü %60 azaltıldı.',
+    techStack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Vercel'],
+    businessResult: 'Operasyon ekibi müşteri ve görev takibini tek panelden yönetmeye başladı; manuel kontrol yükü azaldı ve süreç görünürlüğü arttı.',
     github: 'https://github.com/resulersurer',
     link: '#',
-    relatedService: '/services/crm-software-development'
+    relatedService: '/#contact?service=Admin%20Panel%20%2F%20Dashboard',
   },
   'admin-panel-system': {
-    title: 'Scalable Admin Panel System',
-    description: 'Yüksek veri hacimli operasyonlar için tasarlanmış, rol bazlı güvenlikli yönetim paneli.',
-    problem: 'Şirket içi raporlamaların alınması saatler sürüyor ve veri tutarsızlıkları operasyonel hatalara yol açıyordu.',
-    solution: 'React ve ASP.NET Core kullanılarak, SignalR ile anlık veri akışı sağlayan, gelişmiş filtreleme ve dışa aktarma (export) özellikli bir sistem kurgulandı.',
-    architecture: 'Modular Monolith, REST API, JWT tabanlı RBAC (Role-Based Access Control)',
+    title: 'Admin Panel & Dashboard Sistemi',
+    description: 'Operasyon ve veri takibi için rol bazlı, modern ve hızlı yönetim paneli.',
+    problem: 'Şirket içi raporlar dağınık tutuluyor, veri tutarsızlıkları operasyonel kararları yavaşlatıyordu.',
+    solution: 'Next.js, TypeScript ve Tailwind CSS ile filtreleme, dışa aktarma ve rol bazlı yönetim özellikleri olan sade bir dashboard kurgulandı.',
+    architecture: 'Next.js Dashboard, Prisma Data Layer, Role-Based UI',
     performanceMetrics: [
-      { label: 'Raporlama Süresi Hedefi', before: '4 Saat', after: '<2 Dakika' },
+      { label: 'Raporlama Süresi', before: '4 Saat', after: '<2 Dakika' },
       { label: 'Veri Tutarlılığı', before: '%85', after: '%100' },
-      { label: 'Yönetim Hızı', before: 'Yavaş', after: 'Anlık (Real-time)' }
+      { label: 'Yönetim Hızı', before: 'Yavaş', after: 'Anlık' },
     ],
-    techStack: ['ASP.NET Core Web API', 'React', 'SignalR', 'PostgreSQL', 'Tailwind CSS'],
-    businessResult: 'Yönetim paneli üzerinden operasyonel kontrol tam olarak sağlandı, karar alma süreçleri anlık veriler sayesinde hızlandı.',
+    techStack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Tailwind CSS'],
+    businessResult: 'Yönetim paneli üzerinden operasyonel görünürlük arttı, ekipler rapor ve müşteri verilerine daha hızlı ulaşmaya başladı.',
     github: 'https://github.com/resulersurer',
     link: '#',
-    relatedService: '/services/admin-panel-development'
+    relatedService: '/#contact?service=Admin%20Panel%20%2F%20Dashboard',
   },
   'qr-menu-system': {
     title: 'Cloud-Based QR Menu System',
-    description: 'Restoran zincirleri için bulut tabanlı, anlık senkronizasyon sağlayan QR Menü altyapısı.',
+    description: 'Restoran zincirleri için bulut tabanlı, anlık senkronizasyon sağlayan QR menü altyapısı.',
     problem: 'Restoranlar menü değişikliklerini anlık olarak tüm şubelere yansıtamıyor ve sipariş süreçlerinde gecikmeler yaşıyordu.',
-    solution: 'Bulut tabanlı, multi-tenant bir mimari inşa edildi. CDN kullanılarak menü görselleri optimize edildi ve sub-domain yapısı kuruldu.',
-    architecture: 'Multi-Tenant Architecture, Serverless Functions, CDN Entegrasyonu',
+    solution: 'Bulut tabanlı, multi-tenant bir yapı kuruldu. Menü görselleri optimize edildi, şube bazlı içerik yönetimi ve hızlı yayın akışı oluşturuldu.',
+    architecture: 'Next.js, Serverless Functions, CDN Entegrasyonu',
     performanceMetrics: [
       { label: 'Menü Yüklenme Hedefi', before: '5s+', after: '<500ms' },
       { label: 'Şube Senkronizasyon', before: '1 Gün', after: 'Anında' },
-      { label: 'Aylık Trafik Kapasitesi', before: '10K', after: '1M+ (Ölçeklenebilir)' }
+      { label: 'Aylık Trafik Kapasitesi', before: '10K', after: '1M+' },
     ],
-    techStack: ['Node.js', 'Next.js', 'Redis', 'AWS S3', 'CloudFront', 'MongoDB'],
-    businessResult: 'Restoranların dijitalleşme süreci hızlandı, müşteri memnuniyeti arttı ve menü baskı maliyetleri sıfırlandı.',
+    techStack: ['Next.js', 'TypeScript', 'Vercel', 'CDN', 'PostgreSQL'],
+    businessResult: 'Restoranların dijitalleşme süreci hızlandı, müşteri deneyimi iyileşti ve menü baskı maliyetleri azaldı.',
     github: 'https://github.com/resulersurer',
     link: '#',
-    relatedService: '/services/web-api-development'
-  }
+    relatedService: '/#contact?service=İşletme%20Web%20Sitesi',
+  },
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = mockCaseStudies[params.slug]
-  if (!project) return { title: 'Case Study Not Found' }
+  if (!project) return { title: 'Ürün Detayı Bulunamadı' }
 
   return {
-    title: `${project.title} | Case Study`,
+    title: `${project.title} | Dijital Ürün`,
     description: project.description,
     alternates: {
-      canonical: `https://www.ersurer.com/projects/${params.slug}`
+      canonical: `https://www.ersurer.com/projects/${params.slug}`,
     },
     openGraph: {
-      title: `${project.title} | Case Study`,
+      title: `${project.title} | Dijital Ürün`,
       description: project.description,
       type: 'article',
-      url: `https://www.ersurer.com/projects/${params.slug}`
+      url: `https://www.ersurer.com/projects/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${project.title} | Case Study`,
+      title: `${project.title} | Dijital Ürün`,
       description: project.description,
-    }
+    },
   }
 }
 
@@ -96,31 +96,31 @@ export default async function CaseStudyPage({ params }: Props) {
   }
 
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": "CreativeWork",
-        "name": project.title,
-        "description": project.description,
-        "author": {
-          "@type": "Person",
-          "name": "Resul Ersürer",
-          "url": "https://www.ersurer.com"
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: project.description,
+        author: {
+          '@type': 'Person',
+          name: 'Resul Ersürer',
+          url: 'https://www.ersurer.com',
         },
-        "about": {
-          "@type": "Thing",
-          "name": "Software Engineering Case Study"
-        }
+        about: {
+          '@type': 'Thing',
+          name: 'Digital Product Case Study',
+        },
       },
       {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ersurer.com" },
-          { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.ersurer.com/#portfolio" },
-          { "@type": "ListItem", "position": 3, "name": project.title, "item": `https://www.ersurer.com/projects/${params.slug}` }
-        ]
-      }
-    ]
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ersurer.com' },
+          { '@type': 'ListItem', position: 2, name: 'Digital Products', item: 'https://www.ersurer.com/#portfolio' },
+          { '@type': 'ListItem', position: 3, name: project.title, item: `https://www.ersurer.com/projects/${params.slug}` },
+        ],
+      },
+    ],
   }
 
   return (
@@ -130,19 +130,19 @@ export default async function CaseStudyPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       <Navigation />
-      
+
       <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <Link href="/#portfolio" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-12 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-          Portfolyoya Dön
+          Dijital Ürünlere Dön
         </Link>
-        
+
         <header className="mb-16">
           <div className="flex flex-wrap items-center gap-4 mb-6">
             <span className="px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-400 uppercase tracking-wider">
-              Vaka Analizi (Case Study)
+              Ürün Detayı
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
@@ -153,15 +153,15 @@ export default async function CaseStudyPage({ params }: Props) {
           </p>
 
           <div className="p-6 rounded-2xl glass border border-indigo-500/20 mb-8 inline-block">
-             <p className="text-sm text-gray-300">
-               <strong className="text-indigo-400 font-bold">Kısaca:</strong> Resul Ersürer, ASP.NET Core, Web API, CRM, admin panel ve enterprise backend mimarisi alanlarında ölçeklenebilir yazılım çözümleri geliştirir.
-             </p>
+            <p className="text-sm text-gray-300">
+              <strong className="text-indigo-400 font-bold">Kısaca:</strong> Resul Ersürer, Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, admin paneller ve web sistemleri geliştirir.
+            </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             {project.link && (
               <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform text-sm">
-                Canlı Proje <ExternalLink className="w-4 h-4 ml-2" />
+                Canlı Ürün <ExternalLink className="w-4 h-4 ml-2" />
               </a>
             )}
             {project.github && (
@@ -178,9 +178,7 @@ export default async function CaseStudyPage({ params }: Props) {
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <Activity className="w-6 h-6 text-red-400" /> Hedef ve Problem
               </h2>
-              <p className="text-gray-300 leading-relaxed">
-                {project.problem}
-              </p>
+              <p className="text-gray-300 leading-relaxed">{project.problem}</p>
             </section>
 
             <section className="p-8 rounded-3xl glass border border-white/5 relative overflow-hidden">
@@ -188,13 +186,11 @@ export default async function CaseStudyPage({ params }: Props) {
                 <Layout className="w-32 h-32 text-indigo-500" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 relative z-10">
-                <Terminal className="w-6 h-6 text-indigo-400" /> Mimari Kararlar ve Çözüm
+                <Terminal className="w-6 h-6 text-indigo-400" /> Ürün Kararları ve Çözüm
               </h2>
-              <p className="text-gray-300 leading-relaxed relative z-10">
-                {project.solution}
-              </p>
+              <p className="text-gray-300 leading-relaxed relative z-10">{project.solution}</p>
               <div className="mt-6 p-4 rounded-xl bg-slate-900/50 border border-white/5 relative z-10">
-                <span className="text-sm font-bold text-gray-500 uppercase tracking-widest block mb-2">Mimari Yaklaşım</span>
+                <span className="text-sm font-bold text-gray-500 uppercase tracking-widest block mb-2">Teknik Yaklaşım</span>
                 <span className="text-white font-medium">{project.architecture}</span>
               </div>
             </section>
@@ -203,9 +199,7 @@ export default async function CaseStudyPage({ params }: Props) {
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <CheckCircle className="w-6 h-6 text-emerald-400" /> Sonuçlar
               </h2>
-              <p className="text-white/90 leading-relaxed font-medium">
-                {project.businessResult}
-              </p>
+              <p className="text-white/90 leading-relaxed font-medium">{project.businessResult}</p>
             </section>
           </div>
 
@@ -215,8 +209,8 @@ export default async function CaseStudyPage({ params }: Props) {
                 <Activity className="w-5 h-5 text-indigo-400" /> Ölçülebilir Metrikler
               </h3>
               <div className="space-y-6">
-                {project.performanceMetrics.map((metric: any, i: number) => (
-                  <div key={i} className="space-y-2">
+                {project.performanceMetrics.map((metric: any) => (
+                  <div key={metric.label} className="space-y-2">
                     <span className="text-sm font-medium text-gray-400">{metric.label}</span>
                     <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/50 border border-white/5">
                       <span className="text-red-400 font-mono text-sm">{metric.before}</span>
@@ -233,21 +227,21 @@ export default async function CaseStudyPage({ params }: Props) {
                 <Code2 className="w-5 h-5 text-indigo-400" /> Teknoloji Yığını
               </h3>
               <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech: string, i: number) => (
-                  <span key={i} className="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold tracking-wide">
+                {project.techStack.map((tech: string) => (
+                  <span key={tech} className="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold tracking-wide">
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
-            
+
             <div className="p-8 rounded-3xl glass border border-white/5 text-center">
-              <p className="text-sm text-gray-400 mb-4">Bu yetkinliklerle projenizi hayata geçirelim.</p>
+              <p className="text-sm text-gray-400 mb-4">Benzer bir sistemi işletmeniz için nasıl yayına alabileceğimizi netleştirelim.</p>
               <Link href={project.relatedService} className="text-indigo-400 hover:text-white hover:underline font-bold transition-all text-sm block mb-4">
-                İlgili Servisi İncele →
+                Yayın Planını Konuşalım →
               </Link>
               <Link href="/#contact" className="inline-block w-full px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors">
-                Projeni Birlikte Değerlendirelim
+                Projemi Birlikte Planlayalım
               </Link>
             </div>
           </aside>

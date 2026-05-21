@@ -78,7 +78,7 @@ export default function Navigation() {
                   href="/#contact"
                   className="px-6 py-2 rounded-full gradient-bg text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all duration-300 block"
                 >
-                  Teklif Al
+                  Yazılım Analizi Al
                 </Link>
               </motion.div>
             </div>
@@ -121,7 +121,7 @@ export default function Navigation() {
                 className="block w-full text-center px-4 py-4 mt-4 rounded-xl gradient-bg text-white font-bold hover:opacity-90 transition-opacity"
                 onClick={() => setIsOpen(false)}
               >
-                Teklif Al
+                Yazılım Analizi Al
               </Link>
             </div>
           </motion.div>
