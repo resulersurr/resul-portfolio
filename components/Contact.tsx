@@ -42,6 +42,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     projectType: PROJECT_TYPES[0],
     budget: BUDGET_OPTIONS[0],
     timeline: '1-3 Ay',
@@ -83,7 +84,7 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       setStatus('error')
       setTimeout(() => setStatus('idle'), 3000)
       return
@@ -98,6 +99,7 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
           subject: formData.projectType,
           projectType: formData.projectType,
           budget: formData.budget,
@@ -112,7 +114,7 @@ export default function Contact() {
       }
 
       setStatus('success')
-      setFormData({ name: '', email: '', projectType: PROJECT_TYPES[0], budget: BUDGET_OPTIONS[0], timeline: '1-3 Ay', message: '' })
+      setFormData({ name: '', email: '', phone: '', projectType: PROJECT_TYPES[0], budget: BUDGET_OPTIONS[0], timeline: '1-3 Ay', message: '' })
       setTimeout(() => setStatus('idle'), 5000)
     } catch (error) {
       console.error('Gönderim hatası:', error)
@@ -199,6 +201,18 @@ export default function Contact() {
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300 hover:bg-white/10"
                     />
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Telefon</label>
+                  <input
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+90 5XX XXX XX XX"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300 hover:bg-white/10"
+                  />
                 </div>
 
                 <div className="space-y-2">

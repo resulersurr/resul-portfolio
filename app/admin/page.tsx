@@ -95,6 +95,7 @@ export default function AdminDashboard() {
         m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         m.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (m.email && m.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (m.phone && m.phone.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (m.subject && m.subject.toLowerCase().includes(searchQuery.toLowerCase()))
       )
       .sort((a, b) => {

@@ -4,11 +4,11 @@ import { prisma } from '@/lib/prisma'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, subject, message, budget, timeline, projectType } = body
+    const { name, email, phone, subject, message, budget, timeline, projectType } = body
 
-    if (!name || !message) {
+    if (!name || !phone || !message) {
       return NextResponse.json(
-        { error: 'İsim ve mesaj alanları zorunludur' },
+        { error: 'İsim, telefon ve mesaj alanları zorunludur' },
         { status: 400 }
       )
     }
@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         email,
+        phone,
         subject,
         message,
         budget,
