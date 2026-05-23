@@ -112,11 +112,11 @@ export default function Services() {
   }
 
   return (
-    <section id="services" className="py-32 px-4 sm:px-6 lg:px-8 relative">
+    <section id="services" className="py-24 sm:py-28 lg:py-36 px-5 sm:px-8 lg:px-10 relative">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-20">
+      <div className="max-w-6xl mx-auto">
+        <header className="text-center mb-20 lg:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-bold text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-7 leading-tight"
           >
             SaaS, web sistemleri ve <span className="gradient-text">AI otomasyon</span>
           </motion.h3>
@@ -139,14 +139,14 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
+            className="text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto leading-[1.75]"
           >
             SaaS MVP geliştirme, işletme web siteleri, admin paneller ve AI destekli otomasyonlarla dijital süreçlerinizi hızlandırıyorum.
           </motion.p>
         </header>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
             {[1, 2, 3].map((item) => (
               <div key={item} className="h-[420px] rounded-3xl glass border border-white/5 animate-pulse" />
             ))}
@@ -164,7 +164,7 @@ export default function Services() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -8 }}
-                  className="group relative p-7 sm:p-8 rounded-3xl glass border border-white/5 hover:border-indigo-400/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[420px] shadow-xl shadow-black/5 hover:shadow-indigo-500/10"
+                  className="group relative p-8 sm:p-10 rounded-3xl glass border border-white/5 hover:border-indigo-400/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[440px] shadow-xl shadow-black/5 hover:shadow-indigo-500/10"
                 >
                   <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-25 blur-3xl transition-opacity duration-500`} />
 
@@ -192,7 +192,7 @@ export default function Services() {
 
                   <button
                     onClick={() => requestQuote(service.title)}
-                    className="mt-4 w-full min-h-[52px] py-3.5 px-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition-all duration-300 flex items-center justify-center gap-2 group/button text-center leading-snug"
+                    className="mt-5 w-full min-h-[58px] py-4 px-5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition-all duration-300 flex items-center justify-center gap-2 group/button text-center leading-snug"
                   >
                     {service.cta}
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />

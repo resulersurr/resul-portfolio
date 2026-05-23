@@ -304,47 +304,47 @@ export default function ServicePage({ params }: Props) {
 
       <Navigation />
 
-      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <article className="pt-32 sm:pt-36 lg:pt-40 pb-24 sm:pb-28 lg:pb-36 px-5 sm:px-8 lg:px-10 max-w-6xl mx-auto">
         <Link href="/#services" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-8 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Hizmetlere Dön
         </Link>
 
-        <header className="mb-14">
+        <header className="mb-16 lg:mb-20">
           <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-6 border border-white/10 shadow-xl">
             <Icon className="w-8 h-8 text-indigo-400" />
           </div>
           <p className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">Hizmet</p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-7 tracking-tight leading-tight">
             {service.h1}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed font-light max-w-3xl">
+          <p className="text-xl sm:text-[1.35rem] text-gray-400 leading-[1.75] font-light max-w-4xl">
             {service.intro}
           </p>
           <Link
             href={contactHref}
-            className="mt-8 inline-flex items-center px-7 py-4 gradient-bg text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
+            className="mt-10 inline-flex items-center px-9 py-5 gradient-bg text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
           >
             {service.cta}
           </Link>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-            <h2 className="text-2xl font-bold text-white mb-4">Problem</h2>
-            <p className="text-gray-300 leading-relaxed">{service.problem}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-20">
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-5">Problem</h2>
+            <p className="text-gray-300 text-lg leading-[1.75]">{service.problem}</p>
           </section>
-          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-            <h2 className="text-2xl font-bold text-white mb-4">Çözüm</h2>
-            <p className="text-gray-300 leading-relaxed">{service.solution}</p>
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-5">Çözüm</h2>
+            <p className="text-gray-300 text-lg leading-[1.75]">{service.solution}</p>
           </section>
         </div>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Kimler İçin?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Kimler İçin?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {service.audience.map((item) => (
-              <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 border border-white/5 p-4">
+              <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 border border-white/5 p-5 sm:p-6">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <span className="text-gray-300">{item}</span>
               </div>
@@ -352,61 +352,61 @@ export default function ServicePage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Neler Dahil?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Neler Dahil?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {service.includes.map((item) => (
-              <div key={item} className="rounded-xl bg-white/5 border border-white/5 px-5 py-4 text-gray-300">
+              <div key={item} className="rounded-xl bg-white/5 border border-white/5 px-6 py-5 text-gray-300 text-lg leading-relaxed">
                 {item}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Süreç</h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Süreç</h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
             {service.process.map((step, index) => (
-              <div key={step} className="rounded-xl bg-slate-900/70 border border-white/10 p-5">
+              <div key={step} className="rounded-xl bg-slate-900/70 border border-white/10 p-6">
                 <div className="text-indigo-400 font-black mb-3">{String(index + 1).padStart(2, '0')}</div>
-                <p className="text-gray-300 text-sm leading-relaxed">{step}</p>
+                <p className="text-gray-300 text-base leading-[1.7]">{step}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Örnek Kullanım Senaryoları</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Örnek Kullanım Senaryoları</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {service.useCases.map((item) => (
-              <div key={item} className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5 text-indigo-100">
+              <div key={item} className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-6 sm:p-7 text-indigo-100 text-lg leading-relaxed">
                 {item}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Sık Sorulan Sorular</h2>
-          <div className="space-y-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Sık Sorulan Sorular</h2>
+          <div className="space-y-5">
             {service.faqs.map((faq) => (
-              <details key={faq.question} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 group">
+              <details key={faq.question} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7 group">
                 <summary className="cursor-pointer text-white font-bold">{faq.question}</summary>
-                <p className="text-gray-300 leading-relaxed mt-4">{faq.answer}</p>
+                <p className="text-gray-300 text-lg leading-[1.75] mt-5">{faq.answer}</p>
               </details>
             ))}
           </div>
         </section>
 
-        <section className="p-8 sm:p-12 rounded-3xl mesh-gradient relative overflow-hidden text-center border border-white/10">
+        <section className="p-8 sm:p-12 lg:p-14 rounded-3xl mesh-gradient relative overflow-hidden text-center border border-white/10">
           <div className="relative z-10 space-y-6">
-            <h2 className="text-3xl font-bold text-white">İşletmeniz İçin Doğru Çözümü Netleştirelim</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">İşletmeniz İçin Doğru Çözümü Netleştirelim</h2>
+            <p className="text-gray-300 text-lg leading-[1.75] max-w-2xl mx-auto">
               İhtiyacınızı birlikte değerlendirip hızlı, ölçülebilir ve yayına hazır bir yol haritası çıkaralım.
             </p>
             <Link
               href={contactHref}
-              className="inline-flex items-center px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform"
+              className="inline-flex items-center px-9 py-5 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform"
             >
               {service.cta}
             </Link>

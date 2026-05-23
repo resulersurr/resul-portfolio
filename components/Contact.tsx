@@ -125,11 +125,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="contact" className="py-24 sm:py-28 lg:py-36 px-5 sm:px-8 lg:px-10 relative overflow-hidden">
       <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] -z-10" />
 
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -137,10 +137,10 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">İletişim</h2>
-            <h3 className="text-5xl sm:text-7xl font-black text-white mb-8 leading-tight">
+            <h3 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-10 leading-tight">
               İşletmeniz İçin Uygun <span className="gradient-text">Yazılım Çözümünü</span> Birlikte Belirleyelim
             </h3>
-            <p className="text-gray-400 text-lg leading-relaxed mb-12 max-w-md">
+            <p className="text-gray-400 text-lg sm:text-xl leading-[1.75] mb-12 max-w-lg">
               Hazır ürünler, SaaS MVP geliştirme, işletme web siteleri veya AI otomasyon ihtiyaçlarınız için benimle iletişime geçin. İhtiyacınıza en uygun çözümü birlikte netleştirelim.
             </p>
 
@@ -175,8 +175,8 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="p-1 pr-1 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-cyan-500/20 rounded-[3rem]"
           >
-            <div className="p-10 rounded-[2.9rem] bg-slate-950/90 backdrop-blur-3xl relative overflow-hidden">
-              <h4 className="text-2xl font-bold text-white mb-8">Hızlı Mesaj Gönder</h4>
+            <div className="p-8 sm:p-10 lg:p-12 rounded-[2.9rem] bg-slate-950/90 backdrop-blur-3xl relative overflow-hidden">
+              <h4 className="text-2xl sm:text-3xl font-bold text-white mb-10">Hızlı Mesaj Gönder</h4>
 
               <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

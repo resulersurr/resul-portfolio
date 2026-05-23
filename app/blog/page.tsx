@@ -82,22 +82,22 @@ export default function BlogIndex() {
     <main className="min-h-screen selection:bg-indigo-500/30 bg-slate-950">
       <Navigation />
 
-      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <header className="mb-14">
+      <article className="pt-32 sm:pt-36 lg:pt-40 pb-24 sm:pb-28 lg:pb-36 px-5 sm:px-8 lg:px-10 max-w-6xl mx-auto">
+        <header className="mb-16 lg:mb-20">
           <p className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">Yazılım Notları</p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-7 tracking-tight leading-tight">
             Next.js, SaaS MVP ve <span className="gradient-text">AI Otomasyon Notları</span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed font-light max-w-3xl">
+          <p className="text-xl sm:text-[1.35rem] text-gray-400 leading-[1.75] font-light max-w-4xl">
             İşletmeler için hızlı yayına alınabilen web uygulamaları, SaaS MVP’leri, Vercel deployment süreçleri ve AI destekli otomasyon sistemleri üzerine pratik içerikler.
           </p>
         </header>
 
-        <div className="flex flex-wrap gap-3 mb-12" aria-label="Blog kategorileri">
+        <div className="flex flex-wrap gap-3 sm:gap-4 mb-14 lg:mb-16" aria-label="Blog kategorileri">
           {categories.map((category) => (
             <span
               key={category}
-              className={`rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-widest ${
+            className={`rounded-full border px-5 py-2.5 text-xs font-bold uppercase tracking-widest ${
                 category === 'Teknik Arşiv'
                   ? 'border-white/10 bg-white/5 text-gray-400'
                   : 'border-indigo-500/20 bg-indigo-500/10 text-indigo-300'
@@ -108,13 +108,13 @@ export default function BlogIndex() {
           ))}
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 lg:space-y-10">
           {blogs.map((blog) => {
             const category = getCategory(blog.slug)
 
             return (
               <Link href={`/blog/${blog.slug}`} key={blog.slug} className="block group">
-                <article className="p-8 rounded-3xl glass border border-white/5 group-hover:border-indigo-500/30 transition-all duration-300 relative overflow-hidden">
+                <article className="p-8 sm:p-10 lg:p-12 rounded-3xl glass border border-white/5 group-hover:border-indigo-500/30 transition-all duration-300 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                     <div className="w-32 h-32 bg-indigo-500 rounded-full blur-3xl" />
                   </div>
@@ -140,11 +140,11 @@ export default function BlogIndex() {
                     <span>{blog.readingTime}</span>
                   </div>
 
-                  <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors leading-tight">
                     {blog.title}
                   </h2>
 
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-400 text-lg leading-[1.75]">
                     {blog.description}
                   </p>
                 </article>

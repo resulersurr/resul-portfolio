@@ -12,11 +12,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-slate-950">
-      <div className="max-w-7xl mx-auto">
+    <footer className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 px-5 sm:px-8 lg:px-10 border-t border-white/5 bg-slate-950">
+      <div className="max-w-6xl mx-auto">
 
         {/* CTA Banner */}
-        <div className="mb-20 p-8 rounded-3xl glass border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mb-20 p-8 sm:p-10 rounded-3xl glass border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-1">Ürününüzü Konuşalım</p>
             <h3 className="text-2xl font-black text-white">Uygun Yazılım Çözümünü Birlikte Netleştirelim</h3>
@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
           <Link
             href="/#contact"
-            className="shrink-0 px-8 py-4 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
+            className="shrink-0 px-9 py-5 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
           >
             Ücretsiz Proje Analizi Al
           </Link>

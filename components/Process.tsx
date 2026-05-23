@@ -32,9 +32,9 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-slate-950/30">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
+    <section id="process" className="py-24 sm:py-28 lg:py-36 px-5 sm:px-8 lg:px-10 relative overflow-hidden bg-slate-950/30">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-20 lg:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-bold text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-7 leading-tight"
           >
             Nasıl <span className="gradient-text">Çalışıyorum?</span>
           </motion.h3>
@@ -57,13 +57,13 @@ export default function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto"
+            className="text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto leading-[1.75]"
           >
             Hazır ürün altyapılarını işletmenizin gerçek ihtiyacına göre seçip özelleştiriyor, hızlı ve ölçülebilir şekilde yayına alıyorum.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-14 relative">
           <div className="hidden lg:block absolute top-1/4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent -z-10" />
 
           {steps.map((step, index) => (
@@ -89,7 +89,7 @@ export default function Process() {
               <h4 className="text-xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors duration-300">
                 {step.title}
               </h4>
-              <p className="text-gray-500 text-sm leading-relaxed px-4 group-hover:text-gray-400 transition-colors duration-300">
+              <p className="text-gray-500 text-base leading-[1.7] px-4 group-hover:text-gray-400 transition-colors duration-300">
                 {step.desc}
               </p>
 

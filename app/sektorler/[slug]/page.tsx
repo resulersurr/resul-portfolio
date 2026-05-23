@@ -199,41 +199,41 @@ export default function SectorPage({ params }: Props) {
       />
       <Navigation />
 
-      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <article className="pt-32 sm:pt-36 lg:pt-40 pb-24 sm:pb-28 lg:pb-36 px-5 sm:px-8 lg:px-10 max-w-6xl mx-auto">
         <Link href="/#services" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-8 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Hizmetlere Dön
         </Link>
 
-        <header className="mb-14">
+        <header className="mb-16 lg:mb-20">
           <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-6 border border-white/10 shadow-xl">
             <Compass className="w-8 h-8 text-indigo-400" />
           </div>
           <p className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">Sektör Çözümü</p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-7 tracking-tight leading-tight">
             {sector.h1}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed font-light max-w-3xl">
+          <p className="text-xl sm:text-[1.35rem] text-gray-400 leading-[1.75] font-light max-w-4xl">
             {sector.intro}
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-            <h2 className="text-2xl font-bold text-white mb-4">Problem</h2>
-            <p className="text-gray-300 leading-relaxed">{sector.problem}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-20">
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-5">Problem</h2>
+            <p className="text-gray-300 text-lg leading-[1.75]">{sector.problem}</p>
           </section>
-          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-            <h2 className="text-2xl font-bold text-white mb-4">Çözüm</h2>
-            <p className="text-gray-300 leading-relaxed">{sector.solution}</p>
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-5">Çözüm</h2>
+            <p className="text-gray-300 text-lg leading-[1.75]">{sector.solution}</p>
           </section>
         </div>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Uygun Hizmetler</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Uygun Hizmetler</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {sector.services.map((item) => (
-              <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 border border-white/5 p-4">
+              <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 border border-white/5 p-5 sm:p-6">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <span className="text-gray-300">{item}</span>
               </div>
@@ -241,34 +241,34 @@ export default function SectorPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">Örnek Kullanım Senaryoları</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Örnek Kullanım Senaryoları</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {sector.useCases.map((item) => (
-              <div key={item} className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5 text-indigo-100">
+              <div key={item} className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-6 sm:p-7 text-indigo-100 text-lg leading-relaxed">
                 {item}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-6">İlgili Hizmet Sayfaları</h2>
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">İlgili Hizmet Sayfaları</h2>
           <div className="flex flex-wrap gap-3">
             {sector.links.map((link) => (
-              <Link key={link.href} href={link.href} className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-gray-200 hover:text-white hover:border-indigo-400/40 transition-colors">
+              <Link key={link.href} href={link.href} className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-4 text-gray-200 hover:text-white hover:border-indigo-400/40 transition-colors">
                 {link.label}
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="p-8 sm:p-12 rounded-3xl mesh-gradient relative overflow-hidden text-center border border-white/10">
-          <h2 className="text-3xl font-bold text-white mb-4">Sektörünüze Uygun Sistemi Birlikte Netleştirelim</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-7">
+        <section className="p-8 sm:p-12 lg:p-14 rounded-3xl mesh-gradient relative overflow-hidden text-center border border-white/10">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-5">Sektörünüze Uygun Sistemi Birlikte Netleştirelim</h2>
+          <p className="text-gray-300 text-lg leading-[1.75] max-w-2xl mx-auto mb-8">
             İhtiyacınızı, mevcut sürecinizi ve yayına çıkış hedefinizi değerlendirip en hızlı uygulanabilir çözümü belirleyelim.
           </p>
-          <Link href={`/#contact?service=${encodeURIComponent(sector.h1)}`} className="inline-flex px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
+          <Link href={`/#contact?service=${encodeURIComponent(sector.h1)}`} className="inline-flex px-9 py-5 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
             {sector.cta}
           </Link>
         </section>

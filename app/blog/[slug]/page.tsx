@@ -58,14 +58,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const components = {
-  h1: (props: any) => <h1 className="text-4xl font-black text-white mt-12 mb-6" {...props} />,
-  h2: (props: any) => <h2 className="text-3xl font-bold text-white mt-10 mb-4" {...props} />,
-  h3: (props: any) => <h3 className="text-2xl font-bold text-white mt-8 mb-4" {...props} />,
-  p: (props: any) => <p className="text-gray-300 leading-relaxed text-lg mb-6" {...props} />,
-  ul: (props: any) => <ul className="list-disc pl-6 text-gray-300 mb-6 space-y-2" {...props} />,
+  h1: (props: any) => <h1 className="text-4xl sm:text-5xl font-black text-white mt-14 mb-7 leading-tight" {...props} />,
+  h2: (props: any) => <h2 className="text-3xl sm:text-4xl font-bold text-white mt-12 mb-5 leading-tight" {...props} />,
+  h3: (props: any) => <h3 className="text-2xl sm:text-3xl font-bold text-white mt-10 mb-5 leading-tight" {...props} />,
+  p: (props: any) => <p className="text-gray-300 leading-[1.85] text-lg sm:text-xl mb-7" {...props} />,
+  ul: (props: any) => <ul className="list-disc pl-6 text-gray-300 mb-8 space-y-3 text-lg sm:text-xl leading-[1.75]" {...props} />,
   li: (props: any) => <li className="text-gray-300" {...props} />,
   a: (props: any) => <a className="text-indigo-400 hover:text-indigo-300 underline" {...props} />,
-  pre: (props: any) => <pre className="bg-slate-900 border border-white/10 rounded-xl p-4 overflow-x-auto mb-6" {...props} />,
+  pre: (props: any) => <pre className="bg-slate-900 border border-white/10 rounded-xl p-6 overflow-x-auto mb-8" {...props} />,
   code: (props: any) => <code className="bg-slate-900 text-indigo-300 px-1.5 py-0.5 rounded-md font-mono text-sm" {...props} />,
   strong: (props: any) => <strong className="font-bold text-white" {...props} />
 }
@@ -136,14 +136,14 @@ export default function BlogPost({ params }: Props) {
       
       <Navigation />
       
-      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+      <article className="pt-32 sm:pt-36 lg:pt-40 pb-24 sm:pb-28 lg:pb-36 px-5 sm:px-8 lg:px-10 max-w-4xl mx-auto">
         <Link href="/blog" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-12 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Blog&apos;a Dön
         </Link>
         
-        <header className="mb-12 border-b border-white/10 pb-12">
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
+        <header className="mb-14 lg:mb-16 border-b border-white/10 pb-14 lg:pb-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-7 tracking-tight leading-tight">
             {blog.title}
           </h1>
           
@@ -171,23 +171,23 @@ export default function BlogPost({ params }: Props) {
         </div>
         
         {/* Smart Internal Linking CTA */}
-        <aside className="mt-20 p-8 rounded-3xl mesh-gradient relative overflow-hidden border border-white/10 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Ürününüzü Hızlıca Yayına Alalım</h3>
-          <p className="text-gray-300 mb-6 max-w-md mx-auto">
+        <aside className="mt-24 p-8 sm:p-10 lg:p-12 rounded-3xl mesh-gradient relative overflow-hidden border border-white/10 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-5">Ürününüzü Hızlıca Yayına Alalım</h3>
+          <p className="text-gray-300 text-lg leading-[1.75] mb-8 max-w-xl mx-auto">
             Hazır Next.js, Vercel ve AI otomasyon altyapılarıyla işletmenize uygun SaaS MVP, admin panel veya web sistemi kuralım.
           </p>
           <div className="mb-7 flex flex-wrap justify-center gap-3 text-sm font-bold">
-            <Link href="/services/saas-mvp-gelistirme" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+            <Link href="/services/saas-mvp-gelistirme" className="rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-white hover:border-indigo-300/60 transition-colors">
               SaaS MVP Geliştirme
             </Link>
-            <Link href="/blog/nextjs-ile-isletme-web-sitesi-neden-daha-hizlidir" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+            <Link href="/blog/nextjs-ile-isletme-web-sitesi-neden-daha-hizlidir" className="rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-white hover:border-indigo-300/60 transition-colors">
               İlgili Blog
             </Link>
-            <Link href="/sektorler/kucuk-isletme-web-sitesi" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+            <Link href="/sektorler/kucuk-isletme-web-sitesi" className="rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-white hover:border-indigo-300/60 transition-colors">
               Küçük İşletme Çözümü
             </Link>
           </div>
-          <Link href="/#contact" className="inline-flex px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
+          <Link href="/#contact" className="inline-flex px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
             Projemi Birlikte Planlayalım
           </Link>
         </aside>

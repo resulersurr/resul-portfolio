@@ -56,10 +56,10 @@ export default function Portfolio() {
   })
 
   return (
-    <section id="portfolio" className="py-32 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
-      <div className="max-w-7xl mx-auto">
+    <section id="portfolio" className="py-24 sm:py-28 lg:py-36 px-5 sm:px-8 lg:px-10 bg-slate-950/50">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <header className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <header className="flex flex-col md:flex-row md:items-end justify-between mb-20 lg:mb-24 gap-10">
           <div className="max-w-2xl">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
@@ -74,7 +74,7 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-6xl font-bold text-white"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
             >
               Hazır Kurulabilir <span className="gradient-text">Yazılım Ürünleri</span>
             </motion.h3>
@@ -83,7 +83,7 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-gray-400 text-lg leading-relaxed mt-6"
+              className="text-gray-400 text-lg sm:text-xl leading-[1.75] mt-7"
             >
               Turizmden ajans yönetimine, işletme operasyonlarından veri analizine kadar farklı alanlarda hızlı kurulabilen web ve SaaS ürünleri.
             </motion.p>
@@ -101,7 +101,7 @@ export default function Portfolio() {
         </header>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
           {sortedProjects.map((project, index) => (
             <motion.article
               key={index}
@@ -127,7 +127,7 @@ export default function Portfolio() {
               </div>
 
               {/* Content */}
-              <div className="p-8 flex-grow flex flex-col">
+              <div className="p-8 sm:p-10 flex-grow flex flex-col">
                 <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors duration-300">
                   {project.title}
                 </h4>
@@ -148,14 +148,14 @@ export default function Portfolio() {
                 <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-3">
                   <a 
                     href={`/projects/${project.id}`}
-                    className="flex-grow flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
+                    className="flex-grow flex items-center justify-center gap-2 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all duration-300"
                   >
                     Ürünü İncele
                     <ChevronRight className="w-4 h-4" />
                   </a>
                   <a 
                     href={`/#contact?service=${encodeURIComponent(project.title)}`}
-                    className="shrink-0 flex items-center justify-center gap-2 py-3 px-4 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300 text-sm font-bold"
+                    className="shrink-0 flex items-center justify-center gap-2 py-4 px-5 rounded-xl glass border border-white/10 text-white hover:bg-white/10 transition-all duration-300 text-sm font-bold"
                     aria-label="Planı konuşalım"
                   >
                     Planı Konuşalım
