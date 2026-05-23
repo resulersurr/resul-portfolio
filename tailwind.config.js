@@ -10,9 +10,27 @@ module.exports = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        surface: 'var(--surface)',
+        'surface-muted': 'var(--surface-muted)',
+        muted: 'var(--muted)',
+        'muted-2': 'var(--muted-2)',
+        border: 'var(--border)',
+        'border-soft': 'var(--border-soft)',
         primary: 'var(--primary)',
+        'primary-foreground': 'var(--primary-foreground)',
         secondary: 'var(--secondary)',
         accent: 'var(--accent)',
+        'accent-hover': 'var(--accent-hover)',
+        'accent-soft': 'var(--accent-soft)',
+      },
+      borderRadius: {
+        card: 'var(--radius-card)',
+        control: 'var(--radius-control)',
+      },
+      boxShadow: {
+        soft: 'var(--shadow-soft)',
+        hover: 'var(--shadow-hover)',
+        light: '0 8px 24px rgba(0, 0, 0, 0.04)',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-out forwards',
