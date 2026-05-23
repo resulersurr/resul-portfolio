@@ -7,10 +7,10 @@ import { Mail, MessageSquare, Send, Calendar, CheckCircle, Loader2, AlertCircle 
 const PROJECT_TYPES = [
   'SaaS MVP Geliştirme',
   'AI Otomasyon Sistemi',
-  'İşletme Web Sitesi',
+  'Next.js İşletme Web Sitesi',
   'Admin Panel / Dashboard',
-  'Hazır Ürün Özelleştirme',
-  'Mevcut Siteyi Modernleştirme',
+  'Vercel Danışmanlık',
+  'Hazır SaaS Ürünleri',
   'Diğer',
 ]
 
@@ -31,7 +31,8 @@ const TIMELINE_OPTIONS = [
 const SERVICE_TYPE_ALIASES: Record<string, string> = {
   'AI Otomasyon Sistemleri': 'AI Otomasyon Sistemi',
   'Admin Panel & Dashboard': 'Admin Panel / Dashboard',
-  'Ürün Özelleştirme & Kurulum': 'Hazır Ürün Özelleştirme',
+  'Ürün Özelleştirme & Kurulum': 'Hazır SaaS Ürünleri',
+  'İşletme Web Sitesi': 'Next.js İşletme Web Sitesi',
 }
 
 function normalizeProjectType(value: string) {

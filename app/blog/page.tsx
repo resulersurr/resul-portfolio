@@ -17,12 +17,21 @@ export const metadata: Metadata = {
       'İşletmeler için hızlı yayına alınabilen web uygulamaları, SaaS MVP’leri, Vercel deployment süreçleri ve AI destekli otomasyon sistemleri üzerine pratik içerikler.',
     type: 'website',
     url: 'https://www.ersurer.com/blog',
+    images: [
+      {
+        url: '/images/logo2.png',
+        width: 1200,
+        height: 630,
+        alt: 'Resul Ersürer Blog - Next.js, SaaS MVP ve AI Otomasyon',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Next.js, SaaS MVP ve AI Otomasyon Notları',
     description:
       'Next.js, Vercel, SaaS MVP ve AI otomasyon üzerine işletmeler için uygulanabilir yazılım notları.',
+    images: ['/images/logo2.png'],
   },
 }
 

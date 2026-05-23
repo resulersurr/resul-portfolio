@@ -10,10 +10,10 @@ const inter = Inter({
 
 const siteTitle = 'Resul Ersürer | Next.js, Vercel, SaaS MVP ve AI Otomasyon'
 const siteDescription =
-  'İşletmeler için Next.js, Vercel ve AI destekli SaaS MVP’leri, admin panelleri, web siteleri ve otomasyon sistemleri geliştiriyorum.'
+  'İşletmeler için Next.js ve Vercel tabanlı hızlı web siteleri, SaaS MVP’leri, admin paneller ve AI otomasyon sistemleri geliştiriyorum.'
 const ogTitle = 'Next.js, Vercel ve AI Destekli SaaS MVP Geliştirme'
 const ogDescription =
-  'İşletmenize özel hızlı yayına alınabilen SaaS MVP, admin panel, web sitesi ve AI otomasyon sistemleri.'
+  'İşletmeniz için hızlı, ölçülebilir ve yayına hazır web sitesi, SaaS MVP, admin panel ve AI otomasyon sistemleri.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ersurer.com'),

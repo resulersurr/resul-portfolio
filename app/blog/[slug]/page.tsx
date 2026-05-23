@@ -30,15 +30,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${blog.title} | Resul Ersürer Blog`,
     description: blog.description,
     alternates: {
-      canonical: `https://ersurer.com/blog/${params.slug}`
+      canonical: `https://www.ersurer.com/blog/${params.slug}`
     },
     openGraph: {
       title: blog.title,
       description: blog.description,
       type: 'article',
-      url: `https://ersurer.com/blog/${params.slug}`,
+      url: `https://www.ersurer.com/blog/${params.slug}`,
       publishedTime: blog.date,
-      authors: ['Resul Ersürer']
+      authors: ['Resul Ersürer'],
+      images: [
+        {
+          url: '/images/logo2.png',
+          width: 1200,
+          height: 630,
+          alt: `${blog.title} - Resul Ersürer Blog`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.description,
+      images: ['/images/logo2.png'],
     }
   }
 }
@@ -73,7 +87,7 @@ export default function BlogPost({ params }: Props) {
         "author": {
           "@type": "Person",
           "name": "Resul Ersürer",
-          "url": "https://ersurer.com"
+          "url": "https://www.ersurer.com"
         },
         "datePublished": blog.date,
         "publisher": {
@@ -83,7 +97,7 @@ export default function BlogPost({ params }: Props) {
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://ersurer.com/blog/${params.slug}`
+          "@id": `https://www.ersurer.com/blog/${params.slug}`
         }
       },
       {
@@ -93,19 +107,19 @@ export default function BlogPost({ params }: Props) {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://ersurer.com"
+            "item": "https://www.ersurer.com"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Blog",
-            "item": "https://ersurer.com/blog"
+            "item": "https://www.ersurer.com/blog"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": blog.title,
-            "item": `https://ersurer.com/blog/${params.slug}`
+            "item": `https://www.ersurer.com/blog/${params.slug}`
           }
         ]
       }
@@ -162,6 +176,17 @@ export default function BlogPost({ params }: Props) {
           <p className="text-gray-300 mb-6 max-w-md mx-auto">
             Hazır Next.js, Vercel ve AI otomasyon altyapılarıyla işletmenize uygun SaaS MVP, admin panel veya web sistemi kuralım.
           </p>
+          <div className="mb-7 flex flex-wrap justify-center gap-3 text-sm font-bold">
+            <Link href="/services/saas-mvp-gelistirme" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+              SaaS MVP Geliştirme
+            </Link>
+            <Link href="/blog/nextjs-ile-isletme-web-sitesi-neden-daha-hizlidir" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+              İlgili Blog
+            </Link>
+            <Link href="/sektorler/kucuk-isletme-web-sitesi" className="rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-white hover:border-indigo-300/60 transition-colors">
+              Küçük İşletme Çözümü
+            </Link>
+          </div>
           <Link href="/#contact" className="inline-flex px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform">
             Projemi Birlikte Planlayalım
           </Link>

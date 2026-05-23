@@ -17,10 +17,10 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Person',
-      '@id': 'https://ersurer.com/#person',
+      '@id': 'https://www.ersurer.com/#person',
       name: 'Resul Ersürer',
-      jobTitle: 'SaaS Product Developer & AI Automation Specialist',
-      url: 'https://ersurer.com',
+      jobTitle: 'Next.js, Vercel, SaaS MVP ve AI Otomasyon Uzmanı',
+      url: 'https://www.ersurer.com',
       sameAs: [
         'https://github.com/resulersurer',
         'https://linkedin.com/in/resulersurer',
@@ -39,10 +39,10 @@ const jsonLd = {
     },
     {
       '@type': 'Organization',
-      '@id': 'https://ersurer.com/#organization',
+      '@id': 'https://www.ersurer.com/#organization',
       name: 'Resul Ersürer Product Studio',
-      url: 'https://ersurer.com',
-      logo: 'https://ersurer.com/images/logo2.png',
+      url: 'https://www.ersurer.com',
+      logo: 'https://www.ersurer.com/images/logo2.png',
     },
     {
       '@type': 'FAQPage',
@@ -52,7 +52,7 @@ const jsonLd = {
           name: 'Hangi teknolojilerle SaaS MVP ve web sistemleri geliştiriyorsunuz?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Next.js, Vercel, TypeScript, Tailwind CSS, Prisma, PostgreSQL ve AI otomasyon araçlarıyla hızlı kurulabilen SaaS MVP, web sistemi ve admin panel altyapıları geliştiriyorum.',
+            text: 'Next.js, Vercel, TypeScript, Tailwind CSS, Prisma, PostgreSQL ve AI otomasyon araçlarıyla hızlı web siteleri, SaaS MVP, admin panel ve dashboard sistemleri geliştiriyorum.',
           },
         },
         {
@@ -67,11 +67,12 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://ersurer.com/#website',
-      url: 'https://ersurer.com',
+      '@id': 'https://www.ersurer.com/#website',
+      url: 'https://www.ersurer.com',
       name: 'Resul Ersürer | Next.js, Vercel, SaaS MVP ve AI Otomasyon',
+      description: 'Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı, ölçülebilir ve yayına hazır dijital sistemler.',
       publisher: {
-        '@id': 'https://ersurer.com/#organization',
+        '@id': 'https://www.ersurer.com/#organization',
       },
     },
   ],

@@ -24,7 +24,7 @@ export default function Hero() {
           >
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2" />
             <span className="text-xs sm:text-sm font-medium text-gray-300 tracking-wide uppercase">
-              Yeni ürün ve otomasyon projeleri için müsait
+              Next.js, Vercel, SaaS MVP ve AI otomasyon
             </span>
           </motion.div>
 
@@ -35,8 +35,8 @@ export default function Hero() {
               transition={{ delay: 0.4 }}
               className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight"
             >
-              <span className="block text-white">Hazır SaaS MVP’leri ve AI Otomasyonlarla</span>
-              <span className="gradient-text">İşletmenizi Dijitalleştirin</span>
+              <span className="block text-white">Next.js, Vercel ve AI Otomasyon ile</span>
+              <span className="gradient-text">İşletmeniz İçin Hızlı Dijital Ürünler</span>
             </motion.h1>
 
             <motion.p
@@ -45,7 +45,7 @@ export default function Hero() {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light"
             >
-              Next.js, Vercel ve modern web teknolojileriyle geliştirdiğim hazır ürün altyapılarını işletmenizin ihtiyacına göre özelleştirip hızlıca yayına alıyorum.
+              KOBİ’ler, ajanslar, danışmanlar ve girişimciler için hızlı açılan işletme web siteleri, SaaS MVP’leri, admin paneller ve AI destekli otomasyonlar geliştiriyorum.
             </motion.p>
           </header>
 
@@ -61,17 +61,17 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="group relative inline-flex w-full sm:w-auto items-center justify-center px-6 sm:px-10 py-5 gradient-bg text-white font-bold rounded-2xl shadow-2xl shadow-indigo-500/40 transition-all duration-300 text-center leading-snug"
             >
-              Ücretsiz 15 Dakikalık Yazılım Analizi Al
+              Ücretsiz Proje Analizi Al
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </motion.a>
 
             <motion.a
-              href="#portfolio"
+              href="#services"
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex w-full sm:w-auto items-center justify-center px-6 sm:px-10 py-5 glass text-white font-bold rounded-2xl border border-white/10 transition-all duration-300 text-center leading-snug"
             >
-              Hazır SaaS Çözümlerini İncele
+              Hizmetleri İncele
             </motion.a>
           </motion.div>
 

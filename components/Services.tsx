@@ -2,44 +2,50 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Bot, Code2, Globe, LayoutDashboard, RefreshCcw, Rocket, Settings } from 'lucide-react'
+import { ArrowRight, Bot, Code2, Globe, LayoutDashboard, Rocket, Server, Settings } from 'lucide-react'
 
 const SERVICE_ITEMS = [
   {
     title: 'SaaS MVP Geliştirme',
+    slug: '/services/saas-mvp-gelistirme',
     icon: Rocket,
     description: 'Next.js ve Vercel ile fikrinizi hızlıca çalışan, yayına hazır bir SaaS MVP’ye dönüştürüyorum.',
     cta: 'Hızlı MVP Planı Al',
   },
   {
     title: 'AI Otomasyon Sistemleri',
+    slug: '/services/ai-otomasyon',
     icon: Bot,
     description: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla hızlandırıp daha verimli hale getiriyorum.',
     cta: 'AI Otomasyon Fikrim İçin Görüşme Planla',
   },
   {
-    title: 'İşletme Web Sitesi',
+    title: 'Next.js İşletme Web Sitesi',
+    slug: '/services/nextjs-isletme-web-sitesi',
     icon: Globe,
     description: 'İşletmeniz için modern, hızlı, mobil uyumlu ve dönüşüm odaklı web sitesi hazırlıyorum.',
     cta: 'İşletmeme Uygun Web Planını Bul',
   },
   {
     title: 'Admin Panel & Dashboard',
+    slug: '/services/admin-panel-dashboard',
     icon: LayoutDashboard,
     description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
     cta: 'Operasyon Panelimi Planlayalım',
   },
   {
-    title: 'Ürün Özelleştirme & Kurulum',
-    icon: Settings,
-    description: 'Hazır dijital ürünlerimi işletmenizin süreçlerine göre özelleştirip yayına alıyorum.',
-    cta: 'İşletmeme Uygun SaaS Çözümünü Bul',
+    title: 'Vercel Danışmanlık',
+    slug: '/services/vercel-danismanlik',
+    icon: Server,
+    description: 'Next.js projelerinizi Vercel üzerinde performanslı, güvenli ve ölçeklenebilir şekilde yayına almanıza destek oluyorum.',
+    cta: 'Vercel Kurulum Desteği Al',
   },
   {
-    title: 'Mevcut Siteyi Modernleştirme',
-    icon: RefreshCcw,
-    description: 'Eski veya yavaş web sitenizi modern tasarım, hızlı altyapı ve SEO uyumuyla yeniliyorum.',
-    cta: '7 Günde Yayına Çıkabilecek Sistemi Konuşalım',
+    title: 'Hazır SaaS Ürünleri',
+    slug: '/services/hazir-saas-urunleri',
+    icon: Settings,
+    description: 'İşletmenize uyarlanabilen hazır SaaS altyapılarıyla daha hızlı ve ekonomik yayına çıkmanızı sağlıyorum.',
+    cta: 'Uygun Ürünü Bulalım',
   },
 ]
 
@@ -48,8 +54,8 @@ const ICON_MAP: Record<string, any> = {
   Bot,
   Globe,
   LayoutDashboard,
-  RefreshCcw,
   Settings,
+  Server,
   Code2,
 }
 
@@ -191,6 +197,13 @@ export default function Services() {
                     {service.cta}
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />
                   </button>
+
+                  <a
+                    href={service.slug}
+                    className="mt-3 text-center text-sm font-bold text-indigo-300 hover:text-white transition-colors"
+                  >
+                    Hizmet detaylarını incele
+                  </a>
 
                   <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent group-hover:w-full transition-all duration-700" />
                 </motion.article>

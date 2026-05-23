@@ -46,7 +46,7 @@ export default function About() {
 
             <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
               <p>
-                Next.js, Vercel, modern web teknolojileri ve AI otomasyon araçlarıyla işletmeler için hızlı kurulabilen SaaS MVP’leri, admin paneller, web sistemleri ve dijital ürün altyapıları geliştiriyorum.
+                Next.js, Vercel ve AI otomasyonlarla işletmeniz için hızlı, ölçülebilir ve yayına hazır dijital sistemler geliştiriyorum.
               </p>
               <p>
                 Amacım, işletmelerin aylar süren yazılım süreçlerine girmeden daha hızlı yayına çıkmasını sağlamak. Hazır ürün altyapılarımı müşterinin sektörüne, iş akışına ve marka yapısına göre özelleştiriyorum.

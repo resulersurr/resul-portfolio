@@ -1,89 +1,200 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Bot, CheckCircle, Globe, LayoutDashboard, RefreshCcw, Rocket, Settings } from 'lucide-react'
+import {
+  ArrowLeft,
+  Bot,
+  CheckCircle,
+  Globe,
+  LayoutDashboard,
+  Rocket,
+  Server,
+  Settings,
+} from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Script from 'next/script'
 
-const servicesData = {
-  'saas-mvp-development': {
-    title: 'SaaS MVP Geliştirme',
-    description: 'Next.js ve Vercel ile fikrinizi hızlıca çalışan, yayına hazır bir SaaS MVP’ye dönüştürüyorum.',
-    longDescription: 'Startup kurucuları ve işletmeler için aylar süren yazılım süreçlerini kısaltan, ölçeklenebilir ve özelleştirilebilir SaaS MVP altyapıları geliştiriyorum. Üyelik, dashboard, form, ödeme, bildirim ve temel veri akışları gibi ürün ihtiyaçlarını hızlıca yayına alınabilir hale getiriyorum.',
-    features: ['Next.js ürün altyapısı', 'Vercel deployment', 'Prisma & PostgreSQL veri modeli', 'Dashboard ve kullanıcı akışları'],
+type ServicePageData = {
+  slug: string
+  title: string
+  meta: string
+  h1: string
+  cta: string
+  intro: string
+  problem: string
+  solution: string
+  audience: string[]
+  includes: string[]
+  process: string[]
+  useCases: string[]
+  faqs: Array<{ question: string; answer: string }>
+  keywords: string[]
+  icon: typeof Rocket
+}
+
+const servicesData: Record<string, ServicePageData> = {
+  'saas-mvp-gelistirme': {
+    slug: 'saas-mvp-gelistirme',
+    title: 'SaaS MVP Geliştirme | Next.js ve Vercel',
+    meta: 'Fikrinizi Next.js, Vercel ve modern SaaS altyapısıyla hızlıca yayına hazır MVP’ye dönüştürün.',
+    h1: 'SaaS MVP Geliştirme',
+    cta: 'MVP Fikrimi Konuşalım',
+    intro:
+      'SaaS fikrinizi üyelik, dashboard, veri modeli, ödeme veya temel otomasyon akışlarıyla hızlıca test edilebilir bir ürüne dönüştürüyorum.',
+    problem:
+      'Birçok girişimci ve işletme ilk ürünü gereğinden büyük planladığı için aylarca yayına çıkamaz, bütçe tüketir ve gerçek kullanıcı geri bildirimi alamaz.',
+    solution:
+      'Next.js, Vercel, TypeScript, Prisma ve PostgreSQL ile önce temel değer önerisini çalışan bir MVP olarak kurar, sonra kullanıcı verisine göre genişletilebilir bir ürün altyapısı oluştururum.',
+    audience: ['Startup kurucuları', 'Hızlı MVP çıkarmak isteyen girişimciler', 'Yeni dijital ürün test eden işletmeler', 'Ajanslar ve ürün ekipleri'],
+    includes: ['MVP kapsam analizi', 'Next.js ürün altyapısı', 'Kullanıcı ve admin akışları', 'Veri modeli kurulumu', 'Vercel deployment', 'Temel analytics ve form akışları'],
+    process: ['Kapsamı netleştirme', 'Ekran ve veri modeli planlama', 'MVP geliştirme', 'Test ve Vercel yayını', 'İlk geri bildirimlere göre iyileştirme'],
+    useCases: ['Üyelikli SaaS paneli', 'Lead toplama ve teklif sistemi', 'Rezervasyon takip MVP’si', 'B2B müşteri portalı'],
+    faqs: [
+      { question: 'SaaS MVP ne kadar sürede çıkar?', answer: 'Kapsama göre değişir; sade bir MVP genellikle haftalar içinde yayına alınabilecek şekilde planlanır.' },
+      { question: 'MVP’ye ödeme sistemi eklenebilir mi?', answer: 'Evet. Üyelik, ödeme, form, bildirim ve dashboard akışları MVP kapsamına göre eklenebilir.' },
+      { question: 'İlk sürüm sonradan büyütülebilir mi?', answer: 'Evet. Veri modeli ve modüler ekran yapısı, sonraki özelliklerin eklenmesini kolaylaştıracak şekilde kurulur.' },
+    ],
+    keywords: ['saas mvp geliştirme', 'next.js saas', 'vercel mvp', 'startup mvp geliştirme'],
     icon: Rocket,
   },
-  'ai-automation': {
-    title: 'AI Otomasyon Sistemleri',
-    description: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla hızlandırıp daha verimli hale getiriyorum.',
-    longDescription: 'Müşteri takibi, raporlama, form değerlendirme, içerik üretimi ve operasyon bildirimleri gibi tekrar eden süreçleri AI destekli otomasyonlarla sadeleştiriyorum. Amaç, ekibinizin manuel iş yükünü azaltmak ve karar süreçlerini hızlandırmak.',
-    features: ['AI destekli iş akışları', 'Form ve veri otomasyonları', 'Bildirim ve raporlama akışları', 'API entegrasyonları'],
+  'ai-otomasyon': {
+    slug: 'ai-otomasyon',
+    title: 'AI Otomasyon Sistemleri | İş Süreçlerini Hızlandırın',
+    meta: 'Tekrar eden iş süreçlerinizi AI destekli otomasyonlarla azaltın, raporlama ve takip akışlarını hızlandırın.',
+    h1: 'AI Otomasyon Sistemleri',
+    cta: 'Otomasyon Fikrimi Konuşalım',
+    intro:
+      'Tekrar eden müşteri takibi, raporlama, içerik, form değerlendirme ve bildirim süreçlerini AI destekli akışlarla hızlandırıyorum.',
+    problem:
+      'Manuel raporlama, kopyala-yapıştır işler, tekrar eden müşteri mesajları ve dağınık takip süreçleri ekiplerin zamanını tüketir.',
+    solution:
+      'AI servislerini form, dashboard, CRM, e-posta, WhatsApp veya mevcut API akışlarınıza bağlayarak kontrollü ve ölçülebilir otomasyonlar kurarım.',
+    audience: ['Operasyon ekipleri', 'Danışmanlar', 'Ajanslar', 'Turizm ve hizmet işletmeleri', 'Raporlama yükü fazla olan KOBİ’ler'],
+    includes: ['Süreç analizi', 'AI destekli sınıflandırma', 'Özet ve rapor üretimi', 'Bildirim akışları', 'Admin panel bağlantısı', 'API entegrasyonları'],
+    process: ['Tekrarlayan işi seçme', 'Veri kaynaklarını belirleme', 'AI akışını tasarlama', 'Panel ve bildirim entegrasyonu', 'Canlı kullanım ve iyileştirme'],
+    useCases: ['Form yanıtı özetleme', 'Müşteri taleplerini sınıflandırma', 'Haftalık operasyon raporu', 'AI destekli teklif hazırlığı'],
+    faqs: [
+      { question: 'AI otomasyon hangi işler için uygundur?', answer: 'Sık tekrarlanan, veriyle ilerleyen, özetleme, sınıflandırma veya karar desteği isteyen süreçler için uygundur.' },
+      { question: 'AI çıktıları kontrol edilebilir mi?', answer: 'Evet. İnsan onaylı akışlar, kayıt ekranları ve panel içi kontrol adımları eklenebilir.' },
+      { question: 'Mevcut sistemlere bağlanabilir mi?', answer: 'Uygun API veya veri erişimi varsa e-posta, form, CRM, dashboard ve üçüncü parti servislerle entegre edilebilir.' },
+    ],
+    keywords: ['ai otomasyon', 'iş süreci otomasyonu', 'ai raporlama', 'yapay zeka otomasyon'],
     icon: Bot,
   },
-  'business-website': {
-    title: 'İşletme Web Sitesi',
-    description: 'İşletmeniz için modern, hızlı, mobil uyumlu ve dönüşüm odaklı web sitesi hazırlıyorum.',
-    longDescription: 'KOBİ’ler, hizmet işletmeleri, ajanslar ve turizm markaları için güven veren, hızlı açılan, SEO uyumlu ve teklif/lead toplama odaklı web siteleri hazırlıyorum. Tasarım dili sade, profesyonel ve satış hedeflerinize uygun olur.',
-    features: ['Modern landing page', 'Mobil uyumlu arayüz', 'SEO temel yapısı', 'Lead ve iletişim formları'],
+  'nextjs-isletme-web-sitesi': {
+    slug: 'nextjs-isletme-web-sitesi',
+    title: 'Next.js İşletme Web Sitesi | Hızlı ve SEO Uyumlu',
+    meta: 'İşletmeniz için hızlı açılan, mobil uyumlu ve lead odaklı Next.js web sitesi geliştirme.',
+    h1: 'Next.js İşletme Web Sitesi',
+    cta: 'Web Sitemi Planlayalım',
+    intro:
+      'KOBİ’ler, danışmanlar, ajanslar ve hizmet işletmeleri için hızlı açılan, SEO uyumlu ve müşteri adayı toplamaya odaklanan web siteleri geliştiriyorum.',
+    problem:
+      'Yavaş, güncel olmayan veya net teklif sunmayan web siteleri organik görünürlüğü ve müşteri adayı dönüşümünü düşürür.',
+    solution:
+      'Next.js ve Vercel ile teknik SEO temeli güçlü, mobil uyumlu, hızlı ve net CTA’lara sahip işletme web siteleri kurarım.',
+    audience: ['Küçük ve orta ölçekli işletmeler', 'Danışmanlar', 'Hizmet sektörü işletmeleri', 'Ajanslar', 'Turizm markaları'],
+    includes: ['Ana sayfa', 'Hizmet sayfaları', 'Blog altyapısı', 'İletişim ve teklif formu', 'Open Graph ve sitemap', 'Vercel yayını'],
+    process: ['Konumlandırma ve sayfa planı', 'İçerik ve tasarım düzeni', 'Next.js geliştirme', 'SEO teknik kontroller', 'Yayına alma'],
+    useCases: ['Kurumsal hizmet sitesi', 'Danışman web sitesi', 'Ajans web sitesi', 'Turizm şirketi sitesi'],
+    faqs: [
+      { question: 'Next.js işletme sitesi SEO’ya uygun olur mu?', answer: 'Evet. Metadata, sitemap, schema, hızlı sayfa açılışı ve doğru içerik yapısıyla SEO’ya uygun kurulur.' },
+      { question: 'Siteye blog eklenebilir mi?', answer: 'Evet. Blog altyapısı, hizmet sayfaları ve internal linking yapısı birlikte planlanabilir.' },
+      { question: 'Vercel üzerinde yayınlanır mı?', answer: 'Evet. Domain, environment, deployment ve temel performans kontrolleriyle yayına alınır.' },
+    ],
+    keywords: ['next.js işletme web sitesi', 'hızlı web sitesi', 'seo uyumlu web sitesi', 'kobiler için web sitesi'],
     icon: Globe,
   },
   'admin-panel-dashboard': {
-    title: 'Admin Panel & Dashboard',
-    description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
-    longDescription: 'Operasyonlarını dijitalleştirmek isteyen işletmeler için müşteri, ekip, görev, sipariş, rezervasyon veya rapor verilerini tek panelden yönetebilecekleri dashboard sistemleri geliştiriyorum.',
-    features: ['Rol bazlı yönetim', 'Veri tabloları ve filtreler', 'Raporlama ekranları', 'Operasyon takip panelleri'],
+    slug: 'admin-panel-dashboard',
+    title: 'Admin Panel ve Dashboard Geliştirme',
+    meta: 'Müşteri, sipariş, rezervasyon, ekip ve operasyon verilerinizi tek panelden yönetin.',
+    h1: 'Admin Panel ve Dashboard Geliştirme',
+    cta: 'Panel İhtiyacımı Konuşalım',
+    intro:
+      'Müşteri, sipariş, rezervasyon, ekip, görev ve rapor verilerinizi tek yerden takip edebileceğiniz sade ve hızlı admin paneller geliştiriyorum.',
+    problem:
+      'Excel, mesajlaşma uygulamaları ve dağınık dosyalar operasyonu büyüdükçe yavaşlatır; ekipler aynı veriye aynı anda güvenle bakamaz.',
+    solution:
+      'İş akışınıza göre rol bazlı, filtrelenebilir, raporlanabilir ve otomasyonlara bağlanabilir dashboard sistemleri kurarım.',
+    audience: ['Operasyon ekipleri', 'Turizm şirketleri', 'Ajanslar', 'Emlak ofisleri', 'Sipariş veya rezervasyon yöneten işletmeler'],
+    includes: ['Dashboard ekranları', 'Rol bazlı erişim', 'Veri tabloları', 'Filtre ve arama', 'Raporlama alanları', 'Bildirim ve entegrasyonlar'],
+    process: ['Operasyon akışını çıkarma', 'Veri modelini tasarlama', 'Panel ekranlarını geliştirme', 'Yetki ve güvenlik ayarları', 'Canlı kullanım desteği'],
+    useCases: ['Rezervasyon takip paneli', 'Ajans proje dashboard’u', 'Müşteri ve teklif takibi', 'Ekip görev yönetimi'],
+    faqs: [
+      { question: 'Panelde rol bazlı yetki olur mu?', answer: 'Evet. Admin, ekip ve sınırlı kullanıcı rolleri ihtiyaca göre tanımlanabilir.' },
+      { question: 'Excel yerine kullanılabilir mi?', answer: 'Evet. Dağınık Excel takipleri düzenli veri tabloları, filtreler ve raporlarla panele taşınabilir.' },
+      { question: 'AI otomasyon eklenebilir mi?', answer: 'Evet. Panel içindeki veriler raporlama, sınıflandırma veya özetleme için AI akışlarına bağlanabilir.' },
+    ],
+    keywords: ['admin panel geliştirme', 'dashboard geliştirme', 'operasyon paneli', 'müşteri takip paneli'],
     icon: LayoutDashboard,
   },
-  'product-customization': {
-    title: 'Ürün Özelleştirme & Kurulum',
-    description: 'Hazır dijital ürünlerimi işletmenizin süreçlerine göre özelleştirip yayına alıyorum.',
-    longDescription: 'Hazır SaaS ve web ürün altyapılarımı sektörünüze, marka yapınıza, veri modelinize ve iş akışınıza göre uyarlıyorum. Böylece sıfırdan geliştirmeye göre daha hızlı, kontrollü ve ekonomik bir yayına çıkış sağlanır.',
-    features: ['Hazır ürün adaptasyonu', 'Marka ve arayüz uyarlaması', 'Veri modeli özelleştirme', 'Yayına alma desteği'],
+  'vercel-danismanlik': {
+    slug: 'vercel-danismanlik',
+    title: 'Vercel Danışmanlık ve Deployment Hizmeti',
+    meta: 'Next.js projelerinizi Vercel üzerinde performanslı, güvenli ve ölçeklenebilir şekilde yayına alın.',
+    h1: 'Vercel Danışmanlık',
+    cta: 'Vercel Kurulum Desteği Al',
+    intro:
+      'Next.js projelerinizi Vercel üzerinde doğru environment, domain, preview deployment ve performans ayarlarıyla yayına almanıza yardımcı oluyorum.',
+    problem:
+      'Yanlış deployment ayarları, eksik environment değişkenleri, domain sorunları ve performans problemleri ürünün canlıya çıkışını yavaşlatır.',
+    solution:
+      'Vercel deployment sürecini proje yapınıza göre düzenler; production, preview, domain, analytics ve temel performans kontrollerini netleştiririm.',
+    audience: ['Next.js projesi olan işletmeler', 'Ajanslar', 'Startup ekipleri', 'Freelancer ekipleri', 'Mevcut sitesini Vercel’e taşımak isteyenler'],
+    includes: ['Vercel proje kurulumu', 'Domain bağlantısı', 'Environment yönetimi', 'Preview deployment', 'Performans kontrolü', 'Yayın sonrası teknik destek'],
+    process: ['Proje yapısını inceleme', 'Deployment ayarlarını planlama', 'Vercel kurulumu', 'Domain ve env kontrolleri', 'Yayın ve doğrulama'],
+    useCases: ['Next.js site yayını', 'SaaS MVP deployment', 'Preview ortamı kurulumu', 'Mevcut projenin Vercel’e taşınması'],
+    faqs: [
+      { question: 'Mevcut Next.js projem Vercel’e taşınabilir mi?', answer: 'Evet. Proje yapısı uygunsa domain, environment ve build ayarlarıyla Vercel’e taşınabilir.' },
+      { question: 'Performans optimizasyonu dahil mi?', answer: 'Temel Core Web Vitals, görsel, metadata ve deployment kontrolleri hizmet kapsamına alınabilir.' },
+      { question: 'Preview deployment kurulabilir mi?', answer: 'Evet. Ekip ve müşteri onayı için preview deployment akışı kurulabilir.' },
+    ],
+    keywords: ['vercel danışmanlık', 'vercel deployment', 'next.js deployment', 'vercel kurulum'],
+    icon: Server,
+  },
+  'hazir-saas-urunleri': {
+    slug: 'hazir-saas-urunleri',
+    title: 'Hazır SaaS Ürünleri ve Kurulum Hizmeti',
+    meta: 'İşletmenize uyarlanabilen hazır SaaS altyapılarıyla daha hızlı ve ekonomik yayına çıkın.',
+    h1: 'Hazır SaaS Ürünleri',
+    cta: 'Uygun Ürünü Bulalım',
+    intro:
+      'Turizm, ajans, restoran, danışmanlık ve küçük işletme operasyonlarına uyarlanabilen hazır SaaS altyapılarıyla daha hızlı yayına çıkmanızı sağlarım.',
+    problem:
+      'Her projeyi sıfırdan yazmak çoğu işletme için pahalı, yavaş ve gereksiz risklidir; birçok ihtiyaç benzer ürün altyapılarıyla daha hızlı çözülebilir.',
+    solution:
+      'Hazır Next.js SaaS altyapılarını markanıza, sektörünüze, veri yapınıza ve iş akışınıza göre özelleştirerek kurulum yaparım.',
+    audience: ['Hızlı dijitalleşmek isteyen KOBİ’ler', 'Turizm şirketleri', 'Ajanslar', 'Restoranlar', 'Danışmanlar', 'Emlak ofisleri'],
+    includes: ['Hazır ürün seçimi', 'Marka ve içerik uyarlama', 'Veri modeli düzenleme', 'Panel kurulumu', 'Vercel yayını', 'Kullanım desteği'],
+    process: ['İhtiyacı eşleştirme', 'Uygun hazır ürünü seçme', 'Özelleştirme', 'Entegrasyonlar', 'Yayına alma ve eğitim'],
+    useCases: ['QR menü sistemi', 'Turizm operasyon paneli', 'Ajans proje takip sistemi', 'Danışman lead paneli'],
+    faqs: [
+      { question: 'Hazır SaaS ürünleri tamamen özelleşir mi?', answer: 'Marka, içerik, ekranlar, veri modeli ve iş akışları ihtiyaca göre uyarlanabilir.' },
+      { question: 'Sıfırdan yazılıma göre avantajı nedir?', answer: 'Daha hızlı yayına çıkış, daha düşük başlangıç maliyeti ve test edilmiş temel akışlar sağlar.' },
+      { question: 'Sonradan özel özellik eklenebilir mi?', answer: 'Evet. Hazır altyapı üzerine sektöre veya işletmeye özel modüller eklenebilir.' },
+    ],
+    keywords: ['hazır saas ürünleri', 'hazır yazılım kurulumu', 'saas ürün altyapısı', 'işletme yazılımı'],
     icon: Settings,
   },
-  'website-modernization': {
-    title: 'Mevcut Siteyi Modernleştirme',
-    description: 'Eski veya yavaş web sitenizi modern tasarım, hızlı altyapı ve SEO uyumuyla yeniliyorum.',
-    longDescription: 'Eski, yavaş veya dönüşüm üretmeyen web sitelerini Next.js, Tailwind CSS ve Vercel altyapısıyla yeniliyorum. Performans, mobil kullanım, içerik yapısı ve teklif alma akışı birlikte iyileştirilir.',
-    features: ['Modern arayüz yenileme', 'Performans iyileştirme', 'SEO ve içerik düzeni', 'Vercel yayına alma'],
-    icon: RefreshCcw,
-  },
-  'aspnet-core-development': {
-    title: 'Geçmiş Backend Deneyimi',
-    description: 'ASP.NET Core geçmişim, modern SaaS ve web ürünlerinde sağlam API ve veri modeli kararlarına destek olur.',
-    longDescription: 'Ana odağım artık Next.js, Vercel, SaaS MVP ve AI otomasyon sistemleri olsa da geçmiş backend deneyimim; API tasarımı, veri modelleme, güvenlik ve operasyonel ölçeklenebilirlik kararlarında projelere teknik derinlik katar.',
-    features: ['API tasarım deneyimi', 'Veri modeli yaklaşımı', 'Güvenlik farkındalığı', 'Sistem tasarımı geçmişi'],
-    icon: CheckCircle,
-  },
-  'web-api-development': {
-    title: 'API Entegrasyonları',
-    description: 'Web sistemlerinizi ödeme, bildirim, harita, AI ve üçüncü parti servislerle entegre ediyorum.',
-    longDescription: 'Modern SaaS ve web ürünlerinin ihtiyaç duyduğu ödeme, e-posta, WhatsApp, harita, AI, CRM veya veri servislerini kontrollü API entegrasyonlarıyla ürüne bağlıyorum.',
-    features: ['Üçüncü parti servis bağlantıları', 'Form ve bildirim akışları', 'AI servis entegrasyonları', 'Güvenli veri aktarımı'],
-    icon: CheckCircle,
-  },
-  'crm-software-development': {
-    title: 'Operasyon & Müşteri Paneli',
-    description: 'Müşteri, görev ve operasyon süreçlerini takip edebileceğiniz sade yönetim panelleri geliştiriyorum.',
-    longDescription: 'Klasik CRM yaklaşımından ziyade, işletmenizin gerçek operasyon akışına uygun müşteri, görev, görüşme, rezervasyon veya teklif takip panelleri oluşturuyorum.',
-    features: ['Müşteri takibi', 'Görev ve süreç yönetimi', 'Teklif ve form akışları', 'Raporlama ekranları'],
-    icon: LayoutDashboard,
-  },
-  'admin-panel-development': {
-    title: 'Admin Panel & Dashboard',
-    description: 'Müşteri, sipariş, operasyon ve verilerinizi tek panelden yönetebileceğiniz özel dashboard geliştiriyorum.',
-    longDescription: 'İşletme operasyonları için sade, hızlı ve rol bazlı yönetim panelleri geliştiriyorum. Panel yapısı Next.js, TypeScript ve modern arayüz standartlarına uygun kurulur.',
-    features: ['Dashboard arayüzü', 'Rol bazlı erişim', 'Veri tabloları', 'Raporlama ve filtreler'],
-    icon: LayoutDashboard,
-  },
-  'enterprise-architecture': {
-    title: 'Ürün Altyapısı Danışmanlığı',
-    description: 'SaaS MVP veya dijital ürününüz için doğru teknik kapsamı, veri modelini ve yayına çıkış planını belirliyorum.',
-    longDescription: 'Yeni bir dijital ürün fikriniz varsa, önce hangi özelliklerin MVP için gerekli olduğunu, hangi hazır altyapının kullanılabileceğini ve hangi entegrasyonların değer yaratacağını birlikte netleştiriyorum.',
-    features: ['MVP kapsam analizi', 'Teknik yol haritası', 'Veri modeli planlama', 'Yayına çıkış stratejisi'],
-    icon: Rocket,
-  },
+}
+
+const legacySlugMap: Record<string, string> = {
+  'saas-mvp-development': 'saas-mvp-gelistirme',
+  'ai-automation': 'ai-otomasyon',
+  'business-website': 'nextjs-isletme-web-sitesi',
+  'product-customization': 'hazir-saas-urunleri',
+  'website-modernization': 'nextjs-isletme-web-sitesi',
+  'aspnet-core-development': 'saas-mvp-gelistirme',
+  'web-api-development': 'ai-otomasyon',
+  'crm-software-development': 'admin-panel-dashboard',
+  'admin-panel-development': 'admin-panel-dashboard',
+  'enterprise-architecture': 'vercel-danismanlik',
+}
+
+function getService(slug: string) {
+  return servicesData[slug] || servicesData[legacySlugMap[slug]]
 }
 
 type Props = {
@@ -91,63 +202,93 @@ type Props = {
 }
 
 export function generateStaticParams() {
-  return Object.keys(servicesData).map((slug) => ({ slug }))
+  return [...Object.keys(servicesData), ...Object.keys(legacySlugMap)].map((slug) => ({ slug }))
 }
 
 export const dynamic = 'force-static'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const service = servicesData[params.slug as keyof typeof servicesData]
+  const service = getService(params.slug)
 
   if (!service) {
     return { title: 'Hizmet Bulunamadı' }
   }
 
+  const canonicalSlug = service.slug
+
   return {
-    title: `${service.title} | Resul Ersürer`,
-    description: service.description,
+    title: service.title,
+    description: service.meta,
+    keywords: service.keywords,
     alternates: {
-      canonical: `https://ersurer.com/services/${params.slug}`,
+      canonical: `https://www.ersurer.com/services/${canonicalSlug}`,
     },
     openGraph: {
       title: service.title,
-      description: service.description,
-      type: 'article',
-      url: `https://ersurer.com/services/${params.slug}`,
+      description: service.meta,
+      type: 'website',
+      url: `https://www.ersurer.com/services/${canonicalSlug}`,
+      images: [
+        {
+          url: '/images/logo2.png',
+          width: 1200,
+          height: 630,
+          alt: `${service.h1} - Resul Ersürer`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: service.title,
+      description: service.meta,
+      images: ['/images/logo2.png'],
     },
   }
 }
 
 export default function ServicePage({ params }: Props) {
-  const service = servicesData[params.slug as keyof typeof servicesData]
+  const service = getService(params.slug)
 
   if (!service) {
     notFound()
   }
 
   const Icon = service.icon
-  const contactHref = `/#contact?service=${encodeURIComponent(service.title)}`
+  const contactHref = `/#contact?service=${encodeURIComponent(service.h1)}`
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Service',
-        name: service.title,
-        description: service.longDescription,
+        name: service.h1,
+        description: service.meta,
         provider: {
           '@type': 'Person',
           name: 'Resul Ersürer',
           url: 'https://www.ersurer.com',
         },
-        serviceType: 'SaaS MVP and AI Automation Development',
+        serviceType: service.h1,
+        areaServed: 'TR',
+        url: `https://www.ersurer.com/services/${service.slug}`,
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: service.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ersurer.com' },
-          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.ersurer.com/#services' },
-          { '@type': 'ListItem', position: 3, name: service.title, item: `https://www.ersurer.com/services/${params.slug}` },
+          { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: 'https://www.ersurer.com' },
+          { '@type': 'ListItem', position: 2, name: 'Hizmetler', item: 'https://www.ersurer.com/#services' },
+          { '@type': 'ListItem', position: 3, name: service.h1, item: `https://www.ersurer.com/services/${service.slug}` },
         ],
       },
     ],
@@ -163,52 +304,111 @@ export default function ServicePage({ params }: Props) {
 
       <Navigation />
 
-      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <Link href="/#services" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors mb-8 group text-sm font-medium">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Hizmetlere Dön
         </Link>
 
-        <header className="mb-12">
+        <header className="mb-14">
           <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-6 border border-white/10 shadow-xl">
             <Icon className="w-8 h-8 text-indigo-400" />
           </div>
+          <p className="text-sm font-bold tracking-widest text-indigo-400 uppercase mb-4">Hizmet</p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            {service.title}
+            {service.h1}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed font-light">
-            {service.description}
+          <p className="text-xl text-gray-400 leading-relaxed font-light max-w-3xl">
+            {service.intro}
           </p>
+          <Link
+            href={contactHref}
+            className="mt-8 inline-flex items-center px-7 py-4 gradient-bg text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
+          >
+            {service.cta}
+          </Link>
         </header>
 
-        <section className="prose prose-invert prose-indigo max-w-none mb-16">
-          <h2 className="text-2xl font-bold text-white mb-4">Hizmet Detayları</h2>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {service.longDescription}
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+            <h2 className="text-2xl font-bold text-white mb-4">Problem</h2>
+            <p className="text-gray-300 leading-relaxed">{service.problem}</p>
+          </section>
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+            <h2 className="text-2xl font-bold text-white mb-4">Çözüm</h2>
+            <p className="text-gray-300 leading-relaxed">{service.solution}</p>
+          </section>
+        </div>
 
-          <h3 className="text-xl font-bold text-white mt-12 mb-6">Öne Çıkan Özellikler</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {service.features.map((feature) => (
-              <div key={feature} className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-6">Kimler İçin?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {service.audience.map((item) => (
+              <div key={item} className="flex items-start gap-3 rounded-xl bg-white/5 border border-white/5 p-4">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <span className="text-gray-300">{feature}</span>
+                <span className="text-gray-300">{item}</span>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-6">Neler Dahil?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {service.includes.map((item) => (
+              <div key={item} className="rounded-xl bg-white/5 border border-white/5 px-5 py-4 text-gray-300">
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-6">Süreç</h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {service.process.map((step, index) => (
+              <div key={step} className="rounded-xl bg-slate-900/70 border border-white/10 p-5">
+                <div className="text-indigo-400 font-black mb-3">{String(index + 1).padStart(2, '0')}</div>
+                <p className="text-gray-300 text-sm leading-relaxed">{step}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-6">Örnek Kullanım Senaryoları</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {service.useCases.map((item) => (
+              <div key={item} className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5 text-indigo-100">
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-6">Sık Sorulan Sorular</h2>
+          <div className="space-y-4">
+            {service.faqs.map((faq) => (
+              <details key={faq.question} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 group">
+                <summary className="cursor-pointer text-white font-bold">{faq.question}</summary>
+                <p className="text-gray-300 leading-relaxed mt-4">{faq.answer}</p>
+              </details>
             ))}
           </div>
         </section>
 
         <section className="p-8 sm:p-12 rounded-3xl mesh-gradient relative overflow-hidden text-center border border-white/10">
           <div className="relative z-10 space-y-6">
-            <h2 className="text-3xl font-bold text-white">Bu Hizmet İşletmeniz İçin Uygun mu?</h2>
+            <h2 className="text-3xl font-bold text-white">İşletmeniz İçin Doğru Çözümü Netleştirelim</h2>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              İhtiyacınızı birlikte netleştirip hazır altyapılarla en hızlı yayına çıkış yolunu belirleyelim.
+              İhtiyacınızı birlikte değerlendirip hızlı, ölçülebilir ve yayına hazır bir yol haritası çıkaralım.
             </p>
             <Link
               href={contactHref}
               className="inline-flex items-center px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform"
             >
-              Projemi Birlikte Planlayalım
+              {service.cta}
             </Link>
           </div>
         </section>

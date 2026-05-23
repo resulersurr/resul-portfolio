@@ -4,12 +4,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.ersurer.com'
 
   const services = [
-    'saas-mvp-development',
-    'ai-automation',
-    'business-website',
+    'saas-mvp-gelistirme',
+    'ai-otomasyon',
+    'nextjs-isletme-web-sitesi',
     'admin-panel-dashboard',
-    'product-customization',
-    'website-modernization'
+    'vercel-danismanlik',
+    'hazir-saas-urunleri',
   ].map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
     lastModified: new Date(),
@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const blogRoutes = [
+    'saas-mvp-nedir-ilk-surumde-neler-olmali',
+    'nextjs-ile-isletme-web-sitesi-neden-daha-hizlidir',
+    'ai-otomasyon-ile-hangi-isler-otomatiklesir',
+    'vercel-nedir-isletmeler-icin-ne-saglar',
+    'admin-panel-gelistirmeden-once-bilmeniz-gerekenler',
+    'turizm-sirketleri-icin-operasyon-paneli-nasil-kurulur',
     'nextjs-vercel-saas-mvp-yayina-cikis',
     'ai-otomasyon-isletme-surecleri',
     'isletme-web-sitesi-nextjs-seo',
@@ -42,6 +48,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: index < 5 ? 0.8 : 0.55,
   }))
 
+  const sectorRoutes = [
+    'turizm-sirketleri-yazilim',
+    'ajans-yonetim-paneli',
+    'restoran-qr-menu-sistemi',
+    'emlak-ofisi-yazilimi',
+    'danisman-web-sitesi',
+    'kucuk-isletme-web-sitesi',
+  ].map((slug) => ({
+    url: `${baseUrl}/sektorler/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  }))
+
   return [
     {
       url: baseUrl,
@@ -56,6 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...services,
+    ...sectorRoutes,
     ...projectRoutes,
     ...blogRoutes
   ]

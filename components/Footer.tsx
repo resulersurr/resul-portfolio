@@ -20,13 +20,13 @@ export default function Footer() {
           <div>
             <p className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-1">Ürününüzü Konuşalım</p>
             <h3 className="text-2xl font-black text-white">Uygun Yazılım Çözümünü Birlikte Netleştirelim</h3>
-            <p className="text-gray-400 mt-1 text-sm">SaaS MVP, web sistemi veya AI otomasyon ihtiyacınızı değerlendirelim.</p>
+            <p className="text-gray-400 mt-1 text-sm">Next.js web sitesi, SaaS MVP, admin panel veya AI otomasyon ihtiyacınızı değerlendirelim.</p>
           </div>
           <Link
             href="/#contact"
             className="shrink-0 px-8 py-4 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-indigo-500/20"
           >
-            Ücretsiz Yazılım Analizi Al
+            Ücretsiz Proje Analizi Al
           </Link>
         </div>
 
@@ -44,7 +44,7 @@ export default function Footer() {
               </Link>
             </motion.div>
             <p className="text-gray-400 text-base leading-relaxed max-w-sm">
-              Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı kurulabilen SaaS MVP’leri, web sistemleri ve dijital ürün altyapıları geliştiriyorum.
+              Next.js, Vercel ve AI otomasyonlarla işletmeler için hızlı yayına alınabilen SaaS MVP’leri, admin paneller, web siteleri ve dijital ürün sistemleri geliştiriyorum.
             </p>
             {/* Social Links — prominent */}
             <div className="space-y-3">
@@ -86,11 +86,12 @@ export default function Footer() {
             <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6">Hizmetler</h4>
             <ul className="space-y-3">
               {[
-                { name: 'SaaS MVP Geliştirme', href: '/#contact?service=SaaS%20MVP%20Geli%C5%9Ftirme' },
-                { name: 'AI Otomasyon', href: '/#contact?service=AI%20Otomasyon%20Sistemi' },
-                { name: 'İşletme Web Sitesi', href: '/#contact?service=%C4%B0%C5%9Fletme%20Web%20Sitesi' },
-                { name: 'Admin Panel', href: '/#contact?service=Admin%20Panel%20%2F%20Dashboard' },
-                { name: 'Ürün Özelleştirme', href: '/#contact?service=Haz%C4%B1r%20%C3%9Cr%C3%BCn%20%C3%96zelle%C5%9Ftirme' },
+                { name: 'SaaS MVP Geliştirme', href: '/services/saas-mvp-gelistirme' },
+                { name: 'AI Otomasyon', href: '/services/ai-otomasyon' },
+                { name: 'Next.js İşletme Web Sitesi', href: '/services/nextjs-isletme-web-sitesi' },
+                { name: 'Admin Panel ve Dashboard', href: '/services/admin-panel-dashboard' },
+                { name: 'Vercel Danışmanlık', href: '/services/vercel-danismanlik' },
+                { name: 'Hazır SaaS Ürünleri', href: '/services/hazir-saas-urunleri' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className="text-gray-400 hover:text-indigo-400 transition-colors duration-200 flex items-center group text-sm">
