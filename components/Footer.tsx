@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, Heart, ArrowUp, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowUp, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -129,17 +129,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col md:flex-row items-center gap-4 text-gray-500 text-sm">
             <p>© {currentYear} Resul Ersürer. Tüm hakları saklıdır.</p>
-            <span className="hidden md:block w-1 h-1 bg-gray-700 rounded-full" />
-            <p className="flex items-center gap-1.5">
-              Next.js, Vercel & Tailwind ile <Heart className="w-3.5 h-3.5 text-red-500 fill-current" /> geliştirildi.
-            </p>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/sitemap.xml" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">Sitemap</Link>
-            <span className="text-gray-800">|</span>
-            <Link href="/robots.txt" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">Robots</Link>
-            <span className="text-gray-800">|</span>
-            <Link href="/llms.txt" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">llms.txt</Link>
             <motion.button
               onClick={scrollToTop}
               whileHover={{ scale: 1.1 }}
