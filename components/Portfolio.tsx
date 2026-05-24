@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ExternalLink, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 interface Project {
   id: string
@@ -115,10 +116,13 @@ export default function Portfolio() {
               {/* Image Container */}
               <div className="relative aspect-[16/10] overflow-hidden bg-white">
                 <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-black/[0.04]" />
-                <img 
+                <Image 
                   src={project.image} 
                   alt={project.title} 
-                  className="h-full w-full object-cover filter saturate-[0.96] contrast-[0.98] transition-transform duration-[350ms] ease-out group-hover:scale-[1.025]"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  unoptimized={project.image.startsWith('data:')}
+                  className="object-cover filter saturate-[0.96] contrast-[0.98] transition-transform duration-[350ms] ease-out group-hover:scale-[1.025]"
                 />
                 <div className="absolute left-5 top-5 z-20">
                   <span className="rounded-full border border-black/[0.06] bg-white/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.04em] text-slate-900 backdrop-blur-md">

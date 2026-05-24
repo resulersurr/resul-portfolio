@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,9 +42,11 @@ export default function Navigation() {
             className="flex-shrink-0"
           >
             <Link href="/" className="flex items-center gap-2 group">
-              <img 
+              <Image 
                 src="/images/logo.png" 
                 alt="Ersürer Logo" 
+                width={144} 
+                height={36} 
                 className="h-9 w-auto transition-transform duration-300 group-hover:scale-110" 
               />
             </Link>

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { Metadata } from 'next'
 import Script from 'next/script'
 import { prisma } from '@/lib/prisma'
+import Image from 'next/image'
 
 type Props = {
   params: { slug: string }
@@ -237,10 +238,14 @@ export default async function CaseStudyPage({ params }: Props) {
 
         {project.image && (
           <div className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden border border-white/10 mb-16 shadow-2xl">
-            <img 
+            <Image 
               src={project.image} 
               alt={project.title} 
-              className="w-full h-full object-cover filter saturate-[0.96] contrast-[0.98]"
+              fill
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              priority
+              unoptimized={project.image.startsWith('data:')}
+              className="object-cover filter saturate-[0.96] contrast-[0.98]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
           </div>

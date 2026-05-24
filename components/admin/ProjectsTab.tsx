@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Trash2 } from 'lucide-react'
 import { Project } from '@/types/admin'
+import Image from 'next/image'
 
 interface ProjectsTabProps {
   projects: Project[]
@@ -28,8 +29,8 @@ export default function ProjectsTab({
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-20 h-14 rounded-lg overflow-hidden border border-white/10">
-                <img src={project.image} alt="" className="w-full h-full object-cover" />
+              <div className="w-20 h-14 rounded-lg overflow-hidden border border-white/10 relative">
+                <Image src={project.image} alt="" fill sizes="80px" unoptimized={project.image.startsWith('data:')} className="object-cover" />
               </div>
               <div>
                 <h4 className="font-bold text-white">{project.title}</h4>
