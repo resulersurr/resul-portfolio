@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Github, CheckCircle, Activity, Layout, Terminal, Code2 } from 'lucide-react'
+import { ArrowLeft, ExternalLink, CheckCircle, Activity, Layout, Terminal, Code2 } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { Metadata } from 'next'
@@ -230,11 +230,6 @@ export default async function CaseStudyPage({ params }: Props) {
             {project.link && (
               <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:scale-105 transition-transform text-sm">
                 Canlı Ürün <ExternalLink className="w-4 h-4 ml-2" />
-              </a>
-            )}
-            {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 glass border border-white/10 text-white font-bold rounded-xl hover:bg-white/5 transition-colors text-sm">
-                Kaynak Kod <Github className="w-4 h-4 ml-2" />
               </a>
             )}
           </div>
