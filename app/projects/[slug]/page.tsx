@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { Metadata } from 'next'
 import Script from 'next/script'
+import { prisma } from '@/lib/prisma'
 
 type Props = {
   params: { slug: string }
@@ -64,8 +65,75 @@ const mockCaseStudies: Record<string, any> = {
   },
 }
 
+async function getProject(slug: string) {
+  // 1. Check mockCaseStudies first
+  if (mockCaseStudies[slug]) {
+    return {
+      ...mockCaseStudies[slug],
+      isMock: true,
+    }
+  }
+
+  // 2. Try fetching from database by ID
+  try {
+    let dbProject = null
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)
+    if (isUuid) {
+      dbProject = await prisma.project.findUnique({
+        where: { id: slug }
+      })
+    }
+
+    // 3. Fallback: try fetching by slugified title
+    if (!dbProject) {
+      const allProjects = await prisma.project.findMany({
+        where: { isActive: true }
+      })
+      dbProject = allProjects.find(p => {
+        const projectSlug = p.title
+          .toLowerCase()
+          .replace(/ğ/g, 'g')
+          .replace(/ü/g, 'u')
+          .replace(/ş/g, 's')
+          .replace(/ı/g, 'i')
+          .replace(/ö/g, 'o')
+          .replace(/ç/g, 'c')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+        return projectSlug === slug
+      })
+    }
+
+    if (dbProject) {
+      return {
+        title: dbProject.title,
+        description: dbProject.description,
+        problem: 'Bu ürün için problem ve ihtiyaç analizleri hazırlanıyor. Ayrıntılı bilgi ve demo talebi için iletişime geçebilirsiniz.',
+        solution: 'Bu ürüne ait teknik mimari ve çözüm detayları hazırlanıyor.',
+        architecture: 'Modern Web Mimarisi & Altyapısı',
+        performanceMetrics: [
+          { label: 'Geliştirme Hızı', before: 'Yüksek', after: 'Hızlı Kurulum' },
+          { label: 'Entegrasyon', before: 'Karmaşık', after: 'Kolay Entegre' },
+          { label: 'Maliyet', before: 'Yüksek', after: 'Optimize' },
+        ],
+        techStack: dbProject.tech ? dbProject.tech.split(',').map((t: string) => t.trim()) : [],
+        businessResult: 'Bu dijital ürün, iş süreçlerini optimize etmek ve verimliliği artırmak amacıyla özel olarak geliştirilmiştir.',
+        github: dbProject.github || '',
+        link: dbProject.link || '#',
+        image: dbProject.image,
+        relatedService: `/#contact?service=${encodeURIComponent(dbProject.title)}`,
+        isMock: false,
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching project detail:', error)
+  }
+
+  return null
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = mockCaseStudies[params.slug]
+  const project = await getProject(params.slug)
   if (!project) return { title: 'Ürün Detayı Bulunamadı' }
 
   return {
@@ -89,7 +157,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CaseStudyPage({ params }: Props) {
-  const project = mockCaseStudies[params.slug]
+  const project = await getProject(params.slug)
 
   if (!project) {
     notFound()
@@ -171,6 +239,17 @@ export default async function CaseStudyPage({ params }: Props) {
             )}
           </div>
         </header>
+
+        {project.image && (
+          <div className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden border border-white/10 mb-16 shadow-2xl">
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-full object-cover filter saturate-[0.96] contrast-[0.98]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
