@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { sendContactNotification } from '@/lib/notifications'
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,6 +25,16 @@ export async function POST(request: NextRequest) {
         timeline,
         projectType,
       },
+    })
+
+    await sendContactNotification({
+      name,
+      email,
+      phone,
+      projectType,
+      budget,
+      timeline,
+      message,
     })
 
     return NextResponse.json(

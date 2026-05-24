@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Inter } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
+
+const AIChatbot = dynamic(() => import('@/components/AIChatbot'), {
+  ssr: false,
+})
 
 const inter = Inter({
   subsets: ['latin'],
@@ -87,8 +92,10 @@ export default function RootLayout({
     <html lang="tr">
       <body className={`${inter.variable} font-sans`}>
         {children}
+        <AIChatbot />
         <Analytics />
       </body>
     </html>
   )
 }
+
