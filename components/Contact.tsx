@@ -58,7 +58,17 @@ export default function Contact() {
       const selectedService = params.get('service')
 
       if (selectedService) {
-        setFormData((prev) => ({ ...prev, projectType: normalizeProjectType(selectedService) }))
+        const decoded = decodeURIComponent(selectedService)
+        const normalized = normalizeProjectType(decoded)
+        if (PROJECT_TYPES.includes(normalized)) {
+          setFormData((prev) => ({ ...prev, projectType: normalized }))
+        } else {
+          setFormData((prev) => ({
+            ...prev,
+            projectType: 'Hazır SaaS Ürünleri',
+            message: prev.message || `Merhaba, ${decoded} ürününüz hakkında görüşmek istiyorum.`
+          }))
+        }
       }
     }
 
@@ -66,7 +76,17 @@ export default function Contact() {
       const selectedService = (event as CustomEvent<string>).detail
 
       if (selectedService) {
-        setFormData((prev) => ({ ...prev, projectType: normalizeProjectType(selectedService) }))
+        const decoded = decodeURIComponent(selectedService)
+        const normalized = normalizeProjectType(decoded)
+        if (PROJECT_TYPES.includes(normalized)) {
+          setFormData((prev) => ({ ...prev, projectType: normalized }))
+        } else {
+          setFormData((prev) => ({
+            ...prev,
+            projectType: 'Hazır SaaS Ürünleri',
+            message: prev.message || `Merhaba, ${decoded} ürününüz hakkında görüşmek istiyorum.`
+          }))
+        }
       }
     }
 
