@@ -70,6 +70,16 @@ export default function Contact() {
           }))
         }
       }
+
+      // Manually scroll to contact if hash starts with #contact
+      if (window.location.hash.startsWith('#contact')) {
+        setTimeout(() => {
+          const element = document.getElementById('contact')
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
+      }
     }
 
     const handleServiceSelected = (event: Event) => {
@@ -87,6 +97,13 @@ export default function Contact() {
             message: prev.message || `Merhaba, ${decoded} ürününüz hakkında görüşmek istiyorum.`
           }))
         }
+
+        setTimeout(() => {
+          const element = document.getElementById('contact')
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
       }
     }
 
