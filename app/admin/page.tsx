@@ -12,6 +12,7 @@ import { useAdminMessages } from '@/hooks/admin/useAdminMessages'
 import { useAdminPayments } from '@/hooks/admin/useAdminPayments'
 import { useAdminServices } from '@/hooks/admin/useAdminServices'
 import { useAdminProjects } from '@/hooks/admin/useAdminProjects'
+import { useAdminChats } from '@/hooks/admin/useAdminChats'
 
 // Components
 import AdminSidebar from '@/components/admin/AdminSidebar'
@@ -21,20 +22,22 @@ import MessagesTab from '@/components/admin/MessagesTab'
 import PaymentsTab from '@/components/admin/PaymentsTab'
 import ServicesTab from '@/components/admin/ServicesTab'
 import ProjectsTab from '@/components/admin/ProjectsTab'
+import ChatsTab from '@/components/admin/ChatsTab'
 import MessageDetailModal from '@/components/admin/MessageDetailModal'
+import ChatDetailModal from '@/components/admin/ChatDetailModal'
 import ServiceModal from '@/components/admin/ServiceModal'
 import ProjectModal from '@/components/admin/ProjectModal'
 import ConfirmModal from '@/components/admin/ConfirmModal'
 import EmptyState from '@/components/admin/EmptyState'
 
 // Types
-import { Message, Payment, Service, Project } from '@/types/admin'
+import { Message, Payment, Service, Project, ChatSession } from '@/types/admin'
 
 export default function AdminDashboard() {
   const router = useRouter()
   
   // State
-  const [activeTab, setActiveTab] = useState<'messages' | 'payments' | 'services' | 'projects'>('messages')
+  const [activeTab, setActiveTab] = useState<'messages' | 'payments' | 'services' | 'projects' | 'chats'>('messages')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
@@ -43,6 +46,7 @@ export default function AdminDashboard() {
   // Modals State
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null)
+  const [selectedChat, setSelectedChat] = useState<ChatSession | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [editType, setEditType] = useState<'service' | 'project'>('service')
   const [selectedService, setSelectedService] = useState<Service | null>(null)
@@ -74,8 +78,11 @@ export default function AdminDashboard() {
   const { 
     projects, fetchProjects, deleteProject, loading: projectsLoading 
   } = useAdminProjects()
+  const {
+    chats, fetchChats, deleteChat, loading: chatsLoading
+  } = useAdminChats()
 
-  const loading = messagesLoading || paymentsLoading || servicesLoading || projectsLoading
+  const loading = messagesLoading || paymentsLoading || servicesLoading || projectsLoading || chatsLoading
 
   // Initial Fetch
   useEffect(() => {
@@ -83,7 +90,8 @@ export default function AdminDashboard() {
     fetchPayments()
     fetchServices()
     fetchProjects()
-  }, [fetchMessages, fetchPayments, fetchServices, fetchProjects])
+    fetchChats()
+  }, [fetchMessages, fetchPayments, fetchServices, fetchProjects, fetchChats])
 
   // Computed Values
   const unreadCount = messages.filter(m => !m.read).length
@@ -118,6 +126,19 @@ export default function AdminDashboard() {
       })
   }, [payments, searchQuery, sortOrder])
 
+  const filteredChats = useMemo(() => {
+    return chats
+      .filter(c => 
+        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        c.phone.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => {
+        const timeA = new Date(a.updatedAt).getTime()
+        const timeB = new Date(b.updatedAt).getTime()
+        return sortOrder === 'newest' ? timeB - timeA : timeA - timeB
+      })
+  }, [chats, searchQuery, sortOrder])
+
   // Handlers
   const handleLogout = async () => {
     await fetch('/api/admin/logout', { method: 'POST' })
@@ -133,7 +154,11 @@ export default function AdminDashboard() {
   }
 
   const selectAll = () => {
-    const currentItems = activeTab === 'messages' ? filteredMessages : filteredPayments
+    const currentItems = 
+      activeTab === 'messages' ? filteredMessages : 
+      activeTab === 'payments' ? filteredPayments : 
+      activeTab === 'chats' ? filteredChats : []
+      
     if (selectedItems.size === currentItems.length && currentItems.length > 0) {
       setSelectedItems(new Set())
     } else {
@@ -145,10 +170,11 @@ export default function AdminDashboard() {
     if (activeTab === 'messages') fetchMessages()
     else if (activeTab === 'payments') fetchPayments()
     else if (activeTab === 'services') fetchServices()
+    else if (activeTab === 'chats') fetchChats()
     else fetchProjects()
   }
 
-  const openConfirmDelete = useCallback((id: string, type: 'message' | 'payment' | 'service' | 'project') => {
+  const openConfirmDelete = useCallback((id: string, type: 'message' | 'payment' | 'service' | 'project' | 'chat') => {
     setConfirmModal({
       isOpen: true,
       title: 'Emin misiniz?',
@@ -157,10 +183,11 @@ export default function AdminDashboard() {
         if (type === 'message') await deleteMessage(id)
         else if (type === 'payment') await deletePayment(id)
         else if (type === 'service') await deleteService(id)
+        else if (type === 'chat') await deleteChat(id)
         else await deleteProject(id)
       }
     })
-  }, [deleteMessage, deletePayment, deleteService, deleteProject])
+  }, [deleteMessage, deletePayment, deleteService, deleteProject, deleteChat])
 
   const handleBulkDelete = () => {
     if (selectedItems.size === 0) return
@@ -172,7 +199,8 @@ export default function AdminDashboard() {
         const ids = Array.from(selectedItems)
         for (const id of ids) {
           if (activeTab === 'messages') await deleteMessage(id)
-          else await deletePayment(id)
+          else if (activeTab === 'payments') await deletePayment(id)
+          else if (activeTab === 'chats') await deleteChat(id)
         }
         setSelectedItems(new Set())
       }
@@ -258,6 +286,7 @@ export default function AdminDashboard() {
                 payments={payments}
                 services={services}
                 projects={projects}
+                chats={chats}
                 unreadCount={unreadCount}
                 pendingPayments={pendingPayments}
               />
@@ -268,6 +297,7 @@ export default function AdminDashboard() {
                   <h2 className="text-xl lg:text-2xl font-black text-white">
                     {activeTab === 'messages' ? 'Mesajlar' : 
                      activeTab === 'payments' ? 'Ödemeler' :
+                     activeTab === 'chats' ? 'AI Sohbetleri' :
                      activeTab === 'services' ? 'Hizmetler' : 'Projeler'}
                   </h2>
                   {(activeTab === 'services' || activeTab === 'projects') && (
@@ -334,14 +364,18 @@ export default function AdminDashboard() {
                 </motion.div>
               )}
 
-              {/* Select All Toggle (for Messages & Payments) */}
-              {(activeTab === 'messages' || activeTab === 'payments') && (
+              {/* Select All Toggle (for Messages, Payments & Chats) */}
+              {(activeTab === 'messages' || activeTab === 'payments' || activeTab === 'chats') && (
                 <div className="flex items-center gap-3 px-4 py-2 bg-slate-900/30 rounded-lg mb-4">
                   <button
                     onClick={selectAll}
                     className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-all"
                   >
-                    {selectedItems.size > 0 && selectedItems.size === (activeTab === 'messages' ? filteredMessages.length : filteredPayments.length) ? (
+                    {selectedItems.size > 0 && selectedItems.size === (
+                      activeTab === 'messages' ? filteredMessages.length : 
+                      activeTab === 'payments' ? filteredPayments.length : 
+                      filteredChats.length
+                    ) ? (
                       <CheckSquare className="w-4 h-4 text-indigo-400" />
                     ) : (
                       <Square className="w-4 h-4" />
@@ -370,12 +404,12 @@ export default function AdminDashboard() {
                     {activeTab === 'messages' && (
                       filteredMessages.length > 0 ? (
                         <MessagesTab 
-                          messages={filteredMessages}
-                          selectedItems={selectedItems}
-                          toggleSelection={toggleSelection}
-                          setSelectedMessage={setSelectedMessage}
-                          toggleRead={toggleRead}
-                          onDelete={(id) => openConfirmDelete(id, 'message')}
+                           messages={filteredMessages}
+                           selectedItems={selectedItems}
+                           toggleSelection={toggleSelection}
+                           setSelectedMessage={setSelectedMessage}
+                           toggleRead={toggleRead}
+                           onDelete={(id) => openConfirmDelete(id, 'message')}
                         />
                       ) : <EmptyState activeTab="messages" />
                     )}
@@ -391,6 +425,18 @@ export default function AdminDashboard() {
                           onDelete={(id) => openConfirmDelete(id, 'payment')}
                         />
                       ) : <EmptyState activeTab="payments" />
+                    )}
+
+                    {activeTab === 'chats' && (
+                      filteredChats.length > 0 ? (
+                        <ChatsTab 
+                          chats={filteredChats}
+                          selectedItems={selectedItems}
+                          toggleSelection={toggleSelection}
+                          setSelectedChat={setSelectedChat}
+                          onDelete={(id) => openConfirmDelete(id, 'chat')}
+                        />
+                      ) : <EmptyState activeTab="chats" />
                     )}
 
                     {activeTab === 'services' && (
@@ -428,6 +474,13 @@ export default function AdminDashboard() {
             onClose={() => setSelectedMessage(null)}
             onToggleRead={toggleRead}
             onDelete={(id) => { setSelectedMessage(null); openConfirmDelete(id, 'message'); }}
+          />
+        )}
+        {selectedChat && (
+          <ChatDetailModal 
+            chat={selectedChat}
+            onClose={() => setSelectedChat(null)}
+            onDelete={(id) => { setSelectedChat(null); openConfirmDelete(id, 'chat'); }}
           />
         )}
       </AnimatePresence>

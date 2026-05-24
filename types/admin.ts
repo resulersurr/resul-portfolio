@@ -51,3 +51,13 @@ export interface Project {
   createdAt: string
   updatedAt: string
 }
+
+export interface ChatSession {
+  id: string
+  name: string
+  phone: string
+  messages: string
+  createdAt: string
+  updatedAt: string
+}
+

@@ -1,9 +1,9 @@
 'use client'
 
-import { Mail, Wallet, Settings, ExternalLink } from 'lucide-react'
+import { Mail, Wallet, Settings, ExternalLink, Bot } from 'lucide-react'
 
 interface EmptyStateProps {
-  activeTab: 'messages' | 'payments' | 'services' | 'projects'
+  activeTab: 'messages' | 'payments' | 'services' | 'projects' | 'chats'
 }
 
 export default function EmptyState({ activeTab }: EmptyStateProps) {
@@ -23,6 +23,10 @@ export default function EmptyState({ activeTab }: EmptyStateProps) {
     projects: {
       icon: ExternalLink,
       text: 'Henüz proje bulunmuyor.'
+    },
+    chats: {
+      icon: Bot,
+      text: 'Henüz AI sohbet geçmişi bulunmuyor.'
     }
   }
 
@@ -35,3 +39,4 @@ export default function EmptyState({ activeTab }: EmptyStateProps) {
     </div>
   )
 }
+

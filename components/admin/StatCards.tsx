@@ -1,14 +1,15 @@
 'use client'
 
-import { Mail, Bell, CheckCircle, Wallet, AlertCircle, Settings, ExternalLink } from 'lucide-react'
-import { Message, Payment, Service, Project } from '@/types/admin'
+import { Mail, Bell, CheckCircle, Wallet, AlertCircle, Settings, ExternalLink, Bot, MessageSquare } from 'lucide-react'
+import { Message, Payment, Service, Project, ChatSession } from '@/types/admin'
 
 interface StatCardsProps {
-  activeTab: 'messages' | 'payments' | 'services' | 'projects'
+  activeTab: 'messages' | 'payments' | 'services' | 'projects' | 'chats'
   messages: Message[]
   payments: Payment[]
   services: Service[]
   projects: Project[]
+  chats?: ChatSession[]
   unreadCount: number
   pendingPayments: number
 }
@@ -19,6 +20,7 @@ export default function StatCards({
   payments,
   services,
   projects,
+  chats = [],
   unreadCount,
   pendingPayments
 }: StatCardsProps) {
@@ -107,6 +109,51 @@ export default function StatCards({
             <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Aktif</div>
           </div>
         </>
+      ) : activeTab === 'chats' ? (
+        <>
+          <div className="col-span-2 lg:col-span-1 p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/20 transition-all">
+            <div className="flex justify-between items-start mb-2 lg:mb-4">
+              <div className="p-2 rounded-xl bg-white/5 text-indigo-400">
+                <Bot className="w-4 h-4 lg:w-5 lg:h-5" />
+              </div>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest hidden lg:inline">Canlı</span>
+            </div>
+            <div className="text-2xl lg:text-3xl font-black text-white mb-1">{chats.length}</div>
+            <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Toplam AI Sohbet</div>
+          </div>
+          <div className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/20 transition-all">
+            <div className="flex justify-between items-start mb-2 lg:mb-4">
+              <div className="p-2 rounded-xl bg-white/5 text-blue-400">
+                <MessageSquare className="w-4 h-4 lg:w-5 lg:h-5" />
+              </div>
+            </div>
+            <div className="text-2xl lg:text-3xl font-black text-white mb-1">
+              {chats.reduce((acc, c) => {
+                try {
+                  return acc + JSON.parse(c.messages).length
+                } catch {
+                  return acc
+                }
+              }, 0)}
+            </div>
+            <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Toplam Mesaj</div>
+          </div>
+          <div className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-emerald-500/20 transition-all">
+            <div className="flex justify-between items-start mb-2 lg:mb-4">
+              <div className="p-2 rounded-xl bg-white/5 text-emerald-400">
+                <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+              </div>
+            </div>
+            <div className="text-2xl lg:text-3xl font-black text-white mb-1">
+              {chats.filter(c => {
+                const today = new Date()
+                const lastActive = new Date(c.updatedAt)
+                return today.toDateString() === lastActive.toDateString()
+              }).length}
+            </div>
+            <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">Bugün Aktif</div>
+          </div>
+        </>
       ) : (
         <>
           <div className="col-span-2 lg:col-span-1 p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-slate-900/50 border border-white/5 hover:border-purple-500/20 transition-all">
@@ -132,3 +179,4 @@ export default function StatCards({
     </div>
   )
 }
+

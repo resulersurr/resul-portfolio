@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion'
 import { 
-  LayoutDashboard, Mail, Wallet, Settings, ExternalLink, ClipboardList, LogOut 
+  LayoutDashboard, Mail, Wallet, Settings, ExternalLink, ClipboardList, LogOut, Bot 
 } from 'lucide-react'
 
 interface AdminSidebarProps {
-  activeTab: 'messages' | 'payments' | 'services' | 'projects'
-  setActiveTab: (tab: 'messages' | 'payments' | 'services' | 'projects') => void
+  activeTab: 'messages' | 'payments' | 'services' | 'projects' | 'chats'
+  setActiveTab: (tab: 'messages' | 'payments' | 'services' | 'projects' | 'chats') => void
   sidebarOpen: boolean
   setSidebarOpen: (open: boolean) => void
   unreadCount: number
@@ -67,6 +67,17 @@ export default function AdminSidebar({
             {pendingPayments > 0 && (
               <span className="ml-auto bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full">{pendingPayments}</span>
             )}
+          </button>
+          <button 
+            onClick={() => { setActiveTab('chats'); setSidebarOpen(false); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${
+              activeTab === 'chats' 
+                ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' 
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Bot className="w-4 h-4" />
+            AI Sohbetleri
           </button>
           <button 
             onClick={() => { setActiveTab('services'); setSidebarOpen(false); }}

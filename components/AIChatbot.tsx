@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageSquare, X, Send, Bot, Sparkles, AlertCircle, RefreshCw, ChevronRight } from 'lucide-react'
+import { MessageSquare, X, Send, Bot, Sparkles, RefreshCw, ChevronRight, ArrowRight, Smartphone, User } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -25,22 +25,40 @@ export default function AIChatbot() {
   const [showTooltip, setShowTooltip] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
 
+  // Onboarding States
+  const [isRegistered, setIsRegistered] = useState(false)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [sessionId, setSessionId] = useState('')
+  const [tempName, setTempName] = useState('')
+  const [tempPhone, setTempPhone] = useState('')
+
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const chatWindowRef = useRef<HTMLDivElement>(null)
 
-  // Initialize messages from sessionStorage or default
+  // Initialize state from sessionStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedMessages = sessionStorage.getItem('ersurer_chat_messages')
       const savedInteracted = sessionStorage.getItem('ersurer_chat_interacted')
-      
-      if (savedMessages) {
+      const savedName = sessionStorage.getItem('ersurer_chat_name')
+      const savedPhone = sessionStorage.getItem('ersurer_chat_phone')
+      const savedSessionId = sessionStorage.getItem('ersurer_chat_session_id')
+      const savedRegistered = sessionStorage.getItem('ersurer_chat_registered') === 'true'
+
+      if (savedName) setName(savedName)
+      if (savedPhone) setPhone(savedPhone)
+      if (savedSessionId) setSessionId(savedSessionId)
+      setIsRegistered(savedRegistered)
+
+      if (savedRegistered && savedMessages) {
         setMessages(JSON.parse(savedMessages))
-      } else {
+      } else if (savedRegistered) {
+        const welcomeText = `Merhaba ${savedName}! Ben Resul Ersürer'in yapay zeka asistanıyım. Next.js, Vercel, SaaS MVP geliştirme ve AI otomasyon hizmetleri hakkında sorularınızı yanıtlayabilirim. Size nasıl yardımcı olabilirim? 👋`
         setMessages([
           {
             role: 'assistant',
-            content: 'Merhaba! Ben Resul Ersürer\'in yapay zeka asistanıyım. Next.js, Vercel, SaaS MVP geliştirme ve AI otomasyon hizmetleri hakkında sorularınızı yanıtlayabilirim. Size nasıl yardımcı olabilirim? 👋',
+            content: welcomeText,
           },
         ])
       }
@@ -75,7 +93,7 @@ export default function AIChatbot() {
     const handleOutsideClick = (e: MouseEvent) => {
       if (
         isOpen &&
-        window.innerWidth >= 640 && // only close on desktop sizes
+        window.innerWidth >= 640 &&
         chatWindowRef.current &&
         !chatWindowRef.current.contains(e.target as Node)
       ) {
@@ -97,6 +115,46 @@ export default function AIChatbot() {
     }
   }
 
+  const handleOnboardingSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (tempName.trim().length < 3) {
+      alert('Lütfen geçerli bir Ad Soyad girin (en az 3 karakter).')
+      return
+    }
+    if (tempPhone.trim().length < 7) {
+      alert('Lütfen geçerli bir telefon numarası girin.')
+      return
+    }
+
+    const uuid = typeof crypto !== 'undefined' && crypto.randomUUID 
+      ? crypto.randomUUID() 
+      : Math.random().toString(36).substring(2) + Date.now().toString(36)
+
+    const welcomeMsg = `Merhaba ${tempName}! Ben Resul Ersürer'in yapay zeka asistanıyım. Next.js, Vercel, SaaS MVP geliştirme ve AI otomasyon hizmetleri hakkında sorularınızı yanıtlayabilirim. Size nasıl yardımcı olabilirim? 👋`
+
+    setName(tempName)
+    setPhone(tempPhone)
+    setSessionId(uuid)
+    setIsRegistered(true)
+    
+    const initialMessages: Message[] = [
+      {
+        role: 'assistant',
+        content: welcomeMsg,
+      }
+    ]
+
+    setMessages(initialMessages)
+
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('ersurer_chat_name', tempName)
+      sessionStorage.setItem('ersurer_chat_phone', tempPhone)
+      sessionStorage.setItem('ersurer_chat_session_id', uuid)
+      sessionStorage.setItem('ersurer_chat_registered', 'true')
+      sessionStorage.setItem('ersurer_chat_messages', JSON.stringify(initialMessages))
+    }
+  }
+
   const handleSendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return
 
@@ -112,7 +170,12 @@ export default function AIChatbot() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({ 
+          messages: updatedMessages,
+          sessionId,
+          name,
+          phone
+        }),
       })
 
       if (!response.ok) {
@@ -149,10 +212,11 @@ export default function AIChatbot() {
 
   const handleClearChat = () => {
     if (confirm('Sohbet geçmişini sıfırlamak istiyor musunuz?')) {
+      const welcomeMsg = `Merhaba ${name}! Ben Resul Ersürer'in yapay zeka asistanıyım. Next.js, Vercel, SaaS MVP geliştirme ve AI otomasyon hizmetleri hakkında sorularınızı yanıtlayabilirim. Size nasıl yardımcı olabilirim? 👋`
       const initial: Message[] = [
         {
           role: 'assistant',
-          content: 'Merhaba! Ben Resul Ersürer\'in yapay zeka asistanıyım. Next.js, Vercel, SaaS MVP geliştirme ve AI otomasyon hizmetleri hakkında sorularınızı yanıtlayabilirim. Size nasıl yardımcı olabilirim? 👋',
+          content: welcomeMsg,
         },
       ]
       saveMessages(initial)
@@ -239,13 +303,15 @@ export default function AIChatbot() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <button
-                  onClick={handleClearChat}
-                  title="Sohbeti temizle"
-                  className="p-1.5 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                </button>
+                {isRegistered && (
+                  <button
+                    onClick={handleClearChat}
+                    title="Sohbeti temizle"
+                    className="p-1.5 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                  </button>
+                )}
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
@@ -255,107 +321,167 @@ export default function AIChatbot() {
               </div>
             </div>
 
-            {/* Sticky Form Banner CTA */}
-            {hasContactSuggestion && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-indigo-50 border-b border-indigo-100 px-4 py-2.5 flex items-center justify-between text-xs shrink-0 text-indigo-950"
+            {/* Conditionally Render Form or Messages */}
+            {!isRegistered ? (
+              <form 
+                onSubmit={handleOnboardingSubmit} 
+                className="flex-grow flex flex-col p-6 justify-center bg-[#F5F5F7]/30 space-y-5"
               >
-                <div className="font-medium">Proje Analiz Formunu doldurmak ister misiniz?</div>
+                <div className="flex flex-col items-center text-center space-y-3 mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-[#0071E3]">
+                    <Bot size={32} className="animate-pulse text-[#0071E3]" />
+                  </div>
+                  <h4 className="text-[#1D1D1F] font-bold text-lg">Sizinle Tanışalım</h4>
+                  <p className="text-gray-500 text-xs max-w-[260px] leading-relaxed">
+                    Sohbete başlamak ve proje fikirleriniz hakkında konuşmak için lütfen bilgilerinizi iletin.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 flex items-center gap-1.5">
+                      <User size={12} className="text-gray-400" />
+                      Ad Soyad
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={tempName}
+                      onChange={(e) => setTempName(e.target.value)}
+                      placeholder="Örn. Ahmet Yılmaz"
+                      className="w-full bg-white border border-black/10 rounded-2xl px-4 py-3 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:border-[#0071E3] transition-all"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 flex items-center gap-1.5">
+                      <Smartphone size={12} className="text-gray-400" />
+                      Telefon Numarası
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={tempPhone}
+                      onChange={(e) => setTempPhone(e.target.value)}
+                      placeholder="Örn. +90 5XX XXX XX XX"
+                      className="w-full bg-white border border-black/10 rounded-2xl px-4 py-3 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:border-[#0071E3] transition-all"
+                    />
+                  </div>
+                </div>
+
                 <button
-                  onClick={handleScrollToContact}
-                  className="bg-[#0071E3] hover:bg-[#0077ED] text-white font-bold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 text-[11px]"
+                  type="submit"
+                  className="w-full py-4 mt-2 rounded-2xl bg-[#0071E3] hover:bg-[#0077ED] text-white font-bold text-sm shadow-lg hover:shadow-indigo-500/10 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Forma Git <ChevronRight className="w-3 h-3" />
+                  Sohbete Başla
+                  <ArrowRight size={16} />
                 </button>
-              </motion.div>
-            )}
-
-            {/* Messages Area */}
-            <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-[#F5F5F7]/30">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`px-4 py-3 rounded-2xl max-w-[82%] text-sm shadow-sm leading-relaxed ${
-                      msg.role === 'user'
-                        ? 'bg-[#0071E3] text-white rounded-tr-sm font-medium'
-                        : 'bg-white text-[#1D1D1F] border border-black/[0.04] rounded-tl-sm'
-                    }`}
+              </form>
+            ) : (
+              <>
+                {/* Sticky Form Banner CTA */}
+                {hasContactSuggestion && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-indigo-50 border-b border-indigo-100 px-4 py-2.5 flex items-center justify-between text-xs shrink-0 text-indigo-950"
                   >
-                    {msg.content}
-                    
-                    {/* Demo mode badge for developer visibility */}
-                    {msg.isDemo && (
-                      <div className="text-[9px] text-gray-400 mt-1.5 font-bold uppercase tracking-widest text-right">
-                        Demo Modu
+                    <div className="font-medium">Proje Analiz Formunu doldurmak ister misiniz?</div>
+                    <button
+                      onClick={handleScrollToContact}
+                      className="bg-[#0071E3] hover:bg-[#0077ED] text-white font-bold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 text-[11px]"
+                    >
+                      Forma Git <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </motion.div>
+                )}
+
+                {/* Messages Area */}
+                <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-[#F5F5F7]/30">
+                  {messages.map((msg, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`px-4 py-3 rounded-2xl max-w-[82%] text-sm shadow-sm leading-relaxed ${
+                          msg.role === 'user'
+                            ? 'bg-[#0071E3] text-white rounded-tr-sm font-medium'
+                            : 'bg-white text-[#1D1D1F] border border-black/[0.04] rounded-tl-sm'
+                        }`}
+                      >
+                        {msg.content}
+                        
+                        {/* Demo mode badge for developer visibility */}
+                        {msg.isDemo && (
+                          <div className="text-[9px] text-gray-400 mt-1.5 font-bold uppercase tracking-widest text-right">
+                            Demo Modu
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+                    </div>
+                  ))}
 
-              {/* Typing indicator */}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-white border border-black/[0.04] px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+                  {/* Typing indicator */}
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="bg-white border border-black/[0.04] px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div ref={messagesEndRef} />
                 </div>
-              )}
-              
-              <div ref={messagesEndRef} />
-            </div>
 
-            {/* Quick reply suggestion chips */}
-            {messages.length === 1 && !isLoading && (
-              <div className="px-4 py-2 bg-white flex flex-wrap gap-2 border-t border-black/[0.03] shrink-0">
-                {QUICK_QUESTIONS.map((question) => (
+                {/* Quick reply suggestion chips */}
+                {messages.length === 1 && !isLoading && (
+                  <div className="px-4 py-2 bg-white flex flex-wrap gap-2 border-t border-black/[0.03] shrink-0">
+                    {QUICK_QUESTIONS.map((question) => (
+                      <button
+                        key={question}
+                        onClick={() => handleQuickQuestionClick(question)}
+                        className="text-[11px] sm:text-xs text-gray-500 bg-[#F5F5F7] hover:bg-gray-200 border border-black/[0.03] rounded-full px-3 py-1.5 text-left transition-colors font-medium cursor-pointer"
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Input area */}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleSendMessage(inputValue)
+                  }}
+                  className="p-3 bg-white border-t border-black/[0.06] flex items-center gap-2 shrink-0"
+                >
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Resul ile çalışma hakkında sorun..."
+                    disabled={isLoading}
+                    className="flex-grow bg-[#F5F5F7] border-0 rounded-full px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#0071E3] text-[#1D1D1F] disabled:opacity-50"
+                  />
                   <button
-                    key={question}
-                    onClick={() => handleQuickQuestionClick(question)}
-                    className="text-[11px] sm:text-xs text-gray-500 bg-[#F5F5F7] hover:bg-gray-200 border border-black/[0.03] rounded-full px-3 py-1.5 text-left transition-colors font-medium cursor-pointer"
+                    type="submit"
+                    disabled={!inputValue.trim() || isLoading}
+                    className="p-2.5 bg-[#0071E3] text-white rounded-full hover:bg-[#0077ED] transition-all disabled:opacity-50 disabled:hover:bg-[#0071E3] cursor-pointer shrink-0"
+                    aria-label="Gönder"
                   >
-                    {question}
+                    <Send className="w-4 h-4" />
                   </button>
-                ))}
-              </div>
+                </form>
+
+                <div className="bg-white text-center pb-2 text-[9px] text-gray-400 select-none shrink-0 font-medium tracking-wide">
+                  Ücretsiz Proje Analizi İçin <button type="button" onClick={handleScrollToContact} className="text-[#0071E3] font-bold hover:underline">Formu Doldurun</button>
+                </div>
+              </>
             )}
-
-            {/* Input area */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleSendMessage(inputValue)
-              }}
-              className="p-3 bg-white border-t border-black/[0.06] flex items-center gap-2 shrink-0"
-            >
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Resul ile çalışma hakkında sorun..."
-                disabled={isLoading}
-                className="flex-grow bg-[#F5F5F7] border-0 rounded-full px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#0071E3] text-[#1D1D1F] disabled:opacity-50"
-              />
-              <button
-                type="submit"
-                disabled={!inputValue.trim() || isLoading}
-                className="p-2.5 bg-[#0071E3] text-white rounded-full hover:bg-[#0077ED] transition-all disabled:opacity-50 disabled:hover:bg-[#0071E3] cursor-pointer shrink-0"
-                aria-label="Gönder"
-              >
-                <Send className="w-4 h-4" />
-              </button>
-            </form>
-
-            <div className="bg-white text-center pb-2 text-[9px] text-gray-400 select-none shrink-0 font-medium tracking-wide">
-              Ücretsiz Proje Analizi İçin <button type="button" onClick={handleScrollToContact} className="text-[#0071E3] font-bold hover:underline">Formu Doldurun</button>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
